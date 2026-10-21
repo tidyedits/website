@@ -657,6 +657,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         <div class="contact"><small>Email</small><a href="mailto:info@tidyedits.com">info@tidyedits.com</a></div>
       </div>
       <form class="q" id="quote-form" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="field"><label for="q-name">Name</label><input id="q-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" required></div>
         <div class="field full"><label for="q-email">Email</label><input id="q-email" name="email" type="email" autocomplete="email" spellcheck="false"></div>
@@ -689,12 +690,21 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/environments/RoomEnvironment.js"></script>
 <script>
-// Quote form. FORM_ENDPOINT gets a form-service URL (e.g. Formspree); while empty, the request opens as an email to info@tidyedits.com.
+// Quote form. Sends through FormSubmit to info@tidyedits.com; if that fails, opens the request as a pre-filled email instead.
 (function () {
-  var FORM_ENDPOINT = "";
+  var FORM_ENDPOINT = "https://formsubmit.co/ajax/info@tidyedits.com";
   var form = document.getElementById("quote-form");
   var msg = document.getElementById("form-msg");
   function show(text) { msg.textContent = text; msg.hidden = false; }
+  function details() {
+    var lines = [];
+    new FormData(form).forEach(function (v, k) { if (String(v).trim()) lines.push(k + ": " + v); });
+    return lines.join("\n");
+  }
+  function openEmail(name) {
+    window.location.href = "mailto:info@tidyedits.com?subject=" + encodeURIComponent("Quote request from " + name) + "&body=" + encodeURIComponent(details());
+    show("Your email app should open with your request filled in. Just press send, or call or text 857-753-5593.");
+  }
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var name = form.elements.name.value.trim();
@@ -704,22 +714,20 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       (name ? form.elements.phone : form.elements.name).focus();
       return;
     }
-    if (!FORM_ENDPOINT) {
-      var lines = [];
-      new FormData(form).forEach(function (v, k) { if (String(v).trim()) lines.push(k + ": " + v); });
-      window.location.href = "mailto:info@tidyedits.com?subject=" + encodeURIComponent("Quote request from " + name) + "&body=" + encodeURIComponent(lines.join("\n"));
-      show("Your email app should open with your request filled in. Just press send, or call or text 857-753-5593.");
-      return;
-    }
+    if (!FORM_ENDPOINT) { openEmail(name); return; }
+    var data = new FormData(form);
+    data.append("_subject", "New quote request from " + name + " (tidyedits.com)");
+    data.append("_template", "table");
     var btn = document.getElementById("q-submit");
     btn.disabled = true; btn.textContent = "Sending…";
-    fetch(FORM_ENDPOINT, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
-      .then(function (r) {
-        if (!r.ok) throw new Error();
+    fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } })
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function (res) {
+        if (String(res.success) !== "true") throw new Error();
         form.reset();
         show("Thanks, " + name + ". Your request is in and we'll reply within one business day.");
       })
-      .catch(function () { show("That didn't send. Call or text 857-753-5593 instead."); })
+      .catch(function () { openEmail(name); })
       .then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
   });
 })();
