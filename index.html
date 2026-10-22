@@ -492,6 +492,26 @@ form.q { background: var(--paper); border: 1px solid var(--line); border-radius:
 @media (max-width: 860px) { .quote { grid-template-columns: 1fr; gap: var(--space-4); } }
 @media (max-width: 520px) { form.q { grid-template-columns: 1fr; } }
 
+/* Referral */
+.refer { background: var(--walnut); color: var(--on-walnut); }
+.refer-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-5); align-items: start; }
+.refer-offer { font-family: var(--display); font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; font-style: italic; }
+.refer-grid h2 { font-size: var(--step-2, 1.6rem); margin-top: var(--space-2); }
+.refer-grid .lede { margin-top: var(--space-2); max-width: 46ch; opacity: .88; font-size: var(--step-1); line-height: 1.5; }
+.refer-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); counter-reset: r; }
+.refer-steps li { counter-increment: r; display: grid; grid-template-columns: 44px 1fr; gap: 4px var(--space-2); padding-top: var(--space-2); border-top: 1px solid currentColor; }
+.refer-steps li::before { content: counter(r); grid-row: span 2; font-family: var(--display); font-size: 2.2rem; line-height: 1; }
+.refer-steps p { opacity: .82; }
+.refer-link { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.refer-link label { flex-basis: 100%; font-weight: 600; font-size: .95rem; }
+.refer-link input { flex: 1 1 200px; min-height: 52px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--on-walnut); background: transparent; color: var(--on-walnut); font: 1rem var(--body); }
+.refer-link input::placeholder { color: currentColor; opacity: .6; }
+.refer-link .btn { background: var(--on-walnut); color: var(--walnut); }
+.refer-link .btn:hover { background: var(--linen); color: var(--ink); }
+.refer-link output { flex-basis: 100%; font-size: .95rem; opacity: .9; min-height: 1.5em; }
+.refer .fine { margin-top: var(--space-3); font-size: .85rem; opacity: .75; max-width: 60ch; }
+@media (max-width: 860px) { .refer-grid { grid-template-columns: 1fr; gap: var(--space-4); } }
+
 /* Footer */
 footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
 .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-3); }
@@ -622,6 +642,30 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     </div>
   </section>
 
+  <section class="section refer" id="refer" aria-labelledby="refer-title">
+    <div class="wrap refer-grid">
+      <div>
+        <p class="refer-offer">Give $25,<br>get $25.</p>
+        <h2 id="refer-title">Know someone who'd love a cleaner place?</h2>
+        <p class="lede">Send a friend, neighbor, landlord or host our way. They get $25 off their first clean, and you get $25 off your next one. There's no limit on how many people you send.</p>
+        <form class="refer-link" id="refer-form">
+          <label for="r-name">Make your referral link</label>
+          <input id="r-name" name="refname" placeholder="Your name" autocomplete="name">
+          <button class="btn" type="submit">Copy my link</button>
+          <output id="r-out" aria-live="polite"></output>
+        </form>
+      </div>
+      <div>
+        <ol class="refer-steps">
+          <li><h3>Share us</h3><p>Send your link, or just pass along tidyedits.com or 857-753-5593.</p></li>
+          <li><h3>They mention you</h3><p>Your name goes in "Referred by" when they request a quote, or they tell us when they call.</p></li>
+          <li><h3>You both save</h3><p>$25 comes off their first clean. Once it's done, $25 comes off your next clean.</p></li>
+        </ol>
+        <p class="fine">For new Tidy Edits clients only. Your credit is applied after your friend's first paid clean. Credits stack, aren't redeemable for cash, and can't be combined with other new-client offers.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section oat" id="area">
     <div class="wrap area">
       <div class="head">
@@ -667,6 +711,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
           <select id="q-service" name="service"><option>Recurring cleaning</option><option>Deep clean</option><option>Move-in or move-out</option><option>Rental turnover</option><option>Pre-sale or listing prep</option><option>Common areas</option><option>Office cleaning</option><option>Something else</option></select></div>
         <div class="field"><label for="q-town">Town or neighborhood</label><input id="q-town" name="town" autocomplete="address-level2"></div>
         <div class="field"><label for="q-date">Preferred date</label><input id="q-date" name="date" type="date"></div>
+        <div class="field full"><label for="q-ref">Referred by (optional)</label><input id="q-ref" name="referred_by" autocomplete="off" placeholder="Name of the client who sent you"></div>
         <div class="field full"><label for="q-notes">Anything we should know?</label><textarea id="q-notes" name="notes" placeholder="3 bed, 2 bath, about 1,400 sq ft, one dog…"></textarea></div>
         <div class="form-msg" id="form-msg" role="status" aria-live="polite" hidden></div>
         <div class="form-foot"><button class="btn btn-solid" type="submit" id="q-submit">Request my quote</button><small>No obligation. We'll reply within one business day.</small></div>
@@ -716,7 +761,8 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     }
     if (!FORM_ENDPOINT) { openEmail(name); return; }
     var data = new FormData(form);
-    data.append("_subject", "New quote request from " + name + " (tidyedits.com)");
+    var ref = form.elements.referred_by.value.trim();
+    data.append("_subject", "New quote request from " + name + (ref ? ", referred by " + ref : "") + " (tidyedits.com)");
     data.append("_template", "table");
     var btn = document.getElementById("q-submit");
     btn.disabled = true; btn.textContent = "Sending…";
@@ -729,6 +775,26 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       })
       .catch(function () { openEmail(name); })
       .then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
+  });
+})();
+
+// Referral link: tidyedits.com/?ref=Name prefills "Referred by" on the quote form.
+(function () {
+  var refField = document.getElementById("q-ref");
+  try { var ref = new URLSearchParams(location.search).get("ref"); if (ref) refField.value = ref.slice(0, 60); } catch (e) {}
+  var rf = document.getElementById("refer-form"), out = document.getElementById("r-out");
+  rf.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = rf.elements.refname.value.trim();
+    if (!n) { out.textContent = "Add your name first so we know who to thank."; rf.elements.refname.focus(); return; }
+    var link = "https://tidyedits.com/?ref=" + encodeURIComponent(n) + "#quote";
+    var done = function () { out.textContent = "Copied: " + link; };
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      navigator.share({ title: "Tidy Edits Cleaning", text: "I use Tidy Edits for cleaning. Book with my link and get $25 off your first clean.", url: link }).catch(function () {});
+      out.textContent = link;
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(link).then(done, function () { out.textContent = link; });
+    } else { out.textContent = link; }
   });
 })();
 
