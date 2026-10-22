@@ -527,6 +527,60 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 }
 .callbar .btn { flex: 1; min-height: 48px; }
 @media (max-width: 860px) { .callbar { display: flex; } }
+
+/* Scroll story: the cleaning kit, scrubbed by scroll like a product film */
+.kit { position: relative; height: 420vh; background: var(--paper); border-bottom: 1px solid var(--line); }
+.kit-pin {
+  position: sticky; top: 73px; height: calc(100vh - 73px); height: calc(100svh - 73px);
+  display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2);
+  padding-block: clamp(20px, 4vh, 48px); overflow: hidden;
+}
+.kit-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-1) var(--space-4); }
+.kit-head h2 { max-width: 14em; }
+.kit-head p { color: var(--muted); max-width: 30em; }
+.kit-art { position: relative; min-height: 0; }
+.kit-art svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; color: var(--ink); }
+.kit-art .ln { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.kit-art .thin { stroke-width: 2; }
+.kit-art .soft { fill: var(--tan-soft); }
+.kit-art .pap { fill: var(--paper); }
+.kit-art .tanf { fill: var(--tan); }
+.kit-art .mist circle { fill: var(--paper); stroke: var(--tan); stroke-width: 1.5; }
+.kit-art .grime { fill: var(--tan); }
+.kit-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
+.kit-steps li { display: grid; gap: 4px; padding-top: var(--space-2); border-top: 1px solid var(--line); opacity: .38; transition: opacity 260ms ease-out, border-color 260ms ease-out; }
+.kit-steps li.on { opacity: 1; border-color: var(--ink); }
+.kit-steps b { font-family: var(--display); font-weight: 500; font-size: var(--step-2); line-height: 1.05; }
+.kit-steps span { color: var(--muted); font-size: 0.97rem; }
+.kit-end { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: grid; justify-items: center; gap: var(--space-2); text-align: center; opacity: 0; visibility: hidden; transition: opacity 300ms ease-out, visibility 0s 300ms; width: min(100%, 520px); }
+.kit-end.on { opacity: 1; visibility: visible; transition: opacity 300ms ease-out; }
+.kit-end p { font-family: var(--display); font-style: italic; font-size: var(--step-2); line-height: 1.1; }
+.kit-foot { position: relative; min-height: 110px; }
+.kit-foot .kit-steps { transition: opacity 300ms ease-out; }
+.kit-foot.done .kit-steps { opacity: 0; }
+.kit-bar { position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+@media (max-width: 860px) {
+  .kit { height: 380vh; }
+  .kit-pin { top: 73px; height: calc(100svh - 73px - 68px); padding-block: 16px; gap: 10px; }
+  .kit-head p { display: none; }
+  .kit-steps { grid-template-columns: 1fr; }
+  .kit-steps li { grid-area: 1 / 1; opacity: 0; border: 0; padding-top: 12px; }
+  .kit-steps li.on { opacity: 1; }
+  .kit-foot { min-height: 96px; }
+  .kit-steps b { font-size: var(--step-1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kit { height: auto; }
+  .kit-pin { position: static; height: auto; }
+  .kit-art svg { position: static; height: auto; max-height: 60vh; }
+  .kit-steps li, .kit-steps li.on { opacity: 1; transition: none; }
+  .kit-foot.done .kit-steps { opacity: 1; }
+  .kit-end { position: static; transform: none; margin: var(--space-3) auto 0; opacity: 1; visibility: visible; transition: none; }
+  .kit-bar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 860px) {
+  .kit-steps li { grid-area: auto; border-top: 1px solid var(--line); }
+}
 </style>
 
 <a class="skip" href="#top">Skip to content</a>
@@ -577,6 +631,74 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       <div class="proof-item"><b>Apartment turnovers</b><span>Boston, multiple units</span></div>
       <div class="proof-item"><b>Common-area upkeep</b><span>Multi-level residential building</span></div>
       <div class="proof-item"><b>Recurring office cleaning</b><span>Cambridge business</span></div>
+    </div>
+  </section>
+
+  <section class="kit" id="kit" aria-labelledby="kit-title">
+    <div class="kit-pin wrap">
+      <div class="kit-head">
+        <h2 id="kit-title">What goes into a Tidy Edits clean.</h2>
+        <p>Keep scrolling. The same four steps happen in every room we touch.</p>
+      </div>
+      <div class="kit-art">
+        <svg viewBox="0 0 800 560" role="img" aria-label="Line drawing of a spray bottle, a microfiber cloth and a scrub brush cleaning a window and a tiled wall">
+          <defs>
+            <clipPath id="kit-wipe"><rect id="kit-wipe-r" x="330" y="150" width="300" height="240"/></clipPath>
+          </defs>
+          <!-- window pane -->
+          <g id="kit-pane" opacity="0">
+            <rect class="pap ln" x="330" y="150" width="300" height="240" rx="6"/>
+            <path class="ln thin" d="M480 150v240M330 270h300"/>
+            <g clip-path="url(#kit-wipe)" class="grime" opacity=".55">
+              <ellipse cx="385" cy="200" rx="34" ry="18"/><ellipse cx="440" cy="330" rx="26" ry="14"/>
+              <ellipse cx="535" cy="215" rx="40" ry="16"/><ellipse cx="590" cy="320" rx="28" ry="20"/>
+              <ellipse cx="505" cy="360" rx="18" ry="10"/><circle cx="420" cy="250" r="9"/><circle cx="560" cy="280" r="7"/>
+            </g>
+            <g id="kit-shine" class="tanf">
+              <path d="M392 196l5 15 15 5-15 5-5 15-5-15-15-5 15-5z"/>
+              <path d="M548 314l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/>
+              <path d="M590 190l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+            </g>
+          </g>
+          <!-- tiles -->
+          <g id="kit-tiles" opacity="0"></g>
+          <!-- spray bottle -->
+          <g id="kit-bottle">
+            <g class="mist" id="kit-mist"></g>
+            <path class="soft" id="kit-fill" d="M-66 -150 L66 -150 L66 -10 Q66 -2 58 -2 L-58 -2 Q-66 -2 -66 -10 Z"/>
+            <path class="ln draw" d="M-60 0 Q-70 0 -70 -10 L-70 -168 Q-70 -204 -34 -212 L-34 -240 L34 -240 L34 -212 Q70 -204 70 -168 L70 -10 Q70 0 60 0 Z"/>
+            <rect class="pap ln thin draw" x="-48" y="-140" width="96" height="92" rx="8"/>
+            <path class="ln thin draw" d="M0 -60 C-26 -78 -26 -110 0 -128 C26 -110 26 -78 0 -60 Z M0 -60 V-118"/>
+            <path class="ln draw" d="M-38 -240 L-38 -262 Q-38 -292 0 -292 L64 -292 Q100 -292 100 -264 L100 -250 L40 -250 L40 -240"/>
+            <g id="kit-trigger"><path class="ln draw" d="M40 -250 Q62 -226 54 -192 Q47 -184 40 -192 Q46 -222 30 -240"/></g>
+          </g>
+          <!-- microfiber cloth -->
+          <g id="kit-cloth" opacity="0">
+            <rect class="soft ln" x="-80" y="-56" width="160" height="112" rx="12"/>
+            <rect class="ln thin" x="-68" y="-44" width="136" height="88" rx="8" stroke-dasharray="4 6"/>
+            <path class="pap ln thin" d="M42 -56 L80 -56 L80 -18 Z"/>
+          </g>
+          <!-- scrub brush -->
+          <g id="kit-brush" opacity="0">
+            <path class="ln" d="M-48 -58 Q-48 -104 0 -104 Q48 -104 48 -58"/>
+            <rect class="tanf ln" x="-74" y="-60" width="148" height="38" rx="14"/>
+            <path class="ln thin" id="kit-bristles"/>
+          </g>
+        </svg>
+      </div>
+      <div class="kit-foot" id="kit-foot">
+        <span class="kit-bar" id="kit-bar"></span>
+        <ol class="kit-steps" id="kit-steps">
+          <li class="on"><b>Spray</b><span>The right product for each surface, left to loosen what's set in.</span></li>
+          <li><b>Wipe</b><span>Clean microfiber, folded and turned, so dirt is lifted, not pushed around.</span></li>
+          <li><b>Scrub</b><span>Grout, corners and edges get a brush by hand, not a quick pass.</span></li>
+          <li><b>Check</b><span>Every room looked over again before we lock up.</span></li>
+        </ol>
+        <div class="kit-end" id="kit-end">
+          <p>Detail, done right. Every time.</p>
+          <a class="btn btn-solid" href="#quote">Get a free quote</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -909,5 +1031,130 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 })();
 </script>
 
+<script>
+// Scroll story: every frame of the cleaning-kit scene is a function of how far the visitor has scrolled through #kit.
+(function () {
+  var sec = document.getElementById("kit");
+  if (!sec) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function (id) { return document.getElementById(id); };
+  var bottle = $("kit-bottle"), trigger = $("kit-trigger"), fill = $("kit-fill"), mistG = $("kit-mist");
+  var pane = $("kit-pane"), wipe = $("kit-wipe-r"), shine = $("kit-shine");
+  var cloth = $("kit-cloth"), brush = $("kit-brush"), tilesG = $("kit-tiles");
+  var steps = $("kit-steps").children, foot = $("kit-foot"), end = $("kit-end"), bar = $("kit-bar");
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var seg = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
+  var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  var mix = function (a, b, t) { return a + (b - a) * t; };
+  // Keyframes: [progress, x, y, scale, rotate, opacity]; eased between neighbours.
+  function track(p, k) {
+    if (p <= k[0][0]) return k[0];
+    for (var i = 1; i < k.length; i++) {
+      if (p <= k[i][0]) {
+        var t = ease(seg(p, k[i - 1][0], k[i][0])), out = [p];
+        for (var j = 1; j < 6; j++) out.push(mix(k[i - 1][j], k[i][j], t));
+        return out;
+      }
+    }
+    return k[k.length - 1];
+  }
+  function place(el, f) {
+    el.setAttribute("transform", "translate(" + f[1].toFixed(1) + " " + f[2].toFixed(1) + ") scale(" + f[3].toFixed(3) + ") rotate(" + f[4].toFixed(1) + ")");
+    el.setAttribute("opacity", f[5].toFixed(3));
+  }
+
+  // Line art draws itself on.
+  var draws = sec.querySelectorAll(".draw");
+  for (var d = 0; d < draws.length; d++) {
+    var len = draws[d].getTotalLength ? draws[d].getTotalLength() : 600;
+    draws[d].style.strokeDasharray = len; draws[d].dataset.len = len;
+  }
+  // Mist droplets, seeded so the spray looks the same on every visit.
+  var drops = [], seed = 7;
+  var rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  for (var m = 0; m < 26; m++) {
+    var c = document.createElementNS(NS, "circle");
+    mistG.appendChild(c);
+    drops.push({ el: c, a: (rnd() - .5) * .7, v: .6 + rnd() * .55, r: 2 + rnd() * 8, d: m / 26 });
+  }
+  // Tiles: 4 x 3, each with grime that the brush lifts.
+  var TX = 330, TY = 160, TW = 75, TH = 72, tiles = [], b = "";
+  for (var r = 0; r < 3; r++) for (var q = 0; q < 4; q++) {
+    var g = document.createElementNS(NS, "rect"), x = TX + q * TW, y = TY + r * TH;
+    g.setAttribute("x", x); g.setAttribute("y", y); g.setAttribute("width", TW); g.setAttribute("height", TH);
+    g.setAttribute("class", "pap ln thin"); tilesG.appendChild(g);
+    var dirt = document.createElementNS(NS, "rect");
+    dirt.setAttribute("x", x + 3); dirt.setAttribute("y", y + 3); dirt.setAttribute("width", TW - 6); dirt.setAttribute("height", TH - 6);
+    dirt.setAttribute("class", "grime"); tilesG.appendChild(dirt);
+    tiles.push({ el: dirt, t: (r + (r % 2 ? 1 - (q + .5) / 4 : (q + .5) / 4)) / 3 });
+  }
+  for (var k = -64; k <= 64; k += 8) b += "M" + k + " -22V0";
+  $("kit-bristles").setAttribute("d", b);
+
+  var BOTTLE = [[0, 400, 470, .95, 0, 1], [.18, 400, 470, .95, 0, 1], [.24, 400, 470, .95, -7, 1], [.36, 400, 470, .95, -7, 1], [.44, 170, 480, .72, 0, 1], [.84, 170, 480, .72, 0, 1], [.94, 250, 500, .8, 0, 1]];
+  var PANE = [[.36, 0, 0, 1, 0, 0], [.42, 0, 0, 1, 0, 1], [.62, 0, 0, 1, 0, 1], [.66, 0, 0, 1, 0, 0]];
+  var CLOTH = [[.38, 900, 270, .9, 20, 0], [.44, 330, 230, .9, -6, 1], [.6, 630, 300, .9, 6, 1], [.66, 720, 470, .7, 0, 1], [.84, 720, 470, .7, 0, 1], [.94, 430, 500, .9, -8, 1]];
+  var TILES = [[.62, 0, 0, 1, 0, 0], [.67, 0, 0, 1, 0, 1], [.82, 0, 0, 1, 0, 1], [.86, 0, 0, 1, 0, 0]];
+  var BRUSH = [[.63, 900, 230, .8, -20, 0], [.68, 330, 210, .8, 0, 1], [.82, 330, 210, .8, 0, 1], [.94, 625, 492, .8, -12, 1]];
+
+  function render(p) {
+    // 1. Spray: bottle draws on, then two squeezes send out mist.
+    var draw = seg(p, -.04, .14);
+    for (var i = 0; i < draws.length; i++) draws[i].style.strokeDashoffset = draws[i].dataset.len * (1 - draw);
+    fill.setAttribute("opacity", seg(p, .1, .17).toFixed(2));
+    var bf = track(p, BOTTLE);
+    place(bottle, bf);
+    var sq = Math.max(Math.sin(Math.PI * seg(p, .2, .26)), Math.sin(Math.PI * seg(p, .28, .34)));
+    trigger.setAttribute("transform", "rotate(" + (-16 * sq).toFixed(1) + " 40 -250)");
+    for (var j = 0; j < drops.length; j++) {
+      var o = drops[j], t = seg(p, .2 + o.d * .1, .28 + o.d * .1);
+      o.el.setAttribute("cx", (100 + t * 300 * o.v).toFixed(1));
+      o.el.setAttribute("cy", (-257 + Math.tan(o.a) * t * 300 * o.v - t * t * 30).toFixed(1));
+      o.el.setAttribute("r", (o.r * (.3 + t)).toFixed(1));
+      o.el.setAttribute("opacity", (Math.sin(Math.PI * t) * .9).toFixed(2));
+    }
+    // 2. Wipe: the cloth sweeps the glass; grime only shows to the right of it.
+    place(pane, track(p, PANE));
+    var cf = track(p, CLOTH), wu = seg(p, .44, .6);
+    if (wu > 0 && wu < 1) cf[2] = 270 + Math.sin(wu * Math.PI * 6) * 70;
+    place(cloth, cf);
+    var edge = p < .44 ? 330 : p > .6 ? 640 : cf[1];
+    wipe.setAttribute("x", edge); wipe.setAttribute("width", Math.max(0, 640 - edge));
+    var sp = seg(p, .5, .62);
+    shine.setAttribute("opacity", sp.toFixed(2));
+    // 3. Scrub: brush works the tiles row by row, back and forth.
+    place(tilesG, track(p, TILES));
+    var bfm = track(p, BRUSH), u = seg(p, .68, .82);
+    if (p > .68 && p < .82) {
+      var row = Math.min(2, Math.floor(u * 3)), v = u * 3 - row;
+      bfm[1] = TX + 20 + (row % 2 ? 1 - v : v) * (4 * TW - 40);
+      bfm[2] = TY + row * TH + TH / 2 + 22 + Math.sin(u * 140) * 9;
+    }
+    place(brush, bfm);
+    for (var n = 0; n < tiles.length; n++) tiles[n].el.setAttribute("opacity", (.42 * (1 - clamp((u - tiles[n].t) * 10, 0, 1))).toFixed(2));
+    // 4. Check: the kit lines up and the call to action lands.
+    var step = p < .38 ? 0 : p < .62 ? 1 : p < .85 ? 2 : 3;
+    for (var s = 0; s < steps.length; s++) steps[s].classList.toggle("on", s === step);
+    var done = p > .95;
+    foot.classList.toggle("done", done); end.classList.toggle("on", done);
+    bar.style.transform = "scaleX(" + p.toFixed(3) + ")";
+  }
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { render(1); end.classList.add("on"); return; }
+  var pin = sec.querySelector(".kit-pin"), PIN_TOP = 73, queued = false, active = false;
+  function frame() {
+    queued = false;
+    var r = sec.getBoundingClientRect(), total = Math.max(1, r.height - pin.offsetHeight);
+    render(clamp((PIN_TOP - r.top) / total, 0, 1));
+  }
+  function onScroll() { if (active && !queued) { queued = true; requestAnimationFrame(frame); } }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { active = e[0].isIntersecting; if (active) onScroll(); }, { rootMargin: "200px 0px" }).observe(sec);
+  } else active = true;
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  render(0); frame();
+})();
+</script>
 </body>
 </html>
