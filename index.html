@@ -357,52 +357,53 @@ header.site {
 @media (max-width: 960px) { .nav-links { display: none; } .nav { gap: var(--space-2); } }
 @media (max-width: 520px) { .nav .btn-sm { display: none; } }
 
-/* Hero: type-led, one bold moment on the right */
-.hero-grid {
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-4); align-items: center;
-  padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px);
-}
-.hero-copy { display: grid; gap: var(--space-3); min-width: 0; }
-.hero-kicker { color: var(--muted); font-size: var(--step-0); }
-.hero-kicker strong { color: var(--ink); font-weight: 600; }
-.hero h1 { font-size: var(--step-4); }
-.hero h1 em { font-style: italic; font-weight: 400; }
-.hero-lede { font-size: var(--step-1); line-height: 1.5; color: var(--muted); max-width: 32em; }
-.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.stage { position: relative; aspect-ratio: 1 / 1; max-width: 100%; min-width: 0; }
-.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-  -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); }
-.stage .fallback { position: absolute; inset: 0; }
-.stage .fallback span {
+/* Scroll film: the opening screens are one continuous 3D scene scrubbed by scroll. Copy scrolls over it and spawns word by word. */
+.film { position: relative; clip-path: inset(0); --film-bg: var(--linen); --film-ink: var(--ink); --film-muted: var(--muted); background: var(--film-bg); color: var(--film-ink); }
+.film-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; pointer-events: none; z-index: 0; }
+.film-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.film-fallback span {
   position: absolute; border-radius: 50%; aspect-ratio: 1 / 1;
   background: radial-gradient(circle at 32% 28%, rgba(255,253,249,.95) 0 6%, rgba(236,220,198,.6) 26%, rgba(196,164,126,.3) 60%, rgba(255,253,249,.05) 74%);
   box-shadow: inset 0 0 0 1px rgba(160,128,96,.3);
 }
-.motion-toggle {
-  position: absolute; right: 2%; bottom: 4%; z-index: 3; min-height: 36px; padding: 0 14px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--paper); color: var(--muted); font: 500 0.82rem var(--body); cursor: pointer;
-  transition: color 160ms ease-out, border-color 160ms ease-out;
+.film-ch { position: relative; z-index: 1; min-height: 130vh; min-height: 130svh; display: flex; align-items: center; }
+.film-ch.first { min-height: calc(100svh - 73px); margin-top: -100vh; margin-top: -100svh; }
+.film-ch.last { min-height: 100vh; min-height: 100svh; }
+.film-copy { width: 100%; display: grid; gap: var(--space-2); justify-items: start; }
+.film-copy > * { max-width: 34rem; }
+.film-copy h1 { font-size: var(--step-4); max-width: 13em; }
+.film-copy h1 em, .film-copy h2 em { font-style: italic; font-weight: 400; }
+.film-copy h2 { font-size: clamp(3rem, 2rem + 5vw, 6.4rem); line-height: .95; }
+.film-copy .film-lede { font-size: var(--step-1); line-height: 1.5; color: var(--film-muted); }
+.film .hero-kicker, .film .hero-kicker strong { color: var(--film-muted); }
+.film .hero-kicker strong { color: var(--film-ink); }
+.film-num { font-family: var(--display); font-style: italic; font-size: var(--step-1); color: var(--film-muted); }
+.film .btn-line { color: var(--film-ink); border-color: var(--film-ink); }
+.film-cue { display: flex; align-items: center; gap: 10px; color: var(--film-muted); font-size: var(--step--1); letter-spacing: .04em; }
+.film-cue::after { content: ""; width: 1px; height: 34px; background: currentColor; transform-origin: top; animation: cue 1.8s var(--ease) infinite; }
+@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+.film-bar { position: fixed; left: 0; right: 0; top: 0; height: 2px; z-index: 11; background: var(--tan); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+.w { display: inline-block; white-space: pre; will-change: transform, opacity; }
+.film-copy h1 .w { animation: rise 900ms var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
+@media (min-width: 861px) {
+  .film-ch { align-items: center; }
 }
-.motion-toggle:hover { color: var(--ink); border-color: var(--ink); }
 @media (max-width: 860px) {
-  .hero-grid { grid-template-columns: 1fr; gap: var(--space-1); padding-block: 8px 48px; }
-  .stage { order: -1; aspect-ratio: 5 / 2; }
-  .hero-copy { gap: var(--space-2); }
-  .hero-lede { font-size: var(--step-0); }
-  .motion-toggle { min-height: 30px; font-size: 0.75rem; }
+  .film-ch { align-items: flex-end; min-height: 120svh; }
+  .film-ch.first { align-items: flex-end; }
+  .film-copy { padding-top: 64px; padding-bottom: calc(var(--space-4) + 8vh); background: linear-gradient(to top, var(--film-bg) 58%, transparent); }
+  .film-ch.first .film-copy { padding-bottom: var(--space-4); }
+  .film-ch.first .film-lede { display: none; }
+  .film-copy .film-lede { font-size: var(--step-0); }
+  .film-copy h2 { font-size: clamp(2.6rem, 1.6rem + 6vw, 4rem); }
+  .film-cue { display: none; }
 }
-
-/* Hero load sequence: the one orchestrated moment. Readable from the first frame. */
-@keyframes rise { from { transform: translateY(16px); opacity: .35; } to { transform: none; opacity: 1; } }
-@keyframes bloom { from { transform: scale(.93); opacity: .4; } to { transform: none; opacity: 1; } }
-.hero-copy > * { animation: rise 800ms var(--ease) both; }
-.hero-copy > :nth-child(2) { animation-delay: 90ms; }
-.hero-copy > :nth-child(3) { animation-delay: 180ms; }
-.hero-copy > :nth-child(4) { animation-delay: 270ms; }
-.stage { animation: bloom 900ms var(--ease) both; }
+@media (prefers-reduced-motion: reduce) {
+  .film-copy h1 .w, .film-cue::after { animation: none; }
+  .film-bar { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-copy > *, .stage { animation: none; }
   .btn, .nav-links a, .faq summary::after { transition: none; }
 }
 
@@ -528,59 +529,6 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 .callbar .btn { flex: 1; min-height: 48px; }
 @media (max-width: 860px) { .callbar { display: flex; } }
 
-/* Scroll story: the cleaning kit, scrubbed by scroll like a product film */
-.kit { position: relative; height: 420vh; background: var(--paper); border-bottom: 1px solid var(--line); }
-.kit-pin {
-  position: sticky; top: 73px; height: calc(100vh - 73px); height: calc(100svh - 73px);
-  display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-2);
-  padding-block: clamp(20px, 4vh, 48px); overflow: hidden;
-}
-.kit-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-1) var(--space-4); }
-.kit-head h2 { max-width: 14em; }
-.kit-head p { color: var(--muted); max-width: 30em; }
-.kit-art { position: relative; min-height: 0; }
-.kit-art svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; color: var(--ink); }
-.kit-art .ln { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.kit-art .thin { stroke-width: 2; }
-.kit-art .soft { fill: var(--tan-soft); }
-.kit-art .pap { fill: var(--paper); }
-.kit-art .tanf { fill: var(--tan); }
-.kit-art .mist circle { fill: var(--paper); stroke: var(--tan); stroke-width: 1.5; }
-.kit-art .grime { fill: var(--tan); }
-.kit-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
-.kit-steps li { display: grid; gap: 4px; padding-top: var(--space-2); border-top: 1px solid var(--line); opacity: .38; transition: opacity 260ms ease-out, border-color 260ms ease-out; }
-.kit-steps li.on { opacity: 1; border-color: var(--ink); }
-.kit-steps b { font-family: var(--display); font-weight: 500; font-size: var(--step-2); line-height: 1.05; }
-.kit-steps span { color: var(--muted); font-size: 0.97rem; }
-.kit-end { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: grid; justify-items: center; gap: var(--space-2); text-align: center; opacity: 0; visibility: hidden; transition: opacity 300ms ease-out, visibility 0s 300ms; width: min(100%, 520px); }
-.kit-end.on { opacity: 1; visibility: visible; transition: opacity 300ms ease-out; }
-.kit-end p { font-family: var(--display); font-style: italic; font-size: var(--step-2); line-height: 1.1; }
-.kit-foot { position: relative; min-height: 110px; }
-.kit-foot .kit-steps { transition: opacity 300ms ease-out; }
-.kit-foot.done .kit-steps { opacity: 0; }
-.kit-bar { position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
-@media (max-width: 860px) {
-  .kit { height: 380vh; }
-  .kit-pin { top: 73px; height: calc(100svh - 73px - 68px); padding-block: 16px; gap: 10px; }
-  .kit-head p { display: none; }
-  .kit-steps { grid-template-columns: 1fr; }
-  .kit-steps li { grid-area: 1 / 1; opacity: 0; border: 0; padding-top: 12px; }
-  .kit-steps li.on { opacity: 1; }
-  .kit-foot { min-height: 96px; }
-  .kit-steps b { font-size: var(--step-1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .kit { height: auto; }
-  .kit-pin { position: static; height: auto; }
-  .kit-art svg { position: static; height: auto; max-height: 60vh; }
-  .kit-steps li, .kit-steps li.on { opacity: 1; transition: none; }
-  .kit-foot.done .kit-steps { opacity: 1; }
-  .kit-end { position: static; transform: none; margin: var(--space-3) auto 0; opacity: 1; visibility: visible; transition: none; }
-  .kit-bar { display: none; }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 860px) {
-  .kit-steps li { grid-area: auto; border-top: 1px solid var(--line); }
-}
 </style>
 
 <a class="skip" href="#top">Skip to content</a>
@@ -601,25 +549,64 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
+  <section class="film" id="film">
+    <span class="film-bar" id="film-bar" aria-hidden="true"></span>
+    <div class="film-stage" id="film-stage" aria-hidden="true">
+      <div class="film-fallback" id="film-fallback">
+        <span style="width:34vmin;right:12%;top:28%"></span>
+        <span style="width:16vmin;right:38%;top:58%"></span>
+        <span style="width:11vmin;right:8%;top:14%"></span>
+        <span style="width:13vmin;right:16%;top:66%"></span>
+      </div>
+    </div>
+    <div class="film-ch first">
+      <div class="wrap film-copy">
         <p class="hero-kicker"><strong translate="no">Tidy Edits</strong> · House and commercial cleaning in Greater Boston for about 10 years</p>
-        <h1>Cleaned to the <em>last detail</em>, not just wiped down.</h1>
-        <p class="hero-lede">Recurring house cleaning, deep cleans, move-outs, rental turnovers, listings going on the market, shared hallways and offices. Every clean is planned around the property in front of us.</p>
+        <h1 data-split>Cleaned to the <em>last detail,</em> not just wiped down.</h1>
+        <p class="film-lede">Recurring house cleaning, deep cleans, move-outs, rental turnovers, listings going on the market, shared hallways and offices. Every clean is planned around the property in front of us.</p>
         <div class="hero-ctas">
           <a class="btn btn-solid" href="#quote">Get a free quote</a>
           <a class="btn btn-line" href="tel:+18577535593">Call 857-753-5593</a>
         </div>
+        <p class="film-cue">Scroll to see how we clean</p>
       </div>
-      <div class="stage" id="stage">
-        <div class="fallback" id="fallback" aria-hidden="true">
-          <span style="width:44%;left:28%;top:22%"></span>
-          <span style="width:22%;left:8%;top:56%"></span>
-          <span style="width:15%;left:72%;top:10%"></span>
-          <span style="width:18%;left:72%;top:62%"></span>
+    </div>
+    <div class="film-ch">
+      <div class="wrap film-copy">
+        <span class="film-num">01</span>
+        <h2 data-spawn>Spray.</h2>
+        <p class="film-lede" data-spawn>The right product for each surface, left long enough to loosen what's set in.</p>
+      </div>
+    </div>
+    <div class="film-ch">
+      <div class="wrap film-copy">
+        <span class="film-num">02</span>
+        <h2 data-spawn>Wipe.</h2>
+        <p class="film-lede" data-spawn>Clean microfiber, folded and turned, so dirt is lifted off, not pushed around.</p>
+      </div>
+    </div>
+    <div class="film-ch">
+      <div class="wrap film-copy">
+        <span class="film-num">03</span>
+        <h2 data-spawn>Scrub.</h2>
+        <p class="film-lede" data-spawn>Grout, corners, edges and baseboards get a brush by hand, not a quick pass.</p>
+      </div>
+    </div>
+    <div class="film-ch">
+      <div class="wrap film-copy">
+        <span class="film-num">04</span>
+        <h2 data-spawn>Check.</h2>
+        <p class="film-lede" data-spawn>Every room looked over again before we lock up.</p>
+      </div>
+    </div>
+    <div class="film-ch last">
+      <div class="wrap film-copy">
+        <h2 data-spawn>Detail, <em>done right.</em></h2>
+        <p class="film-lede" data-spawn>Homes, rentals, listings and offices across Greater Boston.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-solid" href="#quote">Get a free quote</a>
+          <a class="btn btn-line" href="#services">See services</a>
         </div>
-        <button class="motion-toggle" id="motion-toggle" type="button" hidden>Pause animation</button>
       </div>
     </div>
   </section>
@@ -631,74 +618,6 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       <div class="proof-item"><b>Apartment turnovers</b><span>Boston, multiple units</span></div>
       <div class="proof-item"><b>Common-area upkeep</b><span>Multi-level residential building</span></div>
       <div class="proof-item"><b>Recurring office cleaning</b><span>Cambridge business</span></div>
-    </div>
-  </section>
-
-  <section class="kit" id="kit" aria-labelledby="kit-title">
-    <div class="kit-pin wrap">
-      <div class="kit-head">
-        <h2 id="kit-title">What goes into a Tidy Edits clean.</h2>
-        <p>Keep scrolling. The same four steps happen in every room we touch.</p>
-      </div>
-      <div class="kit-art">
-        <svg viewBox="0 0 800 560" role="img" aria-label="Line drawing of a spray bottle, a microfiber cloth and a scrub brush cleaning a window and a tiled wall">
-          <defs>
-            <clipPath id="kit-wipe"><rect id="kit-wipe-r" x="330" y="150" width="300" height="240"/></clipPath>
-          </defs>
-          <!-- window pane -->
-          <g id="kit-pane" opacity="0">
-            <rect class="pap ln" x="330" y="150" width="300" height="240" rx="6"/>
-            <path class="ln thin" d="M480 150v240M330 270h300"/>
-            <g clip-path="url(#kit-wipe)" class="grime" opacity=".55">
-              <ellipse cx="385" cy="200" rx="34" ry="18"/><ellipse cx="440" cy="330" rx="26" ry="14"/>
-              <ellipse cx="535" cy="215" rx="40" ry="16"/><ellipse cx="590" cy="320" rx="28" ry="20"/>
-              <ellipse cx="505" cy="360" rx="18" ry="10"/><circle cx="420" cy="250" r="9"/><circle cx="560" cy="280" r="7"/>
-            </g>
-            <g id="kit-shine" class="tanf">
-              <path d="M392 196l5 15 15 5-15 5-5 15-5-15-15-5 15-5z"/>
-              <path d="M548 314l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/>
-              <path d="M590 190l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
-            </g>
-          </g>
-          <!-- tiles -->
-          <g id="kit-tiles" opacity="0"></g>
-          <!-- spray bottle -->
-          <g id="kit-bottle">
-            <g class="mist" id="kit-mist"></g>
-            <path class="soft" id="kit-fill" d="M-66 -150 L66 -150 L66 -10 Q66 -2 58 -2 L-58 -2 Q-66 -2 -66 -10 Z"/>
-            <path class="ln draw" d="M-60 0 Q-70 0 -70 -10 L-70 -168 Q-70 -204 -34 -212 L-34 -240 L34 -240 L34 -212 Q70 -204 70 -168 L70 -10 Q70 0 60 0 Z"/>
-            <rect class="pap ln thin draw" x="-48" y="-140" width="96" height="92" rx="8"/>
-            <path class="ln thin draw" d="M0 -60 C-26 -78 -26 -110 0 -128 C26 -110 26 -78 0 -60 Z M0 -60 V-118"/>
-            <path class="ln draw" d="M-38 -240 L-38 -262 Q-38 -292 0 -292 L64 -292 Q100 -292 100 -264 L100 -250 L40 -250 L40 -240"/>
-            <g id="kit-trigger"><path class="ln draw" d="M40 -250 Q62 -226 54 -192 Q47 -184 40 -192 Q46 -222 30 -240"/></g>
-          </g>
-          <!-- microfiber cloth -->
-          <g id="kit-cloth" opacity="0">
-            <rect class="soft ln" x="-80" y="-56" width="160" height="112" rx="12"/>
-            <rect class="ln thin" x="-68" y="-44" width="136" height="88" rx="8" stroke-dasharray="4 6"/>
-            <path class="pap ln thin" d="M42 -56 L80 -56 L80 -18 Z"/>
-          </g>
-          <!-- scrub brush -->
-          <g id="kit-brush" opacity="0">
-            <path class="ln" d="M-48 -58 Q-48 -104 0 -104 Q48 -104 48 -58"/>
-            <rect class="tanf ln" x="-74" y="-60" width="148" height="38" rx="14"/>
-            <path class="ln thin" id="kit-bristles"/>
-          </g>
-        </svg>
-      </div>
-      <div class="kit-foot" id="kit-foot">
-        <span class="kit-bar" id="kit-bar"></span>
-        <ol class="kit-steps" id="kit-steps">
-          <li class="on"><b>Spray</b><span>The right product for each surface, left to loosen what's set in.</span></li>
-          <li><b>Wipe</b><span>Clean microfiber, folded and turned, so dirt is lifted, not pushed around.</span></li>
-          <li><b>Scrub</b><span>Grout, corners and edges get a brush by hand, not a quick pass.</span></li>
-          <li><b>Check</b><span>Every room looked over again before we lock up.</span></li>
-        </ol>
-        <div class="kit-end" id="kit-end">
-          <p>Detail, done right. Every time.</p>
-          <a class="btn btn-solid" href="#quote">Get a free quote</a>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -919,241 +838,366 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     } else { out.textContent = link; }
   });
 })();
+</script>
 
-// 3D soap bubbles. Falls back to the static CSS bubbles if WebGL or three.js is unavailable.
+<script>
+// Words spawn as they scroll into view, scrubbed by scroll so they reverse on the way back up.
 (function () {
-  var stage = document.getElementById("stage");
-  if (!window.THREE || !stage) return;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var extra = document.querySelectorAll("main section:not(.film) h2, main .head > p, main .statement");
+  for (var e = 0; e < extra.length; e++) extra[e].setAttribute("data-spawn", "");
+  function split(el) {
+    var n = 0, walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (t) {
+      var frag = document.createDocumentFragment();
+      t.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        var s = document.createElement("span");
+        s.className = "w"; s.textContent = part; s.style.setProperty("--i", n++);
+        frag.appendChild(s);
+      });
+      t.parentNode.replaceChild(frag, t);
+    });
+    return el.querySelectorAll(".w");
+  }
+  document.querySelectorAll("[data-split]").forEach(split);
+  if (reduce) return;
+  var items = [];
+  document.querySelectorAll("[data-spawn]").forEach(function (el) { items.push({ el: el, words: split(el), last: -1 }); });
+  var live = new Set();
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { var it = items[en.target._spawn]; if (en.isIntersecting) live.add(it); else live.delete(it); });
+      tick();
+    }, { rootMargin: "10% 0px" });
+    items.forEach(function (it, i) { it.el._spawn = i; io.observe(it.el); });
+  } else items.forEach(function (it) { live.add(it); });
+  function tick() {
+    var vh = window.innerHeight;
+    live.forEach(function (it) {
+      var r = it.el.getBoundingClientRect();
+      var local = Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.45)));
+      if (Math.abs(local - it.last) < 0.002) return;
+      it.last = local;
+      var n = it.words.length;
+      for (var i = 0; i < n; i++) {
+        var w = Math.min(1, Math.max(0, (local - (i / n) * 0.55) / 0.45));
+        w = w * w * (3 - 2 * w);
+        it.words[i].style.opacity = (0.08 + 0.92 * w).toFixed(3);
+        it.words[i].style.transform = w > 0.999 ? "none" : "translate3d(0," + ((1 - w) * 0.55).toFixed(3) + "em,0)";
+      }
+    });
+  }
+  var queued = false;
+  window.addEventListener("scroll", function () { if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; tick(); }); } }, { passive: true });
+  window.addEventListener("resize", tick);
+  tick();
+})();
+
+// Scroll film. One fixed 3D scene behind the opening screens; how far you've scrolled through #film decides every frame,
+// so scrolling back up plays it in reverse. Cleaning kit: spray bottle, microfiber cloth, sponge, scrub brush, bubbles.
+(function () {
+  var film = document.getElementById("film"), stage = document.getElementById("film-stage");
+  var bar = document.getElementById("film-bar");
+  var chapters = film.querySelectorAll(".film-ch");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var smooth = function (a, b, x) { var t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  var bell = function (c, a, b, f) { return smooth(a - f, a, c) * (1 - smooth(b, b + f, c)); };
+  var mix = function (a, b, t) { return a + (b - a) * t; };
+
+  // Background colour per chapter, read from the brand tokens so dark mode follows along.
+  var css = getComputedStyle(document.documentElement);
+  function rgb(name) {
+    var v = css.getPropertyValue(name).trim();
+    if (v[0] === "#") { if (v.length === 4) v = "#" + v[1] + v[1] + v[2] + v[2] + v[3] + v[3]; return [1, 3, 5].map(function (i) { return parseInt(v.substr(i, 2), 16); }); }
+    return [250, 246, 240];
+  }
+  var TONES = [rgb("--linen"), rgb("--linen"), rgb("--tan-soft"), rgb("--walnut"), rgb("--oat"), rgb("--linen")];
+  var INK = { dark: [rgb("--ink"), rgb("--muted")], light: [rgb("--on-walnut"), rgb("--tan-soft")] };
+  var lum = function (c) { return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255; };
+  var hex = function (c) { return "rgb(" + c.map(function (v) { return Math.round(v); }).join(",") + ")"; };
+  var inkLight = lum(rgb("--ink")) > 0.5;
+
+  // Scroll position -> chapter coordinate c (0 = hero, 1 = spray ... 5 = final), measured from the real layout.
+  var centers = [], span = 1;
+  function measure() {
+    var vh = window.innerHeight, top = film.offsetTop;
+    span = Math.max(1, film.offsetHeight - vh);
+    centers = Array.prototype.map.call(chapters, function (ch, i) {
+      if (i === 0) return 0;
+      if (i === chapters.length - 1) return 1;
+      return clamp((ch.offsetTop + ch.offsetHeight / 2 - vh / 2) / span, 0, 1);
+    });
+  }
+  function chapterAt(p) {
+    for (var i = 1; i < centers.length; i++) if (p <= centers[i]) return i - 1 + (p - centers[i - 1]) / Math.max(1e-6, centers[i] - centers[i - 1]);
+    return centers.length - 1;
+  }
+  function progress() { return clamp(-film.getBoundingClientRect().top / span, 0, 1); }
+
+  var lastTone = "";
+  function paint(c, p) {
+    var k = Math.min(TONES.length - 2, Math.floor(c)), t = smooth(0.25, 0.75, c - k);
+    var bg = [0, 1, 2].map(function (j) { return mix(TONES[k][j], TONES[k + 1][j], t); });
+    film.style.setProperty("--film-bg", hex(bg));
+    var tone = lum(bg) < 0.45 ? "light" : "dark";
+    if (inkLight) tone = lum(bg) > 0.55 ? "dark" : "light";
+    if (tone !== lastTone) {
+      lastTone = tone;
+      var pair = tone === "light" && !inkLight ? INK.light : tone === "dark" && inkLight ? [[29, 24, 19], [94, 68, 51]] : null;
+      film.style.setProperty("--film-ink", pair ? hex(pair[0]) : "");
+      film.style.setProperty("--film-muted", pair ? hex(pair[1]) : "");
+      if (!pair) { film.style.removeProperty("--film-ink"); film.style.removeProperty("--film-muted"); }
+    }
+    bar.style.transform = "scaleX(" + (p >= 1 ? 0 : p).toFixed(4) + ")";
+  }
+
+  measure();
+  if (!window.THREE || reduce) {
+    if (reduce) { paint(0, 0); return; }
+    var q0 = false;
+    window.addEventListener("scroll", function () { if (!q0) { q0 = true; requestAnimationFrame(function () { q0 = false; var p = progress(); paint(chapterAt(p), p); }); } }, { passive: true });
+    window.addEventListener("resize", measure);
+    return;
+  }
+
   var small = window.matchMedia("(max-width: 860px)").matches;
   var renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({ antialias: !small, alpha: true, powerPreference: "low-power" });
-  } catch (err) { return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2));
+  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" }); }
+  catch (err) { return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.75 : 2));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
   stage.appendChild(renderer.domElement);
-  document.getElementById("fallback").hidden = true;
+  document.getElementById("film-fallback").hidden = true;
 
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-  camera.position.set(0, 0, 9);
+  var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+  camera.position.set(0, 0.4, 12);
+  camera.lookAt(0, 0, 0);
   if (THREE.RoomEnvironment) {
     var pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
   }
-  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  var key = new THREE.DirectionalLight(0xfff1de, 1.6);
-  key.position.set(3, 4, 5);
-  scene.add(key);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  var key = new THREE.DirectionalLight(0xfff1de, 1.5); key.position.set(4, 6, 6); scene.add(key);
+  var rim = new THREE.DirectionalLight(0xe9d6bd, 0.8); rim.position.set(-5, 2, -4); scene.add(rim);
 
-  var geo = new THREE.SphereGeometry(1, small ? 40 : 64, small ? 28 : 48);
-  var count = small ? 7 : 11;
-  var bubbles = [];
-  var group = new THREE.Group();
-  scene.add(group);
-  for (var i = 0; i < count; i++) {
-    // Neutral brand tints only: cream, champagne, tan.
-    var tints = [0xf3e7d6, 0xe9d6bd, 0xd9bf9e, 0xfaf3e8];
-    var mat = new THREE.MeshPhysicalMaterial({
-      color: tints[i % tints.length], metalness: 0.3, roughness: 0.16, transparent: true, opacity: 0.82,
-      clearcoat: 1, clearcoatRoughness: 0.04, sheen: 1, sheenColor: new THREE.Color(0xc4a47e), sheenRoughness: 0.5,
-      envMapIntensity: 1.15, side: THREE.FrontSide, depthWrite: true
-    });
-    var m = new THREE.Mesh(geo, mat);
-    var s = i === 0 ? 1.55 : 0.28 + Math.random() * 0.75;
-    m.scale.setScalar(s);
-    var b = {
-      mesh: m,
-      x: i === 0 ? 0.2 : (Math.random() - 0.5) * 6,
-      y: i === 0 ? 0.1 : (Math.random() - 0.5) * 6,
-      z: i === 0 ? 0 : (Math.random() - 0.5) * 3,
-      speed: 0.12 + Math.random() * 0.22,
-      phase: Math.random() * Math.PI * 2,
-      hero: i === 0
-    };
-    group.add(m);
-    bubbles.push(b);
+  var world = new THREE.Group(); scene.add(world);
+  var std = function (color, rough, metal) { return new THREE.MeshStandardMaterial({ color: color, roughness: rough, metalness: metal || 0 }); };
+  function rounded(w, h, r) {
+    var s = new THREE.Shape(), x = -w / 2, y = -h / 2;
+    s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+    s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
+    s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+    return s;
+  }
+  function slab(w, h, d, r, mat) {
+    var g = new THREE.ExtrudeGeometry(rounded(w, h, r), { depth: d, bevelEnabled: true, bevelThickness: r * 0.6, bevelSize: r * 0.6, bevelSegments: 4, curveSegments: 10 });
+    g.center();
+    return new THREE.Mesh(g, mat);
   }
 
-  var pointer = { x: 0, y: 0 };
-  window.addEventListener("pointermove", function (e) {
-    pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-    pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
-  }, { passive: true });
+  // Spray bottle: frosted body, tan liquid, logo label, black trigger head with the nozzle pointing left.
+  var bottle = new THREE.Group();
+  var prof = [[0, 0], [0.6, 0], [0.68, 0.06], [0.7, 0.3], [0.7, 1.72], [0.62, 2.02], [0.38, 2.22], [0.3, 2.36], [0.3, 2.5], [0, 2.5]]
+    .map(function (v) { return new THREE.Vector2(v[0], v[1]); });
+  var glass = new THREE.MeshPhysicalMaterial({ color: 0xfaf6f0, roughness: 0.22, metalness: 0, transparent: true, opacity: 0.55, clearcoat: 1, clearcoatRoughness: 0.08, depthWrite: false });
+  var body = new THREE.Mesh(new THREE.LatheGeometry(prof, 56), glass);
+  var liquid = new THREE.Mesh(new THREE.LatheGeometry([[0, 0.04], [0.62, 0.04], [0.65, 0.3], [0.65, 1.45], [0, 1.45]].map(function (v) { return new THREE.Vector2(v[0], v[1]); }), 48), std(0xd9bf9e, 0.35));
+  var labelCanvas = document.createElement("canvas"); labelCanvas.width = 1792; labelCanvas.height = 512;
+  var lc = labelCanvas.getContext("2d"); lc.fillStyle = "#fffdf9"; lc.fillRect(0, 0, 1792, 512);
+  var labelTex = new THREE.CanvasTexture(labelCanvas); labelTex.encoding = THREE.sRGBEncoding;
+  var logo = new Image();
+  logo.onload = function () {
+    var h = 420, w = h * logo.width / logo.height;
+    lc.drawImage(logo, 896 - w / 2, 46, w, h);
+    labelTex.needsUpdate = true;
+  };
+  logo.src = "logo.png";
+  var label = new THREE.Mesh(new THREE.CylinderGeometry(0.712, 0.712, 0.95, 64, 1, true, -Math.PI * 0.75, Math.PI * 1.5), new THREE.MeshStandardMaterial({ map: labelTex, roughness: 0.6 }));
+  label.position.y = 0.95;
+  var black = std(0x1d1813, 0.38, 0.1);
+  var collar = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.26, 40), black); collar.position.y = 2.6;
+  var head = slab(1.25, 0.5, 0.5, 0.14, black); head.position.set(-0.28, 2.98, 0);
+  var shroud = slab(0.55, 0.42, 0.52, 0.12, black); shroud.position.set(0.12, 3.28, 0); shroud.rotation.z = -0.3;
+  var nozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.22, 24), std(0x8f7049, 0.4)); nozzle.rotation.z = Math.PI / 2; nozzle.position.set(-0.98, 3.0, 0);
+  var trig = new THREE.Group(); trig.position.set(-0.55, 2.75, 0);
+  var tmesh = slab(0.18, 0.62, 0.22, 0.07, black); tmesh.position.set(0, -0.3, 0); tmesh.rotation.z = -0.25; trig.add(tmesh);
+  bottle.add(body, liquid, label, collar, head, shroud, nozzle, trig);
+  bottle.children.forEach(function (m) { m.position.y -= 1.6; });
+  trig.position.y = 2.75 - 1.6;
+  var NOZZLE = new THREE.Vector3(-1.1, 3.0 - 1.6, 0);
+  world.add(bottle);
+
+  // Microfiber cloth: a soft square that ripples, with a stitched border.
+  var clothCanvas = document.createElement("canvas"); clothCanvas.width = clothCanvas.height = 512;
+  var cc = clothCanvas.getContext("2d");
+  cc.fillStyle = "#e7dccb"; cc.fillRect(0, 0, 512, 512);
+  for (var gy = 0; gy < 512; gy += 4) { cc.fillStyle = gy % 8 ? "rgba(143,112,73,.05)" : "rgba(255,253,249,.08)"; cc.fillRect(0, gy, 512, 2); }
+  cc.setLineDash([14, 10]); cc.lineWidth = 5; cc.strokeStyle = "#8f7049"; cc.strokeRect(34, 34, 444, 444);
+  var clothTex = new THREE.CanvasTexture(clothCanvas); clothTex.encoding = THREE.sRGBEncoding;
+  var clothGeo = new THREE.PlaneGeometry(2.3, 2.3, 28, 28);
+  var clothBase = clothGeo.attributes.position.array.slice();
+  var cloth = new THREE.Mesh(clothGeo, new THREE.MeshStandardMaterial({ map: clothTex, roughness: 0.95, side: THREE.DoubleSide }));
+  world.add(cloth);
+
+  // Sponge: tan foam with a walnut scrub side.
+  var sponge = new THREE.Group();
+  var foam = slab(1.5, 0.95, 0.42, 0.18, std(0xd9b98f, 0.92)); var pad = slab(1.5, 0.95, 0.12, 0.12, std(0x5e4433, 0.85));
+  pad.position.z = 0.34; sponge.add(foam, pad);
+  world.add(sponge);
+
+  // Scrub brush: wood block and handle, cream bristles.
+  var brush = new THREE.Group();
+  var wood = std(0x8f7049, 0.55);
+  var block = slab(2.0, 0.42, 0.62, 0.16, wood); block.rotation.x = Math.PI / 2; block.position.y = 0.2;
+  var handleCurve = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.75, 0.4, 0), new THREE.Vector3(-0.55, 0.95, 0), new THREE.Vector3(0.55, 0.95, 0), new THREE.Vector3(0.75, 0.4, 0)]);
+  var handle = new THREE.Mesh(new THREE.TubeGeometry(handleCurve, 40, 0.09, 12, false), wood);
+  var bristleCount = small ? 48 : 84, cols = small ? 12 : 21;
+  var bristles = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.035, 0.03, 0.42, 6), std(0xf3e7d6, 0.7), bristleCount);
+  var dummy = new THREE.Object3D();
+  for (var bi = 0; bi < bristleCount; bi++) {
+    dummy.position.set(-0.88 + (bi % cols) * (1.76 / (cols - 1)), -0.2, -0.22 + Math.floor(bi / cols) * (0.44 / 3));
+    dummy.updateMatrix(); bristles.setMatrixAt(bi, dummy.matrix);
+  }
+  brush.add(block, handle, bristles);
+  world.add(brush);
+
+  // Bubbles: pearly, in brand neutrals. They float, become spray mist, then foam, then rise.
+  var bubbleGeo = new THREE.SphereGeometry(1, small ? 28 : 40, small ? 20 : 28);
+  var tints = [0xf3e7d6, 0xe9d6bd, 0xd9bf9e, 0xfaf3e8];
+  var bubbleMats = tints.map(function (t) {
+    return new THREE.MeshPhysicalMaterial({ color: t, metalness: 0.3, roughness: 0.15, transparent: true, opacity: 0.6, clearcoat: 1, clearcoatRoughness: 0.04, sheen: 1, sheenColor: new THREE.Color(0xc4a47e), sheenRoughness: 0.5, envMapIntensity: 1.15 });
+  });
+  var seed = 11, rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  var bubbles = [], BN = small ? 13 : 24;
+  for (var i = 0; i < BN; i++) {
+    var m = new THREE.Mesh(bubbleGeo, bubbleMats[i % 4]);
+    var a = rnd() * Math.PI * 2, rr = 1.6 + rnd() * 1.8;
+    bubbles.push({ m: m, home: new THREE.Vector3(Math.cos(a) * rr + 0.7, -0.4 + (rnd() - 0.5) * 3.6, Math.sin(a) * rr * 0.6 - 1), s: i === 0 ? 0.55 : 0.1 + rnd() * 0.3, ph: rnd() * 6.28, sp: 0.5 + rnd(), sx: rnd() - 0.5, sy: rnd() - 0.5, sz: rnd() - 0.5 });
+    world.add(m);
+  }
+
+  // Keyframes per object: [c, x, y, z, rx, ry, rz, scale]. c is the chapter coordinate.
+  var K = {
+    bottle: [[0, 0.3, -0.2, 0, 0, -0.45, 0, 1], [0.55, 0.3, -0.2, 0, 0, -0.2, 0, 1], [1, 0.9, -0.35, 0.8, 0, 0.35, 0.06, 1.05], [1.5, 0.9, -0.35, 0.8, 0, 0.45, 0.06, 1.05], [2, -2.6, -0.9, -1.6, 0, 0.3, 0, 0.72], [3, -3.3, -0.6, -3, 0, 0.7, 0, 0.7], [4, -2.15, -0.75, 0, 0, -0.25, 0, 0.66], [5, -2.15, -0.75, 0, 0, -0.25, 0, 0.66]],
+    cloth: [[1.15, 7, 2.5, -1, 0, -0.9, 0.5, 1], [1.95, 0.3, 0.2, 0.9, -0.12, 0.12, 0.08, 1.2], [2.45, 0.3, 0.2, 0.9, -0.12, -0.12, -0.05, 1.2], [3, 3.0, -1.2, -2, -0.9, 0.3, 0.4, 0.7], [4, -0.6, -1.15, 0.3, -1.25, 0, 0.12, 0.7], [5, -0.6, -1.15, 0.3, -1.25, 0, 0.12, 0.7]],
+    sponge: [[2.2, -7, 3, -2, 0.6, 1.2, 0.5, 1], [3, -1.7, 1.5, -2, 0.5, 0.6, 0.3, 0.62], [4, 0.75, -1.1, 0.5, 0.25, 0.45, 0.05, 0.62], [5, 0.75, -1.1, 0.5, 0.25, 0.45, 0.05, 0.62]],
+    brush: [[2.1, 7, 1.5, -1, 0.2, 0.4, 0.8, 1], [2.85, 0.4, 0, 0.8, 0.45, 0.35, -0.12, 1.2], [3.2, 0.4, 0, 0.8, 0.45, 0.35, -0.12, 1.2], [4, 2.15, -1.0, 0, 0.4, -0.5, -0.05, 0.62], [5, 2.15, -1.0, 0, 0.4, -0.5, -0.05, 0.62]]
+  };
+  function track(c, k, o) {
+    var a = k[0], b = k[k.length - 1], t = 0;
+    if (c <= a[0]) b = a;
+    else if (c < b[0]) for (var i = 1; i < k.length; i++) if (c <= k[i][0]) { a = k[i - 1]; b = k[i]; t = smooth(0, 1, (c - a[0]) / (b[0] - a[0])); break; }
+    if (c >= k[k.length - 1][0]) a = b;
+    o.position.set(mix(a[1], b[1], t), mix(a[2], b[2], t), mix(a[3], b[3], t));
+    o.rotation.set(mix(a[4], b[4], t), mix(a[5], b[5], t), mix(a[6], b[6], t));
+    o.scale.setScalar(mix(a[7], b[7], t));
+  }
+  var hiddenBefore = { cloth: 1.15, sponge: 2.2, brush: 2.1 };
+
+  var squeezeX = 1, wideView = true;
+  var v = new THREE.Vector3(), jit = new THREE.Vector3(), nz = new THREE.Vector3(), dir = new THREE.Vector3(), foamAt = new THREE.Vector3();
+  function render(c, t) {
+    track(c, K.bottle, bottle);
+    bottle.position.y += Math.sin(t * 0.8) * 0.06;
+    bottle.rotation.y += Math.sin(t * 0.35) * 0.06;
+    var squeeze = Math.max(bell(c, 0.8, 0.95, 0.08), bell(c, 1.15, 1.3, 0.08));
+    trig.rotation.z = 0.35 * squeeze;
+
+    track(c, K.cloth, cloth); cloth.visible = c > hiddenBefore.cloth;
+    var wipe = bell(c, 1.95, 2.45, 0.15);
+    cloth.position.x += Math.sin((c - 1.95) * Math.PI * 4) * 1.1 * wipe;
+    cloth.position.y += Math.cos((c - 1.95) * Math.PI * 4) * 0.35 * wipe;
+    var pos = clothGeo.attributes.position, amp = 0.12 + 0.18 * bell(c, 1.2, 2.6, 0.4);
+    for (var i = 0; i < pos.count; i++) {
+      var x = clothBase[i * 3], y = clothBase[i * 3 + 1];
+      pos.array[i * 3 + 2] = Math.sin(x * 1.9 + t * 1.6 + c * 3) * amp * 0.6 + Math.cos(y * 2.3 + t * 1.1) * amp * 0.4 + (x * x + y * y) * -0.05;
+    }
+    pos.needsUpdate = true; clothGeo.computeVertexNormals();
+
+    track(c, K.sponge, sponge); sponge.visible = c > hiddenBefore.sponge;
+    sponge.rotation.z += Math.sin(t * 0.6) * 0.05;
+    track(c, K.brush, brush); brush.visible = c > hiddenBefore.brush;
+    var scrub = bell(c, 2.85, 3.25, 0.12);
+    brush.position.x += Math.sin(t * 9 + c * 60) * 0.28 * scrub;
+    brush.rotation.z += Math.sin(t * 9 + c * 60) * 0.05 * scrub;
+
+    bottle.position.x *= squeezeX; cloth.position.x *= squeezeX; sponge.position.x *= squeezeX; brush.position.x *= squeezeX;
+
+    // Final lineup turns slowly so the kit reads as a 3D product shot.
+    world.rotation.y = mix(0, Math.sin(t * 0.25) * 0.12, smooth(3.7, 4.2, c));
+    world.position.set(wideView ? mix(0, 0.9, smooth(3.6, 4.4, c)) : 0, wideView ? -0.35 : 0, 0);
+
+    nz.copy(NOZZLE); bottle.localToWorld(nz); world.worldToLocal(nz);
+    dir.set(-1, 0.08, 0.25).applyQuaternion(bottle.quaternion).normalize();
+    brush.getWorldPosition(foamAt); world.worldToLocal(foamAt); foamAt.y -= 0.35 * brush.scale.x;
+    var wMist = bell(c, 0.75, 1.4, 0.2), wFoam = bell(c, 2.7, 3.3, 0.2), wRise = smooth(3.6, 4.6, c);
+    for (var j = 0; j < bubbles.length; j++) {
+      var b = bubbles[j], m = b.m;
+      v.copy(b.home);
+      v.x += Math.sin(t * 0.5 * b.sp + b.ph) * 0.25;
+      v.y += Math.sin(t * 0.7 * b.sp + b.ph) * 0.2;
+      var s = b.s;
+      if (wMist > 0) {
+        var f = ((c - 0.75) * 1.4 + t * 0.16 * b.sp + j / bubbles.length) % 1;
+        m.position.copy(nz).addScaledVector(dir, f * 7).add(jit.set(b.sx * f * 2.2, b.sy * f * 1.6, b.sz * f * 1.5));
+        v.lerp(m.position, wMist); s = mix(s, b.s * 0.38 * (0.4 + f), wMist);
+      }
+      if (wFoam > 0) {
+        m.position.set(foamAt.x + b.sx * 2.6, foamAt.y + b.sy * 0.8 - 0.15, foamAt.z + b.sz * 1.4 + 0.4);
+        v.lerp(m.position, wFoam); s = mix(s, b.s * 0.45, wFoam);
+      }
+      if (wRise > 0) {
+        var up = ((t * 0.12 * b.sp + j * 0.137) % 1);
+        v.y = mix(v.y, -3 + up * 7.5, wRise);
+        s *= 1 - 0.5 * wRise * up;
+      }
+      m.position.copy(v);
+      m.scale.setScalar(Math.max(0.001, s));
+    }
+    renderer.render(scene, camera);
+  }
 
   function resize() {
     var w = stage.clientWidth, h = stage.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
+    // Frame the kit beside the copy on wide screens, above it on phones.
+    var wide = w / h > 1; wideView = wide;
+    var aspect = w / h;
+    camera.position.z = wide ? 12 : 12 / Math.max(0.4, Math.min(1, aspect * 1.1));
+    squeezeX = clamp(aspect * 1.2, 0.5, 1);
+    camera.setViewOffset(w, h, wide ? -w * 0.2 : 0, wide ? 0 : h * 0.2, w, h);
     camera.updateProjectionMatrix();
+    measure();
   }
   window.addEventListener("resize", resize);
   resize();
 
-  var visible = true;
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; if (visible) loop(); }).observe(stage);
-  }
-  var clock = new THREE.Clock();
-  var running = false;
-  function place(t) {
-    bubbles.forEach(function (b) {
-      var y = b.hero ? b.y + Math.sin(t * 0.6) * 0.18 : ((b.y + t * b.speed + 3.5) % 7) - 3.5;
-      b.mesh.position.set(b.x + Math.sin(t * 0.5 + b.phase) * 0.25, y, b.z);
-      b.mesh.rotation.y = t * 0.15 + b.phase;
-    });
-    group.rotation.y += (pointer.x * 0.25 - group.rotation.y) * 0.05;
-    group.rotation.x += (pointer.y * 0.15 - group.rotation.x) * 0.05;
-  }
+  var target = progress(), cur = target, visible = true, running = false, clock = new THREE.Clock();
+  window.addEventListener("scroll", function () { target = progress(); loop(); }, { passive: true });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) loop(); }).observe(film);
   function frame() {
-    if (paused || !visible || document.hidden) { running = false; return; }
-    place(clock.getElapsedTime());
-    renderer.render(scene, camera);
+    if (!visible || document.hidden) { running = false; return; }
+    cur += (target - cur) * 0.14;
+    if (Math.abs(target - cur) < 1e-5) cur = target;
+    var c = chapterAt(cur);
+    paint(c, cur);
+    render(c, clock.getElapsedTime());
     requestAnimationFrame(frame);
   }
-  var paused = reduce;
-  var toggle = document.getElementById("motion-toggle");
-  toggle.hidden = false;
-  toggle.textContent = paused ? "Play animation" : "Pause animation";
-  toggle.addEventListener("click", function () {
-    paused = !paused;
-    toggle.textContent = paused ? "Play animation" : "Pause animation";
-    if (!paused) { clock.start(); loop(); }
-  });
-  function loop() { if (paused || running) return; running = true; requestAnimationFrame(frame); }
+  function loop() { if (running) return; running = true; requestAnimationFrame(frame); }
   document.addEventListener("visibilitychange", function () { if (!document.hidden) loop(); });
-  place(1.5);
-  renderer.render(scene, camera);
+  render(chapterAt(cur), 0); paint(chapterAt(cur), cur);
   loop();
-})();
-</script>
-
-<script>
-// Scroll story: every frame of the cleaning-kit scene is a function of how far the visitor has scrolled through #kit.
-(function () {
-  var sec = document.getElementById("kit");
-  if (!sec) return;
-  var NS = "http://www.w3.org/2000/svg";
-  var $ = function (id) { return document.getElementById(id); };
-  var bottle = $("kit-bottle"), trigger = $("kit-trigger"), fill = $("kit-fill"), mistG = $("kit-mist");
-  var pane = $("kit-pane"), wipe = $("kit-wipe-r"), shine = $("kit-shine");
-  var cloth = $("kit-cloth"), brush = $("kit-brush"), tilesG = $("kit-tiles");
-  var steps = $("kit-steps").children, foot = $("kit-foot"), end = $("kit-end"), bar = $("kit-bar");
-  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
-  var seg = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
-  var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
-  var mix = function (a, b, t) { return a + (b - a) * t; };
-  // Keyframes: [progress, x, y, scale, rotate, opacity]; eased between neighbours.
-  function track(p, k) {
-    if (p <= k[0][0]) return k[0];
-    for (var i = 1; i < k.length; i++) {
-      if (p <= k[i][0]) {
-        var t = ease(seg(p, k[i - 1][0], k[i][0])), out = [p];
-        for (var j = 1; j < 6; j++) out.push(mix(k[i - 1][j], k[i][j], t));
-        return out;
-      }
-    }
-    return k[k.length - 1];
-  }
-  function place(el, f) {
-    el.setAttribute("transform", "translate(" + f[1].toFixed(1) + " " + f[2].toFixed(1) + ") scale(" + f[3].toFixed(3) + ") rotate(" + f[4].toFixed(1) + ")");
-    el.setAttribute("opacity", f[5].toFixed(3));
-  }
-
-  // Line art draws itself on.
-  var draws = sec.querySelectorAll(".draw");
-  for (var d = 0; d < draws.length; d++) {
-    var len = draws[d].getTotalLength ? draws[d].getTotalLength() : 600;
-    draws[d].style.strokeDasharray = len; draws[d].dataset.len = len;
-  }
-  // Mist droplets, seeded so the spray looks the same on every visit.
-  var drops = [], seed = 7;
-  var rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-  for (var m = 0; m < 26; m++) {
-    var c = document.createElementNS(NS, "circle");
-    mistG.appendChild(c);
-    drops.push({ el: c, a: (rnd() - .5) * .7, v: .6 + rnd() * .55, r: 2 + rnd() * 8, d: m / 26 });
-  }
-  // Tiles: 4 x 3, each with grime that the brush lifts.
-  var TX = 330, TY = 160, TW = 75, TH = 72, tiles = [], b = "";
-  for (var r = 0; r < 3; r++) for (var q = 0; q < 4; q++) {
-    var g = document.createElementNS(NS, "rect"), x = TX + q * TW, y = TY + r * TH;
-    g.setAttribute("x", x); g.setAttribute("y", y); g.setAttribute("width", TW); g.setAttribute("height", TH);
-    g.setAttribute("class", "pap ln thin"); tilesG.appendChild(g);
-    var dirt = document.createElementNS(NS, "rect");
-    dirt.setAttribute("x", x + 3); dirt.setAttribute("y", y + 3); dirt.setAttribute("width", TW - 6); dirt.setAttribute("height", TH - 6);
-    dirt.setAttribute("class", "grime"); tilesG.appendChild(dirt);
-    tiles.push({ el: dirt, t: (r + (r % 2 ? 1 - (q + .5) / 4 : (q + .5) / 4)) / 3 });
-  }
-  for (var k = -64; k <= 64; k += 8) b += "M" + k + " -22V0";
-  $("kit-bristles").setAttribute("d", b);
-
-  var BOTTLE = [[0, 400, 470, .95, 0, 1], [.18, 400, 470, .95, 0, 1], [.24, 400, 470, .95, -7, 1], [.36, 400, 470, .95, -7, 1], [.44, 170, 480, .72, 0, 1], [.84, 170, 480, .72, 0, 1], [.94, 250, 500, .8, 0, 1]];
-  var PANE = [[.36, 0, 0, 1, 0, 0], [.42, 0, 0, 1, 0, 1], [.62, 0, 0, 1, 0, 1], [.66, 0, 0, 1, 0, 0]];
-  var CLOTH = [[.38, 900, 270, .9, 20, 0], [.44, 330, 230, .9, -6, 1], [.6, 630, 300, .9, 6, 1], [.66, 720, 470, .7, 0, 1], [.84, 720, 470, .7, 0, 1], [.94, 430, 500, .9, -8, 1]];
-  var TILES = [[.62, 0, 0, 1, 0, 0], [.67, 0, 0, 1, 0, 1], [.82, 0, 0, 1, 0, 1], [.86, 0, 0, 1, 0, 0]];
-  var BRUSH = [[.63, 900, 230, .8, -20, 0], [.68, 330, 210, .8, 0, 1], [.82, 330, 210, .8, 0, 1], [.94, 625, 492, .8, -12, 1]];
-
-  function render(p) {
-    // 1. Spray: bottle draws on, then two squeezes send out mist.
-    var draw = seg(p, -.04, .14);
-    for (var i = 0; i < draws.length; i++) draws[i].style.strokeDashoffset = draws[i].dataset.len * (1 - draw);
-    fill.setAttribute("opacity", seg(p, .1, .17).toFixed(2));
-    var bf = track(p, BOTTLE);
-    place(bottle, bf);
-    var sq = Math.max(Math.sin(Math.PI * seg(p, .2, .26)), Math.sin(Math.PI * seg(p, .28, .34)));
-    trigger.setAttribute("transform", "rotate(" + (-16 * sq).toFixed(1) + " 40 -250)");
-    for (var j = 0; j < drops.length; j++) {
-      var o = drops[j], t = seg(p, .2 + o.d * .1, .28 + o.d * .1);
-      o.el.setAttribute("cx", (100 + t * 300 * o.v).toFixed(1));
-      o.el.setAttribute("cy", (-257 + Math.tan(o.a) * t * 300 * o.v - t * t * 30).toFixed(1));
-      o.el.setAttribute("r", (o.r * (.3 + t)).toFixed(1));
-      o.el.setAttribute("opacity", (Math.sin(Math.PI * t) * .9).toFixed(2));
-    }
-    // 2. Wipe: the cloth sweeps the glass; grime only shows to the right of it.
-    place(pane, track(p, PANE));
-    var cf = track(p, CLOTH), wu = seg(p, .44, .6);
-    if (wu > 0 && wu < 1) cf[2] = 270 + Math.sin(wu * Math.PI * 6) * 70;
-    place(cloth, cf);
-    var edge = p < .44 ? 330 : p > .6 ? 640 : cf[1];
-    wipe.setAttribute("x", edge); wipe.setAttribute("width", Math.max(0, 640 - edge));
-    var sp = seg(p, .5, .62);
-    shine.setAttribute("opacity", sp.toFixed(2));
-    // 3. Scrub: brush works the tiles row by row, back and forth.
-    place(tilesG, track(p, TILES));
-    var bfm = track(p, BRUSH), u = seg(p, .68, .82);
-    if (p > .68 && p < .82) {
-      var row = Math.min(2, Math.floor(u * 3)), v = u * 3 - row;
-      bfm[1] = TX + 20 + (row % 2 ? 1 - v : v) * (4 * TW - 40);
-      bfm[2] = TY + row * TH + TH / 2 + 22 + Math.sin(u * 140) * 9;
-    }
-    place(brush, bfm);
-    for (var n = 0; n < tiles.length; n++) tiles[n].el.setAttribute("opacity", (.42 * (1 - clamp((u - tiles[n].t) * 10, 0, 1))).toFixed(2));
-    // 4. Check: the kit lines up and the call to action lands.
-    var step = p < .38 ? 0 : p < .62 ? 1 : p < .85 ? 2 : 3;
-    for (var s = 0; s < steps.length; s++) steps[s].classList.toggle("on", s === step);
-    var done = p > .95;
-    foot.classList.toggle("done", done); end.classList.toggle("on", done);
-    bar.style.transform = "scaleX(" + p.toFixed(3) + ")";
-  }
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { render(1); end.classList.add("on"); return; }
-  var pin = sec.querySelector(".kit-pin"), PIN_TOP = 73, queued = false, active = false;
-  function frame() {
-    queued = false;
-    var r = sec.getBoundingClientRect(), total = Math.max(1, r.height - pin.offsetHeight);
-    render(clamp((PIN_TOP - r.top) / total, 0, 1));
-  }
-  function onScroll() { if (active && !queued) { queued = true; requestAnimationFrame(frame); } }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (e) { active = e[0].isIntersecting; if (active) onScroll(); }, { rootMargin: "200px 0px" }).observe(sec);
-  } else active = true;
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  render(0); frame();
 })();
 </script>
 </body>
