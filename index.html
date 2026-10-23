@@ -6,6 +6,11 @@
 <title>House Cleaning in Boston, MA | Tidy Edits Cleaning Company</title>
 <meta name="description" content="Detailed house cleaning, deep cleans, move-out and rental turnover cleaning across Greater Boston, from Dorchester to Cambridge. Free quote: 857-753-5593.">
 <link rel="canonical" href="https://tidyedits.com/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tidy Edits Cleaning Company">
@@ -106,7 +111,7 @@
      "name": "Revere, MA"
     }
    ],
-   "description": "Detailed residential and commercial cleaning in Greater Boston: recurring home cleaning, deep cleans, move-in and move-out, rental turnovers, pre-sale and listing prep, common areas and offices.",
+   "description": "Detailed residential and commercial cleaning in Greater Boston. We take on all types of cleaning jobs, big or small, one-time or recurring: for example recurring home cleaning, deep cleans, move-in and move-out, rental turnovers, pre-sale and listing prep, common areas and offices.",
    "slogan": "Cleaned to the last detail, not just wiped down.",
    "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -201,6 +206,14 @@
    "@type": "FAQPage",
    "@id": "https://tidyedits.com/#faq",
    "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What kinds of cleaning jobs do you take?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "All types. Homes, rentals, listings, buildings, offices and anything in between, big or small, one-time or recurring. If it needs cleaning, tell us about it and we'll plan the job around the property."
+     }
+    },
     {
      "@type": "Question",
      "name": "Do you take small jobs?",
@@ -372,6 +385,7 @@ header.site {
 .film-copy { width: 100%; display: grid; gap: var(--space-2); justify-items: start; }
 .film-copy > * { max-width: 34rem; }
 .film-copy h1 { font-size: var(--step-4); max-width: 13em; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 .film-copy h1 em, .film-copy h2 em { font-style: italic; font-weight: 400; }
 .film-copy h2 { font-size: clamp(3rem, 2rem + 5vw, 6.4rem); line-height: .95; }
 .film-copy .film-lede { font-size: var(--step-1); line-height: 1.5; color: var(--film-muted); }
@@ -387,17 +401,21 @@ header.site {
 .film-copy h1 .w { animation: rise 900ms var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
 @media (min-width: 861px) {
   .film-ch { align-items: center; }
+  /* keep the headline clear of the bottle on the right */
+  .film-copy h1 { max-width: 9.6em; }
 }
 @media (max-width: 860px) {
   .film-ch { align-items: flex-end; min-height: 120svh; }
   .film-ch.first { align-items: flex-end; }
   .film-copy { padding-top: 64px; padding-bottom: calc(var(--space-4) + 8vh); background: linear-gradient(to top, var(--film-bg) 58%, transparent); }
-  .film-ch.first .film-copy { padding-bottom: var(--space-4); }
+  .film-ch.first .film-copy { padding-bottom: calc(var(--space-3) + 72px + env(safe-area-inset-bottom, 0px)); } /* clear the call bar */
   .film-ch.first .film-lede { display: none; }
   .film-copy .film-lede { font-size: var(--step-0); }
   .film-copy h2 { font-size: clamp(2.6rem, 1.6rem + 6vw, 4rem); }
   .film-cue { display: none; }
+  .film .hero-call { display: none; } /* the call bar already has Call */
 }
+@media (max-width: 860px) and (max-height: 700px) { .film-ch.first .hero-kicker { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .film-copy h1 .w, .film-cue::after { animation: none; }
   .film-bar { display: none; }
@@ -429,6 +447,8 @@ header.site {
 .svc-list span { color: var(--muted); font-size: 0.97rem; }
 .addons { margin-top: var(--space-3); color: var(--muted); max-width: 70ch; }
 .addons b { color: var(--ink); }
+.anyjob { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
+.anyjob span { font-family: var(--display); font-style: italic; font-size: var(--step-2); line-height: 1.2; max-width: 30ch; }
 @media (max-width: 860px) { .row { grid-template-columns: 1fr; gap: var(--space-3); } }
 @media (max-width: 560px) { .svc-list { grid-template-columns: 1fr; } }
 
@@ -531,9 +551,9 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 </style>
 
-<a class="skip" href="#top">Skip to content</a>
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 <header class="site">
   <div class="wrap nav">
     <a class="logo" href="#top"><img src="logo.png" alt="Tidy Edits" width="82" height="60"></a>
@@ -563,10 +583,10 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       <div class="wrap film-copy">
         <p class="hero-kicker"><strong translate="no">Tidy Edits</strong> · House and commercial cleaning in Greater Boston for about 10 years</p>
         <h1 data-split>Cleaned to the <em>last detail,</em> not just wiped down.</h1>
-        <p class="film-lede">Recurring house cleaning, deep cleans, move-outs, rental turnovers, listings going on the market, shared hallways and offices. Every clean is planned around the property in front of us.</p>
+        <p class="film-lede">All types of cleaning jobs, big or small, one-time or recurring. Homes, rentals, listings, buildings and offices, each one planned around the property in front of us.</p>
         <div class="hero-ctas">
           <a class="btn btn-solid" href="#quote">Get a free quote</a>
-          <a class="btn btn-line" href="tel:+18577535593">Call 857-753-5593</a>
+          <a class="btn btn-line hero-call" href="tel:+18577535593">Call 857-753-5593</a>
         </div>
         <p class="film-cue">Scroll to see how we clean</p>
       </div>
@@ -602,7 +622,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     <div class="film-ch last">
       <div class="wrap film-copy">
         <h2 data-spawn>Detail, <em>done right.</em></h2>
-        <p class="film-lede" data-spawn>Homes, rentals, listings and offices across Greater Boston.</p>
+        <p class="film-lede" data-spawn>Every kind of cleaning job, anywhere in Greater Boston.</p>
         <div class="hero-ctas">
           <a class="btn btn-solid" href="#quote">Get a free quote</a>
           <a class="btn btn-line" href="#services">See services</a>
@@ -624,8 +644,8 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   <section class="section" id="services">
     <div class="wrap">
       <div class="head">
-        <h2>Cleaning services, and who they're for</h2>
-        <p>Pick the closest fit. We tailor every quote to the property, its size and what matters most to you.</p>
+        <h2>All types of cleaning, planned around your property</h2>
+        <p>We take on every kind of cleaning job, big or small, one-time or recurring. Here are some of the jobs we do most often. Don't see yours? Ask, because we very likely do it.</p>
       </div>
       <div class="rows">
         <div class="row">
@@ -657,6 +677,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         </div>
       </div>
       <p class="addons"><b>Add-ons on request:</b> inside appliances, cabinets and drawers, interior windows and accessible exterior windows, detailed kitchens and baths.</p>
+      <p class="anyjob"><span>These are examples, not a menu. Whatever the job, we'll plan it around the space.</span><a class="btn btn-line" href="#quote">Tell us about your job</a></p>
     </div>
   </section>
 
@@ -711,7 +732,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     <div class="wrap area">
       <div class="head">
         <h2>House and office cleaning across Greater Boston</h2>
-        <p>Recurring and one-time cleaning for homes, rentals, listings, buildings and offices in Boston and the towns around it. Don't see your town? Call us. We often travel for larger jobs.</p>
+        <p>All types of cleaning, recurring and one-time, for homes, rentals, listings, buildings and offices in Boston and the towns around it. Don't see your town? Call us. We often travel for larger jobs.</p>
       </div>
       <ul class="towns">
         <li>Boston</li><li>Dorchester</li><li>Cambridge</li><li>Somerville</li><li>Brookline</li><li>Jamaica Plain</li><li>South Boston</li><li>Roxbury</li><li>Quincy</li><li>Milton</li><li>Newton</li><li>Medford</li><li>Malden</li><li>Everett</li><li>Revere</li>
@@ -723,6 +744,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     <div class="wrap">
       <div class="head"><h2>Common questions</h2></div>
       <div class="faq">
+        <details><summary>What kinds of cleaning jobs do you take?</summary><p>All types. Homes, rentals, listings, buildings, offices and anything in between, big or small, one-time or recurring. If it needs cleaning, tell us about it and we'll plan the job around the property.</p></details>
         <details><summary>Do you take small jobs?</summary><p>Yes. We handle small jobs ourselves and bring in a team for large homes, buildings and multi-unit projects.</p></details>
         <details><summary>Can you work with my listings or rental units regularly?</summary><p>Yes. We work with realtors, property managers, landlords and short-term rental hosts on one-time projects and recurring schedules.</p></details>
         <details><summary>Do you do move-out cleaning for security deposits?</summary><p>Yes. Move-in and move-out cleans cover the empty home top to bottom, including inside appliances, cabinets and drawers on request, so the place is ready for the walkthrough.</p></details>
@@ -749,7 +771,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         <div class="field"><label for="q-type">Property</label>
           <select id="q-type" name="property"><option>House</option><option>Apartment or condo</option><option>Multi-family building</option><option>Office or business</option><option>Short-term rental</option><option>Vacant property</option></select></div>
         <div class="field"><label for="q-service">Service</label>
-          <select id="q-service" name="service"><option>Recurring cleaning</option><option>Deep clean</option><option>Move-in or move-out</option><option>Rental turnover</option><option>Pre-sale or listing prep</option><option>Common areas</option><option>Office cleaning</option><option>Something else</option></select></div>
+          <select id="q-service" name="service"><option>Recurring cleaning</option><option>Deep clean</option><option>Move-in or move-out</option><option>Rental turnover</option><option>Pre-sale or listing prep</option><option>Common areas</option><option>Office cleaning</option><option>Another type of job</option></select></div>
         <div class="field"><label for="q-town">Town or neighborhood</label><input id="q-town" name="town" autocomplete="address-level2"></div>
         <div class="field"><label for="q-date">Preferred date</label><input id="q-date" name="date" type="date"></div>
         <div class="field full"><label for="q-ref">Referred by (optional)</label><input id="q-ref" name="referred_by" autocomplete="off" placeholder="Name of the client who sent you"></div>
@@ -763,7 +785,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 <footer class="site">
   <div class="wrap foot">
-    <div><img src="logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>Residential and commercial cleaning, Greater Boston</div>
+    <div><img src="logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
     <div><a href="tel:+18577535593">857-753-5593</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA</div>
   </div>
 </footer>
