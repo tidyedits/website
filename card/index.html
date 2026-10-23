@@ -51,10 +51,13 @@ a { color: inherit; }
 .bub { position: absolute; border-radius: 50%; pointer-events: none;
   background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.9) 0 18%, rgba(255,253,249,.55) 40%, rgba(231,220,203,.5) 75%, rgba(184,154,116,.32));
   box-shadow: inset 0 0 0 1px rgba(143,112,73,.28); }
-.head img { height: 78px; width: auto; display: block; filter: var(--logo-filter); position: relative; }
+.head img { height: 96px; width: auto; display: block; filter: var(--logo-filter); position: relative; }
 .kicker { font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--tan); margin-top: 22px; position: relative; }
 h1 { font-family: var(--display); font-weight: 500; font-size: 2.3rem; line-height: 1.05; letter-spacing: -.01em; margin-top: 6px; position: relative; }
 h1 span { font-style: italic; color: var(--walnut); font-size: 1.15rem; display: block; margin-top: 6px; letter-spacing: 0; }
+.leaves { position: absolute; right: 0; top: 0; width: 100%; height: 100%; color: #9c8a74; pointer-events: none; }
+h1.kicker { font-family: var(--body); font-weight: 600; font-size: .74rem; line-height: 1.5; letter-spacing: .18em; margin-top: 18px; }
+.slogan { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--walnut); margin-top: 12px; position: relative; }
 .lede { margin-top: 14px; color: var(--muted); font-size: 1rem; position: relative; }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
 .btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 12px 14px; border-radius: 14px;
@@ -91,13 +94,11 @@ h2 { font-family: var(--display); font-weight: 500; font-size: 1.35rem; margin-t
 <body>
 <main class="card">
   <header class="head">
-    <div class="bub" style="right:-22px;top:-18px;width:120px;height:120px"></div>
-    <div class="bub" style="right:70px;top:74px;width:38px;height:38px"></div>
-    <div class="bub" style="right:26px;top:118px;width:22px;height:22px"></div>
+    <svg class="leaves" viewBox="0 0 400 300" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"><g transform="translate(404 -6) rotate(-150) scale(1.1)" opacity="0.55"><path d="M0 0 Q 14 -55 0 -110"/><g transform="translate(3.0625 -13.75) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(5.25 -27.5) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(6.5625 -41.25) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(7 -55) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(6.5625 -68.75) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(5.25 -82.5) rotate(-38)"><path d="M0 0 C 3.78 -3.78 3.78 -8.64 0 -10.8 C -3.78 -8.64 -3.78 -3.78 0 0Z"/><path d="M0 0 L0 -8.856"/></g><g transform="translate(3.0625 -96.25) rotate(46)"><path d="M0 0 C 3.535 -3.535 3.535 -8.080000000000002 0 -10.100000000000001 C -3.535 -8.080000000000002 -3.535 -3.535 0 0Z"/><path d="M0 0 L0 -8.282"/></g><g transform="translate(0 -110) rotate(10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g transform="translate(404 90) rotate(-115) scale(0.8)" opacity="0.35"><path d="M0 0 Q -10 -35 0 -70"/><g transform="translate(-2.7777777777777777 -11.666666666666666) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(-4.444444444444445 -23.333333333333332) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(-5 -35) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(-4.444444444444445 -46.666666666666664) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(-2.7777777777777772 -58.333333333333336) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(0 -70) rotate(-10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g opacity=".6"><circle cx="300" cy="40" r="7"/><circle cx="315" cy="58" r="4"/><circle cx="290" cy="64" r="3"/></g></svg>
     <img src="/logo.png" alt="Tidy Edits" width="520" height="379">
-    <div class="kicker">Greater Boston, MA</div>
-    <h1>Tidy Edits<span>Cleaning Company</span></h1>
-    <p class="lede">Locally owned cleaning in Greater Boston. All types of cleaning jobs, done in detail, on your schedule.</p>
+    <h1 class="kicker">Cleaning Company · Greater Boston</h1>
+    <p class="slogan">Our reputation is spotless.</p>
+    <p class="lede">Locally owned cleaning in Greater Boston. All types of cleaning jobs, big or small, done in detail.</p>
   </header>
 
   <nav class="actions" aria-label="Contact">
