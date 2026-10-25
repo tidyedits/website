@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Request received | Tidy Edits Cleaning Company</title>
+<meta name="description" content="Thanks for your request. Tidy Edits Cleaning Company will reach out shortly to confirm the details.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://tidyedits.com/thank-you/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#faf6f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Confirmation page shown after a quote or booking request. Same tokens as the home page (neutrals only, see BRAND.md). */
+:root {
+  --linen: #faf6f0; --paper: #fffdf9; --oat: #f0e8dc; --ink: #1d1813; --muted: #6b5e51;
+  --line: #e2d6c6; --walnut: #5e4433; --on-walnut: #fffdf9; --tan: #8f7049;
+  --logo-filter: none;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+    --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f;
+    --logo-filter: invert(1); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+  --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f;
+  --logo-filter: invert(1); color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--linen); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.55;
+  min-height: 100vh; min-height: 100dvh; display: flex; justify-content: center; align-items: flex-start; padding: 24px 16px calc(32px + env(safe-area-inset-bottom)); }
+@media (min-width: 700px) { body { align-items: center; } }
+a { color: inherit; }
+main { width: 100%; max-width: 520px; }
+.head { background: var(--oat); border-radius: 18px; padding: 28px 24px 30px; position: relative; overflow: hidden; }
+.leaves { position: absolute; right: 0; top: 0; width: 100%; height: 100%; color: #9c8a74; pointer-events: none; }
+.head a.logo { display: inline-block; position: relative; }
+.head img { height: 84px; width: auto; display: block; filter: var(--logo-filter); }
+.check { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--walnut); color: var(--walnut); display: grid; place-items: center; margin-top: 26px; position: relative; }
+.check svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2rem, 7vw, 2.6rem); line-height: 1.08; letter-spacing: -.01em; margin-top: 16px; position: relative; text-wrap: balance; }
+.lede { margin-top: 12px; color: var(--muted); position: relative; max-width: 36ch; }
+h2 { font-family: var(--display); font-weight: 500; font-size: 1.35rem; margin: 30px 2px 6px; }
+ol { list-style: none; counter-reset: s; border-top: 1px solid var(--line); }
+ol li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 14px 2px; border-bottom: 1px solid var(--line); }
+ol li::before { content: counter(s, decimal-leading-zero); font-family: var(--display); font-style: italic; color: var(--tan); }
+ol strong { font-weight: 600; }
+ol span { display: block; color: var(--muted); font-size: .97rem; }
+.urgent { margin: 26px 2px 10px; color: var(--muted); font-size: .97rem; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: 600 1rem var(--body); text-decoration: none;
+  touch-action: manipulation; transition: transform .15s ease, background-color .15s ease; }
+.btn:active { transform: scale(.98); }
+.btn svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.btn.primary { background: var(--walnut); color: var(--on-walnut); border-color: var(--walnut); }
+.btn.wide { grid-column: 1 / -1; }
+.btn:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+@media (hover: hover) { .btn:hover { background: var(--oat); } .btn.primary:hover { background: var(--walnut); opacity: .92; } }
+footer { margin-top: 26px; text-align: center; color: var(--muted); font-size: .88rem; }
+footer strong { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="head">
+    <svg class="leaves" viewBox="0 0 400 300" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"><g transform="translate(404 -6) rotate(-150) scale(1.1)" opacity="0.55"><path d="M0 0 Q 14 -55 0 -110"/><g transform="translate(3.0625 -13.75) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(5.25 -27.5) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(6.5625 -41.25) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(7 -55) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(6.5625 -68.75) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(5.25 -82.5) rotate(-38)"><path d="M0 0 C 3.78 -3.78 3.78 -8.64 0 -10.8 C -3.78 -8.64 -3.78 -3.78 0 0Z"/><path d="M0 0 L0 -8.856"/></g><g transform="translate(3.0625 -96.25) rotate(46)"><path d="M0 0 C 3.535 -3.535 3.535 -8.080000000000002 0 -10.100000000000001 C -3.535 -8.080000000000002 -3.535 -3.535 0 0Z"/><path d="M0 0 L0 -8.282"/></g><g transform="translate(0 -110) rotate(10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g transform="translate(404 90) rotate(-115) scale(0.8)" opacity="0.35"><path d="M0 0 Q -10 -35 0 -70"/><g transform="translate(-2.7777777777777777 -11.666666666666666) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(-4.444444444444445 -23.333333333333332) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(-5 -35) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(-4.444444444444445 -46.666666666666664) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(-2.7777777777777772 -58.333333333333336) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(0 -70) rotate(-10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g opacity=".6"><circle cx="300" cy="40" r="7"/><circle cx="315" cy="58" r="4"/><circle cx="290" cy="64" r="3"/></g></svg>
+    <a class="logo" href="/" aria-label="Tidy Edits Cleaning Company, home"><img src="/logo.png" alt="Tidy Edits" width="115" height="84"></a>
+    <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+    <h1 id="title">Thank you, we got your request.</h1>
+    <p class="lede">We'll reach out shortly to confirm the details and your time. Every clean is planned around your property, so we like to check a few things first.</p>
+  </section>
+
+  <h2>What happens next</h2>
+  <ol>
+    <li><div><strong>We review your request</strong><span>Usually within one business day, often sooner.</span></div></li>
+    <li><div><strong>We call, text or email you</strong><span>To confirm the details, the date and your quote.</span></div></li>
+    <li><div><strong>Your clean is booked</strong><span>Our team shows up on time and takes care of every detail.</span></div></li>
+  </ol>
+
+  <p class="urgent">Need something sooner or want to add details? Reach us directly.</p>
+  <div class="actions">
+    <a class="btn primary" href="tel:+18577535593"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>857-753-5593</a>
+    <a class="btn" href="sms:+18577535593"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Text us</a>
+    <a class="btn wide" href="mailto:info@tidyedits.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>info@tidyedits.com</a>
+    <a class="btn wide" href="/"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/></svg>Back to tidyedits.com</a>
+  </div>
+
+  <footer><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</footer>
+</main>
+<script>
+// Greets the customer by first name when the quote form passes ?name=. Text only, never HTML.
+(function () {
+  try {
+    var n = new URLSearchParams(location.search).get("name");
+    if (n) { n = n.trim().split(/\s+/)[0].slice(0, 30); if (n) document.getElementById("title").textContent = "Thank you, " + n + ". We got your request."; }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

@@ -827,6 +827,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     var ref = form.elements.referred_by.value.trim();
     data.append("_subject", "New quote request from " + name + (ref ? ", referred by " + ref : "") + " (tidyedits.com)");
     data.append("_template", "table");
+    data.append("_next", "https://tidyedits.com/thank-you/");
     var btn = document.getElementById("q-submit");
     btn.disabled = true; btn.textContent = "Sending…";
     fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } })
@@ -835,6 +836,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         if (String(res.success) !== "true") throw new Error();
         form.reset();
         show("Thanks, " + name + ". Your request is in and we'll reply within one business day.");
+        window.location.href = "/thank-you/?name=" + encodeURIComponent(name);
       })
       .catch(function () { openEmail(name); })
       .then(function () { btn.disabled = false; btn.textContent = "Request my quote"; });
