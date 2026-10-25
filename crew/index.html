@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crew clock | Tidy Edits</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#faf6f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Crew time clock. Same tokens as the home page (neutrals only, see BRAND.md). Each tap emails the office; the owner's Office app reads those emails. */
+:root {
+  --linen: #faf6f0; --paper: #fffdf9; --oat: #f0e8dc; --ink: #1d1813; --muted: #6b5e51;
+  --line: #e2d6c6; --walnut: #5e4433; --on-walnut: #fffdf9; --tan: #8f7049;
+  --logo-filter: none;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+    --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f;
+    --logo-filter: invert(1); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+  --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f;
+  --logo-filter: invert(1); color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--linen); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.5;
+  min-height: 100vh; min-height: 100dvh; display: flex; justify-content: center; align-items: flex-start;
+  padding: calc(20px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+main { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 18px; }
+.head { background: var(--oat); border-radius: 18px; padding: 22px 22px 24px; position: relative; overflow: hidden; }
+.leaves { position: absolute; right: 0; top: 0; width: 100%; height: 100%; color: #9c8a74; pointer-events: none; }
+.head img { height: 64px; width: auto; display: block; filter: var(--logo-filter); position: relative; }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 7vw, 2.3rem); line-height: 1.08; margin-top: 14px; position: relative; }
+.clock { position: relative; margin-top: 4px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.status { border: 1px solid var(--line); background: var(--paper); border-radius: 14px; padding: 14px 16px; }
+.status b { font-weight: 600; }
+.status.on { border-color: var(--walnut); }
+form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field span { font-size: .88rem; font-weight: 600; color: var(--muted); }
+input[type="text"], input[type="password"], input[type="tel"] { width: 100%; min-height: 52px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); padding: 12px 14px; font: 16px var(--body); color: var(--ink); }
+input:focus { outline: 2px solid var(--tan); outline-offset: 0; border-color: var(--tan); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; color: var(--muted); cursor: pointer; }
+.check input { width: 20px; height: 20px; accent-color: var(--walnut); margin-top: 2px; flex: none; }
+.big { min-height: 64px; border-radius: 16px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: 600 1.1rem var(--body); cursor: pointer; touch-action: manipulation; }
+.big.in { background: var(--walnut); color: var(--on-walnut); border-color: var(--walnut); }
+.big:active { transform: scale(.98); }
+.big:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+.big[disabled] { opacity: .55; }
+.msg { border-radius: 14px; padding: 14px 16px; background: var(--ink); color: var(--linen); font-weight: 600; }
+.msg.err { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); font-weight: 500; }
+.small { font-size: .88rem; color: var(--muted); }
+footer { text-align: center; color: var(--muted); font-size: .86rem; }
+@media (prefers-reduced-motion: reduce) { .big { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="head">
+    <svg class="leaves" viewBox="0 0 400 300" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"><g transform="translate(404 -6) rotate(-150) scale(1.1)" opacity="0.55"><path d="M0 0 Q 14 -55 0 -110"/><g transform="translate(3.0625 -13.75) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(5.25 -27.5) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(6.5625 -41.25) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(7 -55) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(6.5625 -68.75) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(5.25 -82.5) rotate(-38)"><path d="M0 0 C 3.78 -3.78 3.78 -8.64 0 -10.8 C -3.78 -8.64 -3.78 -3.78 0 0Z"/><path d="M0 0 L0 -8.856"/></g><g transform="translate(3.0625 -96.25) rotate(46)"><path d="M0 0 C 3.535 -3.535 3.535 -8.080000000000002 0 -10.100000000000001 C -3.535 -8.080000000000002 -3.535 -3.535 0 0Z"/><path d="M0 0 L0 -8.282"/></g><g transform="translate(0 -110) rotate(10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g transform="translate(404 90) rotate(-115) scale(0.8)" opacity="0.35"><path d="M0 0 Q -10 -35 0 -70"/><g transform="translate(-2.7777777777777777 -11.666666666666666) rotate(46)"><path d="M0 0 C 5.005 -5.005 5.005 -11.440000000000001 0 -14.3 C -5.005 -11.440000000000001 -5.005 -5.005 0 0Z"/><path d="M0 0 L0 -11.725999999999999"/></g><g transform="translate(-4.444444444444445 -23.333333333333332) rotate(-54)"><path d="M0 0 C 4.76 -4.76 4.76 -10.88 0 -13.6 C -4.76 -10.88 -4.76 -4.76 0 0Z"/><path d="M0 0 L0 -11.152"/></g><g transform="translate(-5 -35) rotate(38)"><path d="M0 0 C 4.515 -4.515 4.515 -10.32 0 -12.9 C -4.515 -10.32 -4.515 -4.515 0 0Z"/><path d="M0 0 L0 -10.578"/></g><g transform="translate(-4.444444444444445 -46.666666666666664) rotate(-46)"><path d="M0 0 C 4.27 -4.27 4.27 -9.76 0 -12.2 C -4.27 -9.76 -4.27 -4.27 0 0Z"/><path d="M0 0 L0 -10.004"/></g><g transform="translate(-2.7777777777777772 -58.333333333333336) rotate(54)"><path d="M0 0 C 4.0249999999999995 -4.0249999999999995 4.0249999999999995 -9.200000000000001 0 -11.5 C -4.0249999999999995 -9.200000000000001 -4.0249999999999995 -4.0249999999999995 0 0Z"/><path d="M0 0 L0 -9.43"/></g><g transform="translate(0 -70) rotate(-10)"><path d="M0 0 C 4 -5 4 -11 0 -14 C -4 -11 -4 -5 0 0Z"/></g></g><g opacity=".6"><circle cx="300" cy="40" r="7"/><circle cx="315" cy="58" r="4"/><circle cx="290" cy="64" r="3"/></g></svg>
+    <img src="/logo.png" alt="Tidy Edits" width="88" height="64">
+    <h1>Crew clock</h1>
+    <p class="clock" id="now">&nbsp;</p>
+  </section>
+
+  <div class="status" id="status"><b>Not clocked in on this phone.</b></div>
+
+  <form id="f" novalidate>
+    <div class="row2">
+      <label class="field"><span>Your name</span><input type="text" id="name" autocomplete="name" required maxlength="60"></label>
+      <label class="field"><span>Your PIN</span><input type="password" id="pin" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required maxlength="6"></label>
+    </div>
+    <label class="field"><span>Job or address (optional)</span><input type="text" id="note" maxlength="120" placeholder="Example: 12 Elm St, Milton"></label>
+    <label class="check"><input type="checkbox" id="loc" checked><span>Add my location to this clock entry</span></label>
+    <label class="check"><input type="checkbox" id="remember" checked><span>Remember my name and PIN on this phone</span></label>
+    <button class="big in" type="button" id="btnIn">Clock in</button>
+    <button class="big" type="button" id="btnOut">Clock out</button>
+  </form>
+
+  <div id="msg" class="msg" hidden role="status" aria-live="polite"></div>
+  <p class="small">Clock in when you start each job and clock out when you leave. If this page won't send, text the office at 857-753-5593 with the time you started or finished.</p>
+  <footer><strong translate="no">Tidy Edits Cleaning Company</strong> · crew only</footer>
+</main>
+<script>
+// Each tap is emailed to the office through FormSubmit. The subject line carries the entry so the owner's Office app can read it:
+// "TE crew clock | IN | Name | PIN 1234 | phone time ISO | lat,lng | note". If the send fails it stays queued on this phone and retries.
+(function () {
+  var ENDPOINT = "https://formsubmit.co/ajax/info@tidyedits.com";
+  var K = "te-crew-v1";
+  var $ = function (id) { return document.getElementById(id); };
+  function load() { try { return JSON.parse(localStorage.getItem(K)) || {}; } catch (e) { return {}; } }
+  function store(o) { try { localStorage.setItem(K, JSON.stringify(o)); } catch (e) {} }
+  function clean(s) { return String(s || "").replace(/[|\r\n]/g, " ").replace(/\s+/g, " ").trim(); }
+  function t(iso) { return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); }
+  var st = load();
+  if (st.name) $("name").value = st.name;
+  if (st.pin) $("pin").value = st.pin;
+  function tick() { $("now").textContent = new Date().toLocaleString("en-US", { weekday: "long", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); }
+  tick(); setInterval(tick, 15000);
+  function showStatus() {
+    var s = load(), el = $("status");
+    var q = (s.queue || []).length;
+    if (s.last && s.last.type === "in" && (Date.now() - new Date(s.last.at)) < 16 * 3600e3) { el.className = "status on"; el.innerHTML = "<b>Clocked in</b> since " + t(s.last.at) + "."; }
+    else if (s.last && s.last.type === "out") { el.className = "status"; el.innerHTML = "<b>Clocked out</b> at " + t(s.last.at) + "."; }
+    else { el.className = "status"; el.innerHTML = "<b>Not clocked in on this phone.</b>"; }
+    if (q) el.innerHTML += "<br><span class=\"small\">" + q + " entry waiting to send. It will retry automatically.</span>";
+  }
+  function say(text, err) { var m = $("msg"); m.textContent = text; m.className = "msg" + (err ? " err" : ""); m.hidden = false; }
+  function getLoc() {
+    return new Promise(function (res) {
+      if (!$("loc").checked || !navigator.geolocation) return res("");
+      var done = false; setTimeout(function () { if (!done) { done = true; res(""); } }, 8000);
+      navigator.geolocation.getCurrentPosition(function (p) { if (!done) { done = true; res(p.coords.latitude.toFixed(5) + "," + p.coords.longitude.toFixed(5)); } },
+        function () { if (!done) { done = true; res(""); } }, { enableHighAccuracy: true, timeout: 7000, maximumAge: 60000 });
+    });
+  }
+  function send(e) {
+    var subject = ["TE crew clock", e.type.toUpperCase(), e.name, "PIN " + e.pin, e.at, e.loc || "", e.note || ""].join(" | ");
+    return fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ _subject: subject, _template: "table", _captcha: "false", Action: e.type === "in" ? "Clock in" : "Clock out", Name: e.name, "Phone time": new Date(e.at).toLocaleString("en-US"), Location: e.loc ? "https://www.google.com/maps/search/?api=1&query=" + e.loc : "not shared", Note: e.note || "" }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === "false" || j.success === false) throw new Error("not ok"); }); });
+  }
+  var busy = null;
+  function flush() {
+    if (busy) return busy;
+    busy = drain().then(function (n) { busy = null; return n; }, function (err) { busy = null; throw err; });
+    return busy;
+  }
+  function drain() {
+    var s = load(); var q = s.queue || []; if (!q.length) return Promise.resolve(0);
+    var e = q[0];
+    return send(e).then(function () { var s2 = load(); s2.queue = (s2.queue || []).slice(1); store(s2); showStatus(); return drain().then(function (n) { return n + 1; }); });
+  }
+  function punch(type) {
+    var name = clean($("name").value), pin = clean($("pin").value).replace(/\D/g, "");
+    if (!name) { say("Type your name first.", true); $("name").focus(); return; }
+    if (pin.length < 4) { say("Type your PIN (4 to 6 digits). Ask the office if you don't have one.", true); $("pin").focus(); return; }
+    var s = load();
+    if (s.last && s.last.type === type && (Date.now() - new Date(s.last.at)) < 5 * 60000) { say("You already tapped " + (type === "in" ? "Clock in" : "Clock out") + " at " + t(s.last.at) + ".", true); return; }
+    $("btnIn").disabled = $("btnOut").disabled = true;
+    say("Sending…");
+    getLoc().then(function (loc) {
+      var e = { type: type, name: name, pin: pin, at: new Date().toISOString(), loc: loc, note: clean($("note").value).slice(0, 120) };
+      s = load();
+      if ($("remember").checked) { s.name = name; s.pin = pin; } else { delete s.name; delete s.pin; }
+      s.last = { type: type, at: e.at }; s.queue = (s.queue || []).concat([e]); store(s); showStatus();
+      return flush().then(function () {
+        say((type === "in" ? "Clocked in at " : "Clocked out at ") + t(e.at) + ". Thank you!");
+        if (type === "out") $("note").value = "";
+      }, function () {
+        say("No connection right now. Your " + (type === "in" ? "clock-in" : "clock-out") + " at " + t(e.at) + " is saved on this phone and will send when you're back online. Keep this page open or reopen it later.", true);
+      });
+    }).then(function () { $("btnIn").disabled = $("btnOut").disabled = false; });
+  }
+  $("btnIn").addEventListener("click", function () { punch("in"); });
+  $("btnOut").addEventListener("click", function () { punch("out"); });
+  window.addEventListener("online", function () { flush().catch(function () {}); });
+  setInterval(function () { if ((load().queue || []).length) flush().catch(function () {}); }, 60000);
+  showStatus();
+  flush().catch(function () {});
+})();
+</script>
+</body>
+</html>
