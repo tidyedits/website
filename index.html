@@ -484,6 +484,8 @@ header.site {
 .area { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-5); align-items: start; }
 .area .head { margin-bottom: 0; }
 .towns { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: var(--space-4); }
+.towns a, .svc-list b a { color: inherit; text-decoration: none; }
+.towns a:hover, .svc-list b a:hover { color: var(--tan); text-decoration: underline; }
 .towns li { padding-block: 10px; border-bottom: 1px solid var(--line); break-inside: avoid; font-family: var(--display); font-size: 1.2rem; }
 @media (max-width: 860px) { .area { grid-template-columns: 1fr; gap: var(--space-4); } }
 @media (max-width: 480px) { .towns { columns: 2; } }
@@ -572,6 +574,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       <a href="#how">How it works</a>
       <a href="#area">Service area</a>
       <a href="#faq">Questions</a>
+      <a href="/guides/">Guides</a>
     </nav>
     <a class="nav-phone" href="tel:+18577535593">857-753-5593</a>
     <a class="btn btn-solid btn-sm" href="#quote">Free quote</a>
@@ -661,26 +664,26 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         <div class="row">
           <div class="row-title"><h3>For homes</h3><p>Homeowners and renters who want it done right every time.</p></div>
           <ul class="svc-list">
-            <li><b>Recurring cleaning</b><span>Weekly, every two weeks or monthly, same standard every visit.</span></li>
-            <li><b>Deep cleaning</b><span>Baseboards, fixtures and buildup in kitchens and baths.</span></li>
-            <li><b>Move-in and move-out</b><span>Empty-home cleans for your deposit or a fresh start.</span></li>
+            <li><b><a href="/services/recurring-house-cleaning/">Recurring cleaning</a></b><span>Weekly, every two weeks or monthly, same standard every visit.</span></li>
+            <li><b><a href="/services/deep-cleaning/">Deep cleaning</a></b><span>Baseboards, fixtures and buildup in kitchens and baths.</span></li>
+            <li><b><a href="/services/move-out-cleaning/">Move-in and move-out</a></b><span>Empty-home cleans for your deposit or a fresh start.</span></li>
             <li><b>Large and multi-floor homes</b><span>A full team so big homes get finished properly.</span></li>
           </ul>
         </div>
         <div class="row">
           <div class="row-title"><h3>For realtors, landlords and hosts</h3><p>Fast turnarounds that are ready for photos, showings and guests.</p></div>
           <ul class="svc-list">
-            <li><b>Pre-sale and listing prep</b><span>Photo-ready and showing-ready, on your timeline.</span></li>
-            <li><b>Apartment and rental turnovers</b><span>Between tenants, ready for the next lease.</span></li>
-            <li><b>Airbnb and short-term rentals</b><span>Guest-ready turnovers between stays.</span></li>
+            <li><b><a href="/services/listing-prep-cleaning/">Pre-sale and listing prep</a></b><span>Photo-ready and showing-ready, on your timeline.</span></li>
+            <li><b><a href="/services/rental-turnover-cleaning/">Apartment and rental turnovers</a></b><span>Between tenants, ready for the next lease.</span></li>
+            <li><b><a href="/services/airbnb-cleaning/">Airbnb and short-term rentals</a></b><span>Guest-ready turnovers between stays.</span></li>
             <li><b>Vacant and post-move</b><span>Units between owners or after a renovation.</span></li>
           </ul>
         </div>
         <div class="row">
           <div class="row-title"><h3>For buildings and businesses</h3><p>Property managers, developers, offices and small businesses.</p></div>
           <ul class="svc-list">
-            <li><b>Common areas</b><span>Hallways, stairways, entrances and vestibules.</span></li>
-            <li><b>Offices and small businesses</b><span>Recurring or one-time, scheduled around your hours.</span></li>
+            <li><b><a href="/services/common-area-cleaning/">Common areas</a></b><span>Hallways, stairways, entrances and vestibules.</span></li>
+            <li><b><a href="/services/office-cleaning/">Offices and small businesses</a></b><span>Recurring or one-time, scheduled around your hours.</span></li>
             <li><b>Developer and vacant units</b><span>Clean and ready before listing or move-in.</span></li>
             <li><b>Custom projects</b><span>Tell us the space and we'll build the plan.</span></li>
           </ul>
@@ -745,7 +748,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
         <p>All types of cleaning, recurring and one-time, for homes, rentals, listings, buildings and offices in Boston and the towns around it. Don't see your town? Call us. We often travel for larger jobs.</p>
       </div>
       <ul class="towns">
-        <li>Boston</li><li>Dorchester</li><li>Cambridge</li><li>Somerville</li><li>Brookline</li><li>Jamaica Plain</li><li>South Boston</li><li>Roxbury</li><li>Quincy</li><li>Milton</li><li>Newton</li><li>Medford</li><li>Malden</li><li>Everett</li><li>Revere</li>
+        <li><a href="/areas/boston/">Boston</a></li><li><a href="/areas/dorchester/">Dorchester</a></li><li><a href="/areas/cambridge/">Cambridge</a></li><li><a href="/areas/somerville/">Somerville</a></li><li><a href="/areas/brookline/">Brookline</a></li><li>Jamaica Plain</li><li>South Boston</li><li>Roxbury</li><li><a href="/areas/quincy/">Quincy</a></li><li><a href="/areas/milton/">Milton</a></li><li><a href="/areas/newton/">Newton</a></li><li>Medford</li><li>Malden</li><li>Everett</li><li>Revere</li>
       </ul>
     </div>
   </section>
@@ -769,7 +772,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     <div class="wrap quote">
       <div class="quote-side">
         <h2>Tell us about your property</h2>
-        <p>We reply with a quote tailored to your place. Prefer to talk? Call or text.</p>
+        <p>We reply with a quote tailored to your place. Prefer to talk? Call or text. Not sure what you need? <a href="/plan/">Plan your clean in one minute</a>.</p>
         <div class="contact"><small>Phone</small><a href="tel:+18577535593">857-753-5593</a></div>
         <div class="contact"><small>Email</small><a href="mailto:info@tidyedits.com">info@tidyedits.com</a></div>
       </div>
@@ -796,7 +799,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 <footer class="site">
   <div class="wrap foot">
     <div><img src="logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
-    <div><a href="tel:+18577535593">857-753-5593</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA</div>
+    <div><a href="tel:+18577535593">857-753-5593</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA<br><a href="/services/">All services</a> · <a href="/areas/">Service area</a> · <a href="/guides/">Cleaning checklists</a></div>
   </div>
 </footer>
 
