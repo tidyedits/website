@@ -321,3 +321,24 @@ GUIDES = [
         "service": "listing-prep-cleaning",
     },
 ]
+
+# Answer-first summaries for AI answer engines and featured snippets: a direct
+# 40-60 word answer under a question heading near the top of each service page.
+ANSWERS = {
+    "move-out-cleaning": ("What does a move-out clean include?",
+        "A move-out clean covers the whole empty home, top to bottom: inside the fridge, oven and microwave, inside every cabinet, drawer and closet, baseboards, bathrooms and floors. Tidy Edits does move-in and move-out cleans across Greater Boston and plans around your walkthrough date, so the place is ready for the next person."),
+    "deep-cleaning": ("What is a deep clean?",
+        "A deep clean goes past everyday surfaces into buildup and detail: baseboards, trim, grout, fixtures, vents, range hoods and the spots a regular clean skips. It is the best first visit before recurring service or a reset before guests. Tidy Edits deep cleans homes across Greater Boston and brings a team for large homes."),
+    "recurring-house-cleaning": ("How does recurring house cleaning work?",
+        "You pick weekly, every two weeks or monthly, and the same detailed standard happens every visit: kitchens, bathrooms, dusting and floors, plus a rotating detail task like baseboards. Visits can be moved with notice. Tidy Edits runs recurring routes across Boston and nearby towns, and many clients start with one deep clean."),
+    "rental-turnover-cleaning": ("What is an apartment turnover clean?",
+        "A turnover clean gets an empty rental ready for the next lease: appliances inside and out, cabinets, closets, bathrooms, floors and the details a new tenant notices first. Tidy Edits works with Greater Boston landlords and property managers on single units and whole buildings, including the September 1 rush."),
+    "airbnb-cleaning": ("What does an Airbnb turnover clean include?",
+        "An Airbnb turnover resets the unit between guests: kitchen and bathrooms cleaned, beds made with your linens, dusting, floors done, and a heads-up to the host if anything is broken, missing or running low. Tidy Edits handles short-term rental turnovers across Greater Boston and works to your checkout and check-in times."),
+    "listing-prep-cleaning": ("What is a pre-sale listing clean?",
+        "A listing clean gets a home photo-ready and showing-ready: glass, fixtures, floors, kitchens and baths detailed, and the small things buyers notice, like switch plates and baseboards. Tidy Edits works with Greater Boston sellers, realtors and brokers, and has done full pre-sale cleans like a 5-bedroom home in Dorchester."),
+    "common-area-cleaning": ("What does common area cleaning cover?",
+        "Common area cleaning keeps the shared parts of a building presentable: entrances, lobbies, hallways, stairs, railings, mailbox areas, glass doors and laundry rooms. Tidy Edits cleans common areas for multi-family and multi-level residential buildings across Greater Boston, on a recurring schedule or as a one-time reset."),
+    "office-cleaning": ("What does office cleaning include?",
+        "Office cleaning covers workspaces, kitchens and break rooms, restrooms, entrances, glass and floors, on a schedule that works around your hours. Tidy Edits cleans offices and small businesses across Greater Boston, including a recurring commercial client in Cambridge, and handles one-time deep cleans too."),
+}
