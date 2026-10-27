@@ -320,6 +320,20 @@ GUIDES = [
         "tip": "Book the full clean a day or two before photos, then a quick touch-up before the first open house.",
         "service": "listing-prep-cleaning",
     },
+    {
+        "slug": "holiday-cleaning-checklist",
+        "title": "Holiday Cleaning Checklist Before Guests Arrive",
+        "desc": "A holiday cleaning checklist for Thanksgiving and December hosting: what to clean a week out, the day before, and after guests leave. From Tidy Edits, Boston.",
+        "h1": "Holiday cleaning checklist: before and after guests",
+        "lede": "Guests notice the entry, the guest bathroom and the kitchen. Do the big jobs a week out, the touch-ups the day before, and plan the reset for after.",
+        "sections": [
+            ("A week before", ["Inside the fridge, cleared to make room", "Inside the oven, before the big roast", "Guest room: fresh sheets, dusted surfaces, empty drawers", "Baseboards, door frames and light switches", "Windows and mirrors in the rooms guests use"]),
+            ("The day before", ["Entry and front door, mat shaken out", "Guest bathroom scrubbed, fresh towels and spare paper out", "Kitchen counters cleared and wiped", "Dining table and chairs wiped down", "Floors vacuumed and mopped"]),
+            ("After everyone leaves", ["Inside the fridge again, leftovers sorted", "Stovetop, oven door and range hood", "Floors under the table and chairs", "Sheets and towels washed", "Trash and recycling out"]),
+        ],
+        "tip": "Book the deep clean for the week before and the reset for the day after. Holiday weeks fill up fast, so ask early.",
+        "service": "deep-cleaning",
+    },
 ]
 
 # Answer-first summaries for AI answer engines and featured snippets: a direct

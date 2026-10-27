@@ -115,7 +115,8 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <link rel="icon" href="/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/site.css">
 {ld({"@context": "https://schema.org", "@graph": graph})}
 </head>
@@ -123,7 +124,7 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap nav">
-    <a class="logo" href="/"><img src="/logo.png" alt="Tidy Edits" width="82" height="60"></a>
+    <a class="logo" href="/"><img src="/logo-sm.png" alt="Tidy Edits" width="82" height="60"></a>
     <nav class="nav-links" aria-label="Main">
       <a href="/services/">Services</a>
       <a href="/areas/">Service area</a>
@@ -151,7 +152,7 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <footer class="site">
   <div class="wrap foot">
     {footer_links()}
-    <div><img src="/logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>Residential and commercial cleaning, Greater Boston</div>
+    <div><img src="/logo-sm.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>Residential and commercial cleaning, Greater Boston</div>
     <div><a href="{TEL}">{PHONE}</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA</div>
   </div>
 </footer>
