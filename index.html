@@ -28,7 +28,8 @@
 <meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap"></noscript>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -438,7 +439,7 @@ header.site {
 /* Proof strip: recent jobs, straight under the hero */
 .proof { border-block: 1px solid var(--line); }
 .proof-row { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: var(--space-3); padding-block: var(--space-3); align-items: start; }
-.proof-label { font-family: var(--display); font-style: italic; font-size: var(--step-1); color: var(--tan); white-space: nowrap; }
+.proof-label { font-family: var(--display); font-style: italic; font-size: var(--step-1); color: var(--walnut); white-space: nowrap; }
 .proof-item { display: grid; gap: 2px; min-width: 0; }
 .proof-item b { font-weight: 600; }
 .proof-item span { color: var(--muted); font-size: var(--step--1); }
@@ -568,7 +569,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 <a class="skip" href="#top">Skip to content</a>
 <header class="site">
   <div class="wrap nav">
-    <a class="logo" href="#top"><img src="logo.png" alt="Tidy Edits" width="82" height="60"></a>
+    <a class="logo" href="#top"><img src="logo-sm.png" alt="Tidy Edits" width="82" height="60"></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#services">Services</a>
       <a href="#how">How it works</a>
@@ -798,18 +799,17 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 <footer class="site">
   <div class="wrap foot">
-    <div><img src="logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
+    <div><img src="logo-sm.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
     <div><a href="tel:+18577535593">857-753-5593</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA<br><a href="/services/">All services</a> · <a href="/areas/">Service area</a> · <a href="/guides/">Cleaning checklists</a></div>
   </div>
 </footer>
 
 <div class="callbar">
   <a class="btn btn-line" href="tel:+18577535593">Call</a>
+  <a class="btn btn-line" href="sms:+18577535593?&amp;body=Hi%20Tidy%20Edits%2C%20I%27d%20like%20a%20quote%20for%20a%20clean.%20Town%3A%20">Text</a>
   <a class="btn btn-solid" href="#quote">Free quote</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/environments/RoomEnvironment.js"></script>
 <script>
 // Quote form. Sends through FormSubmit to info@tidyedits.com; if that fails, opens the request as a pre-filled email instead.
 (function () {
@@ -993,19 +993,30 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   }
 
   measure();
-  if (!window.THREE || reduce) {
-    if (reduce) { paint(0, 0); return; }
-    var q0 = false;
-    window.addEventListener("scroll", function () { if (!q0) { q0 = true; requestAnimationFrame(function () { q0 = false; var p = progress(); paint(chapterAt(p), p); }); } }, { passive: true });
-    window.addEventListener("resize", measure);
-    return;
-  }
+  if (reduce) { paint(0, 0); return; }
+  // Until the 3D scene is ready (or if it never loads), scrolling still moves the colours and progress bar.
+  var q0 = false, flat = true;
+  window.addEventListener("scroll", function () { if (flat && !q0) { q0 = true; requestAnimationFrame(function () { q0 = false; var p = progress(); paint(chapterAt(p), p); }); } }, { passive: true });
+  window.addEventListener("resize", measure);
+  paint(chapterAt(progress()), progress());
 
+  // three.js is ~600 KB, so it loads after the page is up instead of holding up the first screen.
+  function script(src) {
+    return new Promise(function (ok, fail) { var el = document.createElement("script"); el.src = src; el.onload = ok; el.onerror = fail; document.head.appendChild(el); });
+  }
+  function boot() {
+    var cdn = "https://cdn.jsdelivr.net/npm/three@0.147.0/";
+    script(cdn + "build/three.min.js").then(function () { return script(cdn + "examples/js/environments/RoomEnvironment.js"); }).then(scene3d, function () {});
+  }
+  if (document.readyState === "complete") boot(); else window.addEventListener("load", boot);
+
+  function scene3d() {
+  flat = false;
   var small = window.matchMedia("(max-width: 860px)").matches;
   var renderer;
-  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" }); }
+  try { renderer = new THREE.WebGLRenderer({ antialias: !small, alpha: true, powerPreference: "high-performance" }); }
   catch (err) { return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.75 : 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -1219,22 +1230,31 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   window.addEventListener("resize", resize);
   resize();
 
-  var target = progress(), cur = target, visible = true, running = false, clock = new THREE.Clock();
-  window.addEventListener("scroll", function () { target = progress(); loop(); }, { passive: true });
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) loop(); }).observe(film);
-  function frame() {
+  // While scrolling: every frame. While idle: the gentle bob runs at half rate, then rests after 15 s to save phone batteries.
+  var target = progress(), cur = target, visible = true, running = false, clock = new THREE.Clock(), lastMove = performance.now(), odd = false;
+  function wake() { lastMove = performance.now(); loop(); }
+  window.addEventListener("scroll", function () { target = progress(); wake(); }, { passive: true });
+  window.addEventListener("pointerdown", wake, { passive: true });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) wake(); }).observe(film);
+  function frame(now) {
     if (!visible || document.hidden) { running = false; return; }
+    var settled = cur === target;
+    if (settled && now - lastMove > 15000) { running = false; return; }
     cur += (target - cur) * 0.14;
     if (Math.abs(target - cur) < 1e-5) cur = target;
-    var c = chapterAt(cur);
-    paint(c, cur);
-    render(c, clock.getElapsedTime());
+    odd = !odd;
+    if (!settled || odd) {
+      var c = chapterAt(cur);
+      paint(c, cur);
+      render(c, clock.getElapsedTime());
+    }
     requestAnimationFrame(frame);
   }
   function loop() { if (running) return; running = true; requestAnimationFrame(frame); }
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) loop(); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
   render(chapterAt(cur), 0); paint(chapterAt(cur), cur);
   loop();
+  }
 })();
 </script>
 </body>
