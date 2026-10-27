@@ -15,6 +15,7 @@ from plan import PLAN_CSS, plan_body  # noqa: E402
 
 SITE = "https://tidyedits.com"
 PHONE, TEL = "857-753-5593", "tel:+18577535593"
+SMS = "sms:+18577535593?&amp;body=Hi%20Tidy%20Edits%2C%20I%27d%20like%20a%20quote%20for%20a%20clean.%20Town%3A%20"
 TODAY = date.today().isoformat()
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SVC = {s["slug"]: s for s in SERVICES}
@@ -158,6 +159,7 @@ def page(path, title, desc, body, trail, extra_ld=()):
 </footer>
 <div class="callbar">
   <a class="btn btn-line" href="{TEL}">Call</a>
+  <a class="btn btn-line" href="{SMS}">Text</a>
   <a class="btn btn-solid" href="/#quote">Free quote</a>
 </div>
 </body>
