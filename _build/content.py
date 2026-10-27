@@ -7,7 +7,7 @@ SERVICES = [
         "slug": "move-out-cleaning",
         "name": "Move-in and move-out cleaning",
         "title": "Move-Out Cleaning in Boston, MA | Tidy Edits",
-        "desc": "Move-in and move-out cleaning across Greater Boston: empty-home cleans, inside appliances, cabinets and closets, ready for the walkthrough. Free quote: 857-753-5593.",
+        "desc": "Move-in and move-out cleaning across Greater Boston: empty homes, inside appliances, cabinets and closets, ready for the walkthrough. Free quote: 857-753-5593.",
         "h1": "Move-out cleaning in Boston, done to the last drawer",
         "lede": "An empty home shows everything. We clean it top to bottom so you're ready for the walkthrough, the next tenant or your first night in a new place.",
         "who": "Renters chasing a deposit, landlords between leases, buyers before move-in, and sellers handing over keys.",
@@ -30,7 +30,7 @@ SERVICES = [
         "slug": "deep-cleaning",
         "name": "Deep cleaning",
         "title": "Deep Cleaning in Boston, MA | Tidy Edits",
-        "desc": "Detailed deep cleaning for Greater Boston homes: baseboards, fixtures, buildup in kitchens and baths, and the spots a quick clean skips. Free quote: 857-753-5593.",
+        "desc": "Detailed deep cleaning for Greater Boston homes: baseboards, fixtures, kitchen and bath buildup, and the spots a quick clean skips. Free quote: 857-753-5593.",
         "h1": "Deep cleaning for the spots a quick clean skips",
         "lede": "A deep clean resets the whole home. We go past the surfaces into the buildup, the edges and the places nobody has reached in a while.",
         "who": "First cleans before recurring service, seasonal resets, homes before guests or holidays, and anyone who wants a proper fresh start.",
@@ -269,7 +269,7 @@ AREAS = [
 GUIDES = [
     {
         "slug": "move-out-cleaning-checklist",
-        "title": "Move-Out Cleaning Checklist to Get Your Deposit Back | Tidy Edits",
+        "title": "Move-Out Cleaning Checklist: Get Your Deposit Back",
         "desc": "A room-by-room move-out cleaning checklist for Boston renters: what landlords check at the walkthrough and how to clean it. Free from Tidy Edits.",
         "h1": "Move-out cleaning checklist to get your deposit back",
         "lede": "Landlords check the same places at almost every walkthrough. Clean these, room by room, and you'll hand back the keys with nothing to argue about.",
@@ -283,7 +283,7 @@ GUIDES = [
     },
     {
         "slug": "airbnb-turnover-checklist",
-        "title": "Airbnb Turnover Cleaning Checklist: 5 Spots Guests Notice | Tidy Edits",
+        "title": "Airbnb Turnover Checklist: 5 Spots Guests Notice",
         "desc": "An Airbnb turnover cleaning checklist for hosts: the spots guests notice and hosts miss, plus a full room-by-room reset. Free from Tidy Edits, Boston.",
         "h1": "Airbnb turnover checklist: the spots guests notice",
         "lede": "Most bad cleanliness reviews come down to a few small spots. Check these five every turnover, then run the full reset.",
@@ -296,7 +296,7 @@ GUIDES = [
     },
     {
         "slug": "deep-cleaning-checklist",
-        "title": "Deep Cleaning Checklist: 6 Spots Most Cleanings Skip | Tidy Edits",
+        "title": "Deep Cleaning Checklist: 6 Spots Cleanings Skip",
         "desc": "A deep cleaning checklist of the spots a quick wipe-down misses: cabinets, baseboards, oven, switches, window tracks and the range hood filter.",
         "h1": "Deep cleaning checklist: 6 spots most cleanings skip",
         "lede": "A regular clean keeps surfaces tidy. A deep clean gets the places that collect buildup over months. Start with these six.",
