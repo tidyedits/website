@@ -435,6 +435,19 @@ header.site {
   .btn, .nav-links a, .faq summary::after { transition: none; }
 }
 
+/* Brand film: full-bleed muted loop between the proof strip and services */
+.brandfilm { background: #17120e; color: #faf6f0; }
+.bf-frame { position: relative; margin: 0; max-width: 1920px; margin-inline: auto; aspect-ratio: 16 / 9; max-height: 92svh; overflow: hidden; }
+.bf-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #17120e; }
+.bf-toggle { position: absolute; right: clamp(14px, 2.4vw, 32px); bottom: clamp(14px, 2.4vw, 32px); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(250,246,240,.55); background: rgba(23,18,14,.35); color: #faf6f0; display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background 160ms ease-out; touch-action: manipulation; }
+.bf-toggle:hover { background: rgba(23,18,14,.6); }
+.bf-toggle svg { width: 14px; height: 14px; fill: currentColor; }
+.bf-toggle .i-play { display: none; }
+.bf-toggle[aria-pressed="false"] .i-play { display: block; }
+.bf-toggle[aria-pressed="false"] .i-pause { display: none; }
+.bf-desc { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 700px) { .bf-frame { aspect-ratio: 9 / 16; max-height: none; } }
+
 /* Proof strip: recent jobs, straight under the hero */
 .proof { border-block: 1px solid var(--line); }
 .proof-row { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: var(--space-3); padding-block: var(--space-3); align-items: start; }
@@ -652,6 +665,21 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
       <div class="proof-item"><b>Common-area upkeep</b><span>Multi-level residential building</span></div>
       <div class="proof-item"><b>Recurring office cleaning</b><span>Cambridge business</span></div>
     </div>
+  </section>
+
+  <section class="brandfilm" aria-label="Tidy Edits brand film">
+    <figure class="bf-frame">
+      <video id="bf-video" muted loop playsinline preload="none" width="1920" height="1080"
+        poster="/assets/film/tidy-edits-film-poster.jpg"
+        data-wide="/assets/film/tidy-edits-film-16x9.mp4" data-wide-poster="/assets/film/tidy-edits-film-poster.jpg"
+        data-tall="/assets/film/tidy-edits-film-9x16.mp4" data-tall-poster="/assets/film/tidy-edits-film-poster-9x16.jpg"
+        aria-describedby="bf-desc"></video>
+      <button class="bf-toggle" id="bf-toggle" type="button" aria-pressed="true" aria-label="Pause film">
+        <svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1"/><rect x="8.5" y="1" width="3.5" height="12" rx="1"/></svg>
+        <svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z"/></svg>
+      </button>
+      <figcaption class="bf-desc" id="bf-desc">A 24-second film with no sound: a modern home, a gloved hand wiping a mirror, a sunlit living room, a marble bathroom, a made bed, a glass office and a duster on a mirror, with the words "Every detail, done right." Homes, deep cleans, rentals and turnovers, offices and buildings: every kind of clean. It ends on the Tidy Edits logo, Greater Boston, 857-753-5593, tidyedits.com.</figcaption>
+    </figure>
   </section>
 
   <section class="section" id="services">
@@ -1235,6 +1263,28 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   document.addEventListener("visibilitychange", function () { if (!document.hidden) loop(); });
   render(chapterAt(cur), 0); paint(chapterAt(cur), cur);
   loop();
+})();
+</script>
+<script>
+/* Brand film: picks the wide or tall cut, plays only while on screen, never under reduced motion */
+(function () {
+  var v = document.getElementById("bf-video"), btn = document.getElementById("bf-toggle");
+  if (!v) return;
+  var tall = window.matchMedia("(max-width: 700px)").matches;
+  v.poster = tall ? v.dataset.tallPoster : v.dataset.widePoster;
+  v.src = tall ? v.dataset.tall : v.dataset.wide;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var wanted = !still, onScreen = false;
+  function sync() {
+    btn.setAttribute("aria-pressed", wanted ? "true" : "false");
+    btn.setAttribute("aria-label", wanted ? "Pause film" : "Play film");
+    if (wanted && onScreen) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+  }
+  btn.addEventListener("click", function () { wanted = !wanted; onScreen = true; sync(); });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (en) { onScreen = en[0].isIntersecting; if (onScreen && v.preload === "none") v.preload = "auto"; sync(); }, { threshold: 0.25 }).observe(v);
+  } else { onScreen = true; sync(); }
+  sync();
 })();
 </script>
 </body>
