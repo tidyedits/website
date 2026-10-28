@@ -1,0 +1,1 @@
+Brand film photos: Pexels (4239146, 4239013, 4239031) and Unsplash (photo-1600585154340, photo-1600210492486, photo-1505693416388, photo-1497366811353), free licenses that allow commercial use. Graded to the Tidy Edits neutrals. Film built in code (motion-reel), source in the project Library under video/brand-film/source.
