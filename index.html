@@ -28,7 +28,7 @@
 <meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -278,291 +278,115 @@
 }
 </script>
 <style>
-/* Layout: editorial and asymmetric. A type-led hero beside the one bold moment (pearl bubbles),
-   then quiet hairline-ruled rows on linen. Brand sheet: BRAND.md (neutrals only). */
+/* Basic site: simple sections, one font, neutral colours only. */
 :root {
-  --linen: #faf6f0;
-  --paper: #fffdf9;
-  --oat: #f0e8dc;
+  --bg: #faf6f0;
+  --card: #ffffff;
+  --band: #f0e8dc;
   --ink: #1d1813;
   --muted: #6b5e51;
   --line: #e2d6c6;
-  --walnut: #5e4433;
-  --on-walnut: #fffdf9;
+  --brown: #5e4433;
+  --on-brown: #ffffff;
   --tan: #8f7049;
-  --tan-soft: #ece1d2;
   --logo-filter: none;
-  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
-  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --step--1: 0.9rem;
-  --step-0: 1.0625rem;
-  --step-1: 1.3rem;
-  --step-2: clamp(1.6rem, 2.6vw, 2rem);
-  --step-3: clamp(2.1rem, 4vw, 3.1rem);
-  --step-4: clamp(2.8rem, 6.6vw, 5.2rem);
-  --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 40px; --space-5: 64px;
-  --section: clamp(64px, 9vw, 120px);
-  --radius: 14px;
-  --wrap: 1180px;
-  --ease: cubic-bezier(.2, .7, .2, 1);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --linen: #1a1511; --paper: #241d18; --oat: #1f1914; --ink: #f4ede3; --muted: #bba997;
-    --line: #3b3129; --walnut: #d9c0a0; --on-walnut: #1a1511; --tan: #c9ab86; --tan-soft: #2f2620;
-    --logo-filter: invert(1); color-scheme: dark;
+  :root {
+    --bg: #1a1511; --card: #241d17; --band: #211a15; --ink: #f4ede3; --muted: #c2b3a2;
+    --line: #3a2f26; --brown: #c9a77e; --on-brown: #1a1511; --tan: #c9a77e; --logo-filter: invert(1);
   }
 }
-:root[data-theme="dark"] {
-  --linen: #1a1511; --paper: #241d18; --oat: #1f1914; --ink: #f4ede3; --muted: #bba997;
-  --line: #3b3129; --walnut: #d9c0a0; --on-walnut: #1a1511; --tan: #c9ab86; --tan-soft: #2f2620;
-  --logo-filter: invert(1); color-scheme: dark;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+body { background: var(--bg); color: var(--ink); font-family: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif; font-size: 1.0625rem; line-height: 1.6; padding-bottom: 76px; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+.wrap { width: min(1080px, 100% - 32px); margin-inline: auto; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); line-height: 1.2; font-weight: 700; text-wrap: balance; }
+h3 { font-size: 1.15rem; line-height: 1.3; font-weight: 600; }
+p { color: var(--muted); }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 50; background: var(--card); padding: 8px 12px; }
+:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0; background: var(--linen); color: var(--ink);
-  font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-h1, h2, h3 { margin: 0; text-wrap: balance; }
-h1, h2 { font-family: var(--display); font-weight: 500; line-height: 1.04; letter-spacing: -0.015em; }
-h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-1); font-weight: 600; line-height: 1.25; }
-p { margin: 0; }
-a { color: var(--walnut); text-underline-offset: 3px; }
-a, button, summary, select, input, textarea { touch-action: manipulation; }
-:focus-visible { outline: 3px solid var(--tan); outline-offset: 3px; border-radius: 6px; }
-section[id], main[id] { scroll-margin-top: 84px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 8px; font: inherit; font-weight: 600; text-decoration: none; border: 1.5px solid var(--brown); cursor: pointer; touch-action: manipulation; }
+.btn-solid { background: var(--brown); color: var(--on-brown); }
+.btn-line { background: transparent; color: var(--ink); }
+.btn-solid:hover { filter: brightness(1.1); }
+.btn-line:hover { background: var(--band); }
 
-.wrap {
-  max-width: var(--wrap); margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-.section { padding-block: var(--section); }
-.section.oat { background: var(--oat); }
-.head { display: grid; gap: var(--space-2); max-width: 680px; margin-bottom: var(--space-5); }
-.head p { color: var(--muted); font-size: var(--step-1); line-height: 1.5; }
-
-.skip { position: absolute; left: 12px; top: -60px; z-index: 20; background: var(--walnut); color: var(--on-walnut); padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; }
-.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
-
-/* Buttons */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
-  min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1px solid transparent;
-  font: 600 1rem var(--body); text-decoration: none; cursor: pointer;
-  transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
-}
-.btn-solid { background: var(--walnut); color: var(--on-walnut); }
-.btn-solid:hover { background: var(--ink); color: var(--linen); }
-.btn-line { color: var(--ink); border-color: var(--ink); background: transparent; }
-.btn-line:hover { background: var(--ink); color: var(--linen); }
-.btn-sm { min-height: 42px; padding: 0 18px; font-size: 0.95rem; }
-
-/* Header */
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--linen); }
-header.site {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
-  background: color-mix(in srgb, var(--linen) 90%, transparent);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
-}
-.nav { display: flex; align-items: center; gap: var(--space-4); min-height: 72px; }
-.logo { display: block; padding-block: 6px; margin-right: auto; }
-.logo img { height: 60px; width: auto; display: block; filter: var(--logo-filter); }
-.nav-links { display: flex; gap: var(--space-3); }
-.nav-links a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.97rem; transition: color 160ms ease-out; }
+header.site { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; gap: 24px; min-height: 76px; }
+.logo img { width: 82px; height: auto; filter: var(--logo-filter); }
+.nav-links { display: flex; gap: 22px; margin-left: auto; }
+.nav-links a { text-decoration: none; font-weight: 500; }
 .nav-links a:hover { color: var(--tan); }
-.nav-phone { font-weight: 600; color: var(--ink); text-decoration: none; white-space: nowrap; }
-@media (max-width: 960px) { .nav-links { display: none; } .nav { gap: var(--space-2); } }
-@media (max-width: 520px) { .nav .btn-sm { display: none; } }
+.nav-phone { font-weight: 600; text-decoration: none; }
+@media (max-width: 860px) { .nav-links, header .btn { display: none; } .nav-phone { margin-left: auto; } }
 
-/* Scroll film: the opening screens are one continuous 3D scene scrubbed by scroll. Copy scrolls over it and spawns word by word. */
-.film { position: relative; clip-path: inset(0); --film-bg: var(--linen); --film-ink: var(--ink); --film-muted: var(--muted); background: var(--film-bg); color: var(--film-ink); }
-.film-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; pointer-events: none; z-index: 0; }
-.film-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.film-fallback span {
-  position: absolute; border-radius: 50%; aspect-ratio: 1 / 1;
-  background: radial-gradient(circle at 32% 28%, rgba(255,253,249,.95) 0 6%, rgba(236,220,198,.6) 26%, rgba(196,164,126,.3) 60%, rgba(255,253,249,.05) 74%);
-  box-shadow: inset 0 0 0 1px rgba(160,128,96,.3);
-}
-.film-ch { position: relative; z-index: 1; min-height: 130vh; min-height: 130svh; display: flex; align-items: center; }
-.film-ch.first { min-height: calc(100svh - 73px); margin-top: -100vh; margin-top: -100svh; }
-.film-ch.last { min-height: 100vh; min-height: 100svh; }
-.film-copy { width: 100%; display: grid; gap: var(--space-2); justify-items: start; }
-.film-copy > * { max-width: 34rem; }
-.film-copy h1 { font-size: var(--step-4); max-width: 13em; }
-.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.film-copy h1 em, .film-copy h2 em { font-style: italic; font-weight: 400; }
-.film-copy h2 { font-size: clamp(3rem, 2rem + 5vw, 6.4rem); line-height: .95; }
-.film-copy .film-lede { font-size: var(--step-1); line-height: 1.5; color: var(--film-muted); }
-.film .hero-kicker, .film .hero-kicker strong { color: var(--film-muted); }
-.film .hero-kicker strong { color: var(--film-ink); }
-.film-num { font-family: var(--display); font-style: italic; font-size: var(--step-1); color: var(--film-muted); }
-.film .btn-line { color: var(--film-ink); border-color: var(--film-ink); }
-.film-cue { display: flex; align-items: center; gap: 10px; color: var(--film-muted); font-size: var(--step--1); letter-spacing: .04em; }
-.film-cue::after { content: ""; width: 1px; height: 34px; background: currentColor; transform-origin: top; animation: cue 1.8s var(--ease) infinite; }
-@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
-.film-bar { position: fixed; left: 0; right: 0; top: 0; height: 2px; z-index: 11; background: var(--tan); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
-.w { display: inline-block; white-space: pre; will-change: transform, opacity; }
-.film-copy h1 .w { animation: rise 900ms var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
-@media (min-width: 861px) {
-  .film-ch { align-items: center; }
-  /* keep the headline clear of the bottle on the right */
-  .film-copy h1 { max-width: 9.6em; }
-}
-@media (max-width: 860px) {
-  .film-ch { align-items: flex-end; min-height: 120svh; }
-  .film-ch.first { align-items: flex-end; }
-  .film-copy { padding-top: 64px; padding-bottom: calc(var(--space-4) + 8vh); background: linear-gradient(to top, var(--film-bg) 58%, transparent); }
-  .film-ch.first .film-copy { padding-bottom: calc(var(--space-3) + 72px + env(safe-area-inset-bottom, 0px)); } /* clear the call bar */
-  .film-ch.first .film-lede { display: none; }
-  .film-copy .film-lede { font-size: var(--step-0); }
-  .film-copy h2 { font-size: clamp(2.6rem, 1.6rem + 6vw, 4rem); }
-  .film-cue { display: none; }
-  .film .hero-call { display: none; } /* the call bar already has Call */
-}
-@media (max-width: 860px) and (max-height: 700px) { .film-ch.first .hero-kicker { display: none; } }
-@media (prefers-reduced-motion: reduce) {
-  .film-copy h1 .w, .film-cue::after { animation: none; }
-  .film-bar { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .btn, .nav-links a, .faq summary::after { transition: none; }
-}
+.hero { padding: 56px 0 64px; text-align: center; }
+.hero h1 { max-width: 20ch; margin: 0 auto 16px; }
+.hero p { max-width: 56ch; margin: 0 auto 28px; font-size: 1.15rem; }
+.ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.trust { margin-top: 28px; font-size: .95rem; }
 
-/* Proof strip: recent jobs, straight under the hero */
-.proof { border-block: 1px solid var(--line); }
-.proof-row { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: var(--space-3); padding-block: var(--space-3); align-items: start; }
-.proof-label { font-family: var(--display); font-style: italic; font-size: var(--step-1); color: var(--tan); white-space: nowrap; }
-.proof-item { display: grid; gap: 2px; min-width: 0; }
-.proof-item b { font-weight: 600; }
-.proof-item span { color: var(--muted); font-size: var(--step--1); }
-@media (max-width: 960px) { .proof-row { grid-template-columns: 1fr 1fr; } .proof-label { grid-column: 1 / -1; } }
-@media (max-width: 420px) { .proof-row { grid-template-columns: 1fr; } }
+section { padding: 64px 0; }
+.band { background: var(--band); }
+.head { max-width: 640px; margin-bottom: 32px; }
+.head h2 { margin-bottom: 8px; }
 
-/* Services as feature rows, grouped by who they're for */
-.rows { border-top: 1px solid var(--ink); }
-.row { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: var(--space-4); padding-block: var(--space-4); border-bottom: 1px solid var(--line); }
-.row-title { display: grid; gap: var(--space-1); align-content: start; }
-.row-title h3 { font-family: var(--display); font-weight: 500; font-size: var(--step-2); line-height: 1.1; }
-.row-title p { color: var(--muted); }
-.svc-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-4); }
-.svc-list li { display: grid; gap: 4px; min-width: 0; }
-.svc-list b { font-weight: 600; }
-.svc-list span { color: var(--muted); font-size: 0.97rem; }
-.addons { margin-top: var(--space-3); color: var(--muted); max-width: 70ch; }
-.addons b { color: var(--ink); }
-.anyjob { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
-.anyjob span { font-family: var(--display); font-style: italic; font-size: var(--step-2); line-height: 1.2; max-width: 30ch; }
-@media (max-width: 860px) { .row { grid-template-columns: 1fr; gap: var(--space-3); } }
-@media (max-width: 560px) { .svc-list { grid-template-columns: 1fr; } }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+.card h3 { margin-bottom: 6px; }
+.card ul { list-style: none; margin-top: 12px; }
+.card li { padding: 8px 0; border-top: 1px solid var(--line); }
+.card li a { color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+.note { margin-top: 24px; }
 
-/* Process: a real sequence, so numbered */
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); counter-reset: s; }
-.steps li { counter-increment: s; display: grid; gap: var(--space-1); align-content: start; padding-top: var(--space-2); border-top: 1px solid var(--ink); }
-.steps li::before { content: counter(s); font-family: var(--display); font-size: 3rem; line-height: 1; color: var(--tan); }
-.steps p { color: var(--muted); }
-@media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+.recent { list-style: none; }
+.recent li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.recent b { color: var(--ink); }
 
-/* Standard: one statement, three commitments */
-.standard { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-5); align-items: start; }
-.statement { font-family: var(--display); font-size: var(--step-3); line-height: 1.12; letter-spacing: -0.01em; }
-.statement em { font-style: italic; }
-.commit { display: grid; gap: var(--space-3); }
-.commit div { display: grid; gap: 4px; padding-bottom: var(--space-3); border-bottom: 1px solid var(--line); }
-.commit div:last-child { border-bottom: 0; padding-bottom: 0; }
-.commit p { color: var(--muted); }
-@media (max-width: 860px) { .standard { grid-template-columns: 1fr; gap: var(--space-4); } }
+.steps { list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; }
+.steps li::before { content: counter(s); display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--brown); color: var(--on-brown); font-weight: 700; margin-bottom: 10px; }
 
-/* Area */
-.area { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-5); align-items: start; }
-.area .head { margin-bottom: 0; }
-.towns { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: var(--space-4); }
-.towns a, .svc-list b a { color: inherit; text-decoration: none; }
-.towns a:hover, .svc-list b a:hover { color: var(--tan); text-decoration: underline; }
-.towns li { padding-block: 10px; border-bottom: 1px solid var(--line); break-inside: avoid; font-family: var(--display); font-size: 1.2rem; }
-@media (max-width: 860px) { .area { grid-template-columns: 1fr; gap: var(--space-4); } }
-@media (max-width: 480px) { .towns { columns: 2; } }
+.towns { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.towns li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; }
+.towns a { text-decoration: none; }
 
-/* FAQ */
-.faq { max-width: 860px; border-top: 1px solid var(--ink); }
-.faq details { border-bottom: 1px solid var(--line); }
-.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: var(--space-2); padding-block: 20px; font-weight: 600; font-size: 1.08rem; transition: color 160ms ease-out; }
-.faq summary:hover { color: var(--tan); }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; font-family: var(--display); font-size: 1.6rem; line-height: 1; color: var(--tan); transition: transform 200ms ease-out; }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq details p { color: var(--muted); max-width: 62ch; padding-bottom: 20px; }
+.faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.faq summary { font-weight: 600; cursor: pointer; }
+.faq details p { margin-top: 8px; }
 
-/* Quote */
-.quote { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-5); align-items: start; }
-.quote-side { display: grid; gap: var(--space-3); }
-.quote-side p { color: var(--muted); font-size: var(--step-1); line-height: 1.5; }
-.contact { display: grid; gap: 4px; padding-top: var(--space-2); border-top: 1px solid var(--line); }
-.contact small { color: var(--muted); font-size: var(--step--1); }
-.contact a, .contact span { font-family: var(--display); font-size: var(--step-2); color: var(--ink); text-decoration: none; user-select: all; word-break: break-word; }
-form.q { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 3vw, 36px); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
-.field { display: grid; gap: 6px; min-width: 0; }
-.field.full { grid-column: 1 / -1; }
-.field label { font-weight: 600; font-size: 0.93rem; }
-.field input, .field select, .field textarea {
-  width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--linen);
-  border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-height: 48px;
-  transition: border-color 160ms ease-out;
-}
-.field textarea { min-height: 110px; resize: vertical; }
-.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--tan); }
-.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--walnut); outline-offset: 0; border-color: var(--walnut); }
-.form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px var(--space-2); align-items: center; }
+.quote { display: grid; gap: 32px; grid-template-columns: 1fr 1.4fr; align-items: start; }
+@media (max-width: 860px) { .quote { grid-template-columns: 1fr; } }
+.contact { margin-top: 16px; }
+.contact small { display: block; color: var(--muted); }
+.contact a { font-size: 1.2rem; font-weight: 600; text-decoration: none; }
+form.q { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+@media (max-width: 560px) { form.q { grid-template-columns: 1fr; padding: 18px; } }
+.field { display: grid; gap: 4px; }
+.field.full, .form-msg, .form-foot { grid-column: 1 / -1; }
+label { font-weight: 600; font-size: .95rem; }
+input, select, textarea { font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-height: 46px; width: 100%; }
+textarea { min-height: 96px; resize: vertical; }
+.form-msg { background: var(--band); border-radius: 8px; padding: 12px; }
+.form-foot { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 .form-foot small { color: var(--muted); }
-.form-msg { grid-column: 1 / -1; padding: 14px 16px; border-radius: 10px; background: var(--tan-soft); font-weight: 500; }
-@media (max-width: 860px) { .quote { grid-template-columns: 1fr; gap: var(--space-4); } }
-@media (max-width: 520px) { form.q { grid-template-columns: 1fr; } }
 
-/* Referral */
-.refer { background: var(--walnut); color: var(--on-walnut); }
-.refer-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-5); align-items: start; }
-.refer-offer { font-family: var(--display); font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; font-style: italic; }
-.refer-grid h2 { font-size: var(--step-2, 1.6rem); margin-top: var(--space-2); }
-.refer-grid .lede { margin-top: var(--space-2); max-width: 46ch; opacity: .88; font-size: var(--step-1); line-height: 1.5; }
-.refer-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); counter-reset: r; }
-.refer-steps li { counter-increment: r; display: grid; grid-template-columns: 44px 1fr; gap: 4px var(--space-2); padding-top: var(--space-2); border-top: 1px solid currentColor; }
-.refer-steps li::before { content: counter(r); grid-row: span 2; font-family: var(--display); font-size: 2.2rem; line-height: 1; }
-.refer-steps p { opacity: .82; }
-.refer-link { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
-.refer-link label { flex-basis: 100%; font-weight: 600; font-size: .95rem; }
-.refer-link input { flex: 1 1 200px; min-height: 52px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--on-walnut); background: transparent; color: var(--on-walnut); font: 1rem var(--body); }
-.refer-link input::placeholder { color: currentColor; opacity: .6; }
-.refer-link .btn { background: var(--on-walnut); color: var(--walnut); }
-.refer-link .btn:hover { background: var(--linen); color: var(--ink); }
-.refer-link output { flex-basis: 100%; font-size: .95rem; opacity: .9; min-height: 1.5em; }
-.refer .fine { margin-top: var(--space-3); font-size: .85rem; opacity: .75; max-width: 60ch; }
-@media (max-width: 860px) { .refer-grid { grid-template-columns: 1fr; gap: var(--space-4); } }
-
-/* Footer */
-footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-3); }
-.foot img { height: 72px; width: auto; display: block; filter: var(--logo-filter); margin-bottom: var(--space-1); }
+footer.site { border-top: 1px solid var(--line); padding: 40px 0; font-size: .95rem; color: var(--muted); }
+.foot { display: flex; gap: 24px; justify-content: space-between; flex-wrap: wrap; }
+.foot img { width: 72px; filter: var(--logo-filter); margin-bottom: 8px; }
 .foot strong { color: var(--ink); }
-@media (min-width: 861px) { footer.site { padding-block: var(--space-5); } }
 
-/* Phone call bar */
-.callbar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; display: none; gap: 10px;
-  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
-  background: var(--paper); border-top: 1px solid var(--line);
-}
-.callbar .btn { flex: 1; min-height: 48px; }
+.callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line); }
+.callbar .btn { flex: 1; }
 @media (max-width: 860px) { .callbar { display: flex; } }
-
+@media (min-width: 861px) { body { padding-bottom: 0; } }
 </style>
-
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -571,181 +395,113 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     <a class="logo" href="#top"><img src="logo.png" alt="Tidy Edits" width="82" height="60"></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#services">Services</a>
-      <a href="#how">How it works</a>
       <a href="#area">Service area</a>
       <a href="#faq">Questions</a>
-      <a href="/guides/">Guides</a>
+      <a href="#quote">Contact</a>
     </nav>
     <a class="nav-phone" href="tel:+18577535593">857-753-5593</a>
-    <a class="btn btn-solid btn-sm" href="#quote">Free quote</a>
+    <a class="btn btn-solid" href="#quote">Free quote</a>
   </div>
 </header>
 
 <main id="top">
-  <section class="film" id="film">
-    <span class="film-bar" id="film-bar" aria-hidden="true"></span>
-    <div class="film-stage" id="film-stage" aria-hidden="true">
-      <div class="film-fallback" id="film-fallback">
-        <span style="width:34vmin;right:12%;top:28%"></span>
-        <span style="width:16vmin;right:38%;top:58%"></span>
-        <span style="width:11vmin;right:8%;top:14%"></span>
-        <span style="width:13vmin;right:16%;top:66%"></span>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Cleaning in Greater Boston, done with care</h1>
+      <p><span translate="no">Tidy Edits</span> is a locally owned cleaning company. We take all types of jobs, big or small, one-time or recurring, for homes, rentals, listings, buildings and offices.</p>
+      <div class="ctas">
+        <a class="btn btn-solid" href="#quote">Get a free quote</a>
+        <a class="btn btn-line" href="tel:+18577535593">Call 857-753-5593</a>
       </div>
-    </div>
-    <div class="film-ch first">
-      <div class="wrap film-copy">
-        <p class="hero-kicker"><strong translate="no">Tidy Edits</strong> · House and commercial cleaning in Greater Boston for about 10 years</p>
-        <h1 data-split>Cleaned to the <em>last detail,</em> not just wiped down.</h1>
-        <p class="film-lede">All types of cleaning jobs, big or small, one-time or recurring. Homes, rentals, listings, buildings and offices, each one planned around the property in front of us.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-solid" href="#quote">Get a free quote</a>
-          <a class="btn btn-line hero-call" href="tel:+18577535593">Call 857-753-5593</a>
-        </div>
-        <p class="film-cue">Scroll to see how we clean</p>
-      </div>
-    </div>
-    <div class="film-ch">
-      <div class="wrap film-copy">
-        <span class="film-num">01</span>
-        <h2 data-spawn>Spray.</h2>
-        <p class="film-lede" data-spawn>The right product for each surface, left long enough to loosen what's set in.</p>
-      </div>
-    </div>
-    <div class="film-ch">
-      <div class="wrap film-copy">
-        <span class="film-num">02</span>
-        <h2 data-spawn>Wipe.</h2>
-        <p class="film-lede" data-spawn>Clean microfiber, folded and turned, so dirt is lifted off, not pushed around.</p>
-      </div>
-    </div>
-    <div class="film-ch">
-      <div class="wrap film-copy">
-        <span class="film-num">03</span>
-        <h2 data-spawn>Scrub.</h2>
-        <p class="film-lede" data-spawn>Grout, corners, edges and baseboards get a brush by hand, not a quick pass.</p>
-      </div>
-    </div>
-    <div class="film-ch">
-      <div class="wrap film-copy">
-        <span class="film-num">04</span>
-        <h2 data-spawn>Check.</h2>
-        <p class="film-lede" data-spawn>Every room looked over again before we lock up.</p>
-      </div>
-    </div>
-    <div class="film-ch last">
-      <div class="wrap film-copy">
-        <h2 data-spawn>Detail, <em>done right.</em></h2>
-        <p class="film-lede" data-spawn>Every kind of cleaning job, anywhere in Greater Boston.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-solid" href="#quote">Get a free quote</a>
-          <a class="btn btn-line" href="#services">See services</a>
-        </div>
-      </div>
+      <p class="trust">About 10 years in business · Mostly referrals and repeat clients</p>
     </div>
   </section>
 
-  <section class="proof" aria-label="Recent work">
-    <div class="wrap proof-row">
-      <p class="proof-label">Recently finished</p>
-      <div class="proof-item"><b>5-bed, 2-bath pre-sale clean</b><span>Dorchester</span></div>
-      <div class="proof-item"><b>Apartment turnovers</b><span>Boston, multiple units</span></div>
-      <div class="proof-item"><b>Common-area upkeep</b><span>Multi-level residential building</span></div>
-      <div class="proof-item"><b>Recurring office cleaning</b><span>Cambridge business</span></div>
-    </div>
-  </section>
-
-  <section class="section" id="services">
+  <section class="band" id="services">
     <div class="wrap">
       <div class="head">
-        <h2>All types of cleaning, planned around your property</h2>
-        <p>We take on every kind of cleaning job, big or small, one-time or recurring. Here are some of the jobs we do most often. Don't see yours? Ask, because we very likely do it.</p>
+        <h2>Our services</h2>
+        <p>We do all types of cleaning. These are some of the jobs we do most often. Don't see yours? Just ask.</p>
       </div>
-      <div class="rows">
-        <div class="row">
-          <div class="row-title"><h3>For homes</h3><p>Homeowners and renters who want it done right every time.</p></div>
-          <ul class="svc-list">
-            <li><b><a href="/services/recurring-house-cleaning/">Recurring cleaning</a></b><span>Weekly, every two weeks or monthly, same standard every visit.</span></li>
-            <li><b><a href="/services/deep-cleaning/">Deep cleaning</a></b><span>Baseboards, fixtures and buildup in kitchens and baths.</span></li>
-            <li><b><a href="/services/move-out-cleaning/">Move-in and move-out</a></b><span>Empty-home cleans for your deposit or a fresh start.</span></li>
-            <li><b>Large and multi-floor homes</b><span>A full team so big homes get finished properly.</span></li>
+      <div class="grid">
+        <div class="card">
+          <h3>Homes</h3>
+          <p>For homeowners and renters.</p>
+          <ul>
+            <li><a href="/services/recurring-house-cleaning/">Recurring cleaning</a> (weekly, every two weeks or monthly)</li>
+            <li><a href="/services/deep-cleaning/">Deep cleaning</a></li>
+            <li><a href="/services/move-out-cleaning/">Move-in and move-out</a></li>
+            <li>Large and multi-floor homes</li>
           </ul>
         </div>
-        <div class="row">
-          <div class="row-title"><h3>For realtors, landlords and hosts</h3><p>Fast turnarounds that are ready for photos, showings and guests.</p></div>
-          <ul class="svc-list">
-            <li><b><a href="/services/listing-prep-cleaning/">Pre-sale and listing prep</a></b><span>Photo-ready and showing-ready, on your timeline.</span></li>
-            <li><b><a href="/services/rental-turnover-cleaning/">Apartment and rental turnovers</a></b><span>Between tenants, ready for the next lease.</span></li>
-            <li><b><a href="/services/airbnb-cleaning/">Airbnb and short-term rentals</a></b><span>Guest-ready turnovers between stays.</span></li>
-            <li><b>Vacant and post-move</b><span>Units between owners or after a renovation.</span></li>
+        <div class="card">
+          <h3>Realtors, landlords and hosts</h3>
+          <p>Ready for photos, showings and guests.</p>
+          <ul>
+            <li><a href="/services/listing-prep-cleaning/">Pre-sale and listing prep</a></li>
+            <li><a href="/services/rental-turnover-cleaning/">Apartment and rental turnovers</a></li>
+            <li><a href="/services/airbnb-cleaning/">Airbnb and short-term rentals</a></li>
+            <li>Vacant and post-move cleans</li>
           </ul>
         </div>
-        <div class="row">
-          <div class="row-title"><h3>For buildings and businesses</h3><p>Property managers, developers, offices and small businesses.</p></div>
-          <ul class="svc-list">
-            <li><b><a href="/services/common-area-cleaning/">Common areas</a></b><span>Hallways, stairways, entrances and vestibules.</span></li>
-            <li><b><a href="/services/office-cleaning/">Offices and small businesses</a></b><span>Recurring or one-time, scheduled around your hours.</span></li>
-            <li><b>Developer and vacant units</b><span>Clean and ready before listing or move-in.</span></li>
-            <li><b>Custom projects</b><span>Tell us the space and we'll build the plan.</span></li>
+        <div class="card">
+          <h3>Buildings and businesses</h3>
+          <p>Property managers, developers and offices.</p>
+          <ul>
+            <li><a href="/services/common-area-cleaning/">Common areas and hallways</a></li>
+            <li><a href="/services/office-cleaning/">Offices and small businesses</a></li>
+            <li>Developer and vacant units</li>
+            <li>Custom projects</li>
           </ul>
         </div>
       </div>
-      <p class="addons"><b>Add-ons on request:</b> inside appliances, cabinets and drawers, interior windows and accessible exterior windows, detailed kitchens and baths.</p>
-      <p class="anyjob"><span>These are examples, not a menu. Whatever the job, we'll plan it around the space.</span><a class="btn btn-line" href="#quote">Tell us about your job</a></p>
+      <p class="note"><b>Add-ons on request:</b> inside appliances, cabinets and drawers, interior and accessible exterior windows, detailed kitchens and baths.</p>
     </div>
   </section>
 
-  <section class="section oat" id="how">
+  <section>
+    <div class="wrap grid">
+      <div>
+        <h2>Why clients choose us</h2>
+        <p style="margin-top:8px">Every clean is planned around the property, not a quick wipe-down.</p>
+      </div>
+      <div class="card"><h3>Attention to detail</h3><p>Baseboards, fixtures, tracks and the spots a quick clean skips.</p></div>
+      <div class="card"><h3>Reliability</h3><p>We show up when we say we will, with the same standard every visit.</p></div>
+      <div class="card"><h3>Flexibility</h3><p>Small jobs or big projects, around your schedule.</p></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap grid">
+      <div>
+        <h2>Recently finished</h2>
+      </div>
+      <ul class="recent">
+        <li><b>5-bed, 2-bath pre-sale clean</b>, Dorchester</li>
+        <li><b>Apartment turnovers</b>, Boston, multiple units</li>
+        <li><b>Common-area upkeep</b>, multi-level residential building</li>
+        <li><b>Recurring office cleaning</b>, Cambridge business</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
     <div class="wrap">
-      <div class="head"><h2>From first call to finished clean</h2></div>
-      <ol class="steps">
+      <div class="head"><h2>How it works</h2></div>
+      <ol class="steps grid">
         <li><h3>Tell us about the place</h3><p>Use the form or call. Size, condition and what matters most.</p></li>
-        <li><h3>Get a tailored quote</h3><p>Planned around your property, not a one-size checklist.</p></li>
+        <li><h3>Get your quote</h3><p>A free quote based on your property.</p></li>
         <li><h3>We clean</h3><p>Solo for smaller jobs, a full team for large homes and buildings.</p></li>
-        <li><h3>You walk through</h3><p>Check the result. If something's missed, we make it right.</p></li>
+        <li><h3>You check it</h3><p>If something's missed, we make it right.</p></li>
       </ol>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap standard">
-      <p class="statement">Most of our work comes from referrals and repeat clients. That only happens when the <em>corners</em> get cleaned too.</p>
-      <div class="commit">
-        <div><h3>Attention to detail</h3><p>Tracks, fixtures, baseboards and the places a quick clean skips.</p></div>
-        <div><h3>Reliability</h3><p>We show up when we say we will and keep the same standard every visit.</p></div>
-        <div><h3>Flexibility</h3><p>Small jobs or big projects, one-time or recurring, around your schedule.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section refer" id="refer" aria-labelledby="refer-title">
-    <div class="wrap refer-grid">
-      <div>
-        <p class="refer-offer">Give $25,<br>get $25.</p>
-        <h2 id="refer-title">Know someone who'd love a cleaner place?</h2>
-        <p class="lede">Send a friend, neighbor, landlord or host our way. They get $25 off their first clean, and you get $25 off your next one. There's no limit on how many people you send.</p>
-        <form class="refer-link" id="refer-form">
-          <label for="r-name">Make your referral link</label>
-          <input id="r-name" name="refname" placeholder="Your name" autocomplete="name">
-          <button class="btn" type="submit">Copy my link</button>
-          <output id="r-out" aria-live="polite"></output>
-        </form>
-      </div>
-      <div>
-        <ol class="refer-steps">
-          <li><h3>Share us</h3><p>Send your link, or just pass along tidyedits.com or 857-753-5593.</p></li>
-          <li><h3>They mention you</h3><p>Your name goes in "Referred by" when they request a quote, or they tell us when they call.</p></li>
-          <li><h3>You both save</h3><p>$25 comes off their first clean. Once it's done, $25 comes off your next clean.</p></li>
-        </ol>
-        <p class="fine">For new Tidy Edits clients only. Your credit is applied after your friend's first paid clean. Credits stack, aren't redeemable for cash, and can't be combined with other new-client offers.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section oat" id="area">
-    <div class="wrap area">
+  <section class="band" id="area">
+    <div class="wrap">
       <div class="head">
-        <h2>House and office cleaning across Greater Boston</h2>
-        <p>All types of cleaning, recurring and one-time, for homes, rentals, listings, buildings and offices in Boston and the towns around it. Don't see your town? Call us. We often travel for larger jobs.</p>
+        <h2>Service area</h2>
+        <p>Boston and the towns around it. Don't see your town? Call us, we often travel for larger jobs.</p>
       </div>
       <ul class="towns">
         <li><a href="/areas/boston/">Boston</a></li><li><a href="/areas/dorchester/">Dorchester</a></li><li><a href="/areas/cambridge/">Cambridge</a></li><li><a href="/areas/somerville/">Somerville</a></li><li><a href="/areas/brookline/">Brookline</a></li><li>Jamaica Plain</li><li>South Boston</li><li>Roxbury</li><li><a href="/areas/quincy/">Quincy</a></li><li><a href="/areas/milton/">Milton</a></li><li><a href="/areas/newton/">Newton</a></li><li>Medford</li><li>Malden</li><li>Everett</li><li>Revere</li>
@@ -753,7 +509,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     </div>
   </section>
 
-  <section class="section" id="faq">
+  <section id="faq">
     <div class="wrap">
       <div class="head"><h2>Common questions</h2></div>
       <div class="faq">
@@ -768,11 +524,11 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     </div>
   </section>
 
-  <section class="section oat" id="quote">
+  <section class="band" id="quote">
     <div class="wrap quote">
-      <div class="quote-side">
-        <h2>Tell us about your property</h2>
-        <p>We reply with a quote tailored to your place. Prefer to talk? Call or text. Not sure what you need? <a href="/plan/">Plan your clean in one minute</a>.</p>
+      <div>
+        <h2>Get a free quote</h2>
+        <p style="margin-top:8px">Tell us about your place and we'll reply within one business day. Prefer to talk? Call or text.</p>
         <div class="contact"><small>Phone</small><a href="tel:+18577535593">857-753-5593</a></div>
         <div class="contact"><small>Email</small><a href="mailto:info@tidyedits.com">info@tidyedits.com</a></div>
       </div>
@@ -787,10 +543,10 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
           <select id="q-service" name="service"><option>Recurring cleaning</option><option>Deep clean</option><option>Move-in or move-out</option><option>Rental turnover</option><option>Pre-sale or listing prep</option><option>Common areas</option><option>Office cleaning</option><option>Another type of job</option></select></div>
         <div class="field"><label for="q-town">Town or neighborhood</label><input id="q-town" name="town" autocomplete="address-level2"></div>
         <div class="field"><label for="q-date">Preferred date</label><input id="q-date" name="date" type="date"></div>
-        <div class="field full"><label for="q-ref">Referred by (optional)</label><input id="q-ref" name="referred_by" autocomplete="off" placeholder="Name of the client who sent you"></div>
+        <div class="field full"><label for="q-ref">Referred by (optional)</label><input id="q-ref" name="referred_by" autocomplete="off"></div>
         <div class="field full"><label for="q-notes">Anything we should know?</label><textarea id="q-notes" name="notes" placeholder="3 bed, 2 bath, about 1,400 sq ft, one dog…"></textarea></div>
         <div class="form-msg" id="form-msg" role="status" aria-live="polite" hidden></div>
-        <div class="form-foot"><button class="btn btn-solid" type="submit" id="q-submit">Request my quote</button><small>No obligation. We'll reply within one business day.</small></div>
+        <div class="form-foot"><button class="btn btn-solid" type="submit" id="q-submit">Request my quote</button><small>No obligation.</small></div>
       </form>
     </div>
   </section>
@@ -798,7 +554,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 <footer class="site">
   <div class="wrap foot">
-    <div><img src="logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
+    <div><img src="logo.png" alt="" width="72" height="52" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning, Greater Boston</div>
     <div><a href="tel:+18577535593">857-753-5593</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA<br><a href="/services/">All services</a> · <a href="/areas/">Service area</a> · <a href="/guides/">Cleaning checklists</a></div>
   </div>
 </footer>
@@ -808,8 +564,6 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   <a class="btn btn-solid" href="#quote">Free quote</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/environments/RoomEnvironment.js"></script>
 <script>
 // Quote form. Sends through FormSubmit to info@tidyedits.com; if that fails, opens the request as a pre-filled email instead.
 (function () {
@@ -856,385 +610,10 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   });
 })();
 
-// Referral link: tidyedits.com/?ref=Name prefills "Referred by" on the quote form.
+
+// Referral links (tidyedits.com/?ref=Name) prefill "Referred by" on the quote form.
 (function () {
-  var refField = document.getElementById("q-ref");
-  try { var ref = new URLSearchParams(location.search).get("ref"); if (ref) refField.value = ref.slice(0, 60); } catch (e) {}
-  var rf = document.getElementById("refer-form"), out = document.getElementById("r-out");
-  rf.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var n = rf.elements.refname.value.trim();
-    if (!n) { out.textContent = "Add your name first so we know who to thank."; rf.elements.refname.focus(); return; }
-    var link = "https://tidyedits.com/?ref=" + encodeURIComponent(n) + "#quote";
-    var done = function () { out.textContent = "Copied: " + link; };
-    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
-      navigator.share({ title: "Tidy Edits Cleaning", text: "I use Tidy Edits for cleaning. Book with my link and get $25 off your first clean.", url: link }).catch(function () {});
-      out.textContent = link;
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(link).then(done, function () { out.textContent = link; });
-    } else { out.textContent = link; }
-  });
-})();
-</script>
-
-<script>
-// Words spawn as they scroll into view, scrubbed by scroll so they reverse on the way back up.
-(function () {
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var extra = document.querySelectorAll("main section:not(.film) h2, main .head > p, main .statement");
-  for (var e = 0; e < extra.length; e++) extra[e].setAttribute("data-spawn", "");
-  function split(el) {
-    var n = 0, walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(function (t) {
-      var frag = document.createDocumentFragment();
-      t.textContent.split(/(\s+)/).forEach(function (part) {
-        if (!part) return;
-        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-        var s = document.createElement("span");
-        s.className = "w"; s.textContent = part; s.style.setProperty("--i", n++);
-        frag.appendChild(s);
-      });
-      t.parentNode.replaceChild(frag, t);
-    });
-    return el.querySelectorAll(".w");
-  }
-  document.querySelectorAll("[data-split]").forEach(split);
-  if (reduce) return;
-  var items = [];
-  document.querySelectorAll("[data-spawn]").forEach(function (el) { items.push({ el: el, words: split(el), last: -1 }); });
-  var live = new Set();
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { var it = items[en.target._spawn]; if (en.isIntersecting) live.add(it); else live.delete(it); });
-      tick();
-    }, { rootMargin: "10% 0px" });
-    items.forEach(function (it, i) { it.el._spawn = i; io.observe(it.el); });
-  } else items.forEach(function (it) { live.add(it); });
-  function tick() {
-    var vh = window.innerHeight;
-    live.forEach(function (it) {
-      var r = it.el.getBoundingClientRect();
-      var local = Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.45)));
-      if (Math.abs(local - it.last) < 0.002) return;
-      it.last = local;
-      var n = it.words.length;
-      for (var i = 0; i < n; i++) {
-        var w = Math.min(1, Math.max(0, (local - (i / n) * 0.55) / 0.45));
-        w = w * w * (3 - 2 * w);
-        it.words[i].style.opacity = (0.08 + 0.92 * w).toFixed(3);
-        it.words[i].style.transform = w > 0.999 ? "none" : "translate3d(0," + ((1 - w) * 0.55).toFixed(3) + "em,0)";
-      }
-    });
-  }
-  var queued = false;
-  window.addEventListener("scroll", function () { if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; tick(); }); } }, { passive: true });
-  window.addEventListener("resize", tick);
-  tick();
-})();
-
-// Scroll film. One fixed 3D scene behind the opening screens; how far you've scrolled through #film decides every frame,
-// so scrolling back up plays it in reverse. Cleaning kit: spray bottle, microfiber cloth, sponge, scrub brush, bubbles.
-(function () {
-  var film = document.getElementById("film"), stage = document.getElementById("film-stage");
-  var bar = document.getElementById("film-bar");
-  var chapters = film.querySelectorAll(".film-ch");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
-  var smooth = function (a, b, x) { var t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
-  var bell = function (c, a, b, f) { return smooth(a - f, a, c) * (1 - smooth(b, b + f, c)); };
-  var mix = function (a, b, t) { return a + (b - a) * t; };
-
-  // Background colour per chapter, read from the brand tokens so dark mode follows along.
-  var css = getComputedStyle(document.documentElement);
-  function rgb(name) {
-    var v = css.getPropertyValue(name).trim();
-    if (v[0] === "#") { if (v.length === 4) v = "#" + v[1] + v[1] + v[2] + v[2] + v[3] + v[3]; return [1, 3, 5].map(function (i) { return parseInt(v.substr(i, 2), 16); }); }
-    return [250, 246, 240];
-  }
-  var TONES = [rgb("--linen"), rgb("--linen"), rgb("--tan-soft"), rgb("--walnut"), rgb("--oat"), rgb("--linen")];
-  var INK = { dark: [rgb("--ink"), rgb("--muted")], light: [rgb("--on-walnut"), rgb("--tan-soft")] };
-  var lum = function (c) { return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255; };
-  var hex = function (c) { return "rgb(" + c.map(function (v) { return Math.round(v); }).join(",") + ")"; };
-  var inkLight = lum(rgb("--ink")) > 0.5;
-
-  // Scroll position -> chapter coordinate c (0 = hero, 1 = spray ... 5 = final), measured from the real layout.
-  var centers = [], span = 1;
-  function measure() {
-    var vh = window.innerHeight, top = film.offsetTop;
-    span = Math.max(1, film.offsetHeight - vh);
-    centers = Array.prototype.map.call(chapters, function (ch, i) {
-      if (i === 0) return 0;
-      if (i === chapters.length - 1) return 1;
-      return clamp((ch.offsetTop + ch.offsetHeight / 2 - vh / 2) / span, 0, 1);
-    });
-  }
-  function chapterAt(p) {
-    for (var i = 1; i < centers.length; i++) if (p <= centers[i]) return i - 1 + (p - centers[i - 1]) / Math.max(1e-6, centers[i] - centers[i - 1]);
-    return centers.length - 1;
-  }
-  function progress() { return clamp(-film.getBoundingClientRect().top / span, 0, 1); }
-
-  var lastTone = "";
-  function paint(c, p) {
-    var k = Math.min(TONES.length - 2, Math.floor(c)), t = smooth(0.25, 0.75, c - k);
-    var bg = [0, 1, 2].map(function (j) { return mix(TONES[k][j], TONES[k + 1][j], t); });
-    film.style.setProperty("--film-bg", hex(bg));
-    var tone = lum(bg) < 0.45 ? "light" : "dark";
-    if (inkLight) tone = lum(bg) > 0.55 ? "dark" : "light";
-    if (tone !== lastTone) {
-      lastTone = tone;
-      var pair = tone === "light" && !inkLight ? INK.light : tone === "dark" && inkLight ? [[29, 24, 19], [94, 68, 51]] : null;
-      film.style.setProperty("--film-ink", pair ? hex(pair[0]) : "");
-      film.style.setProperty("--film-muted", pair ? hex(pair[1]) : "");
-      if (!pair) { film.style.removeProperty("--film-ink"); film.style.removeProperty("--film-muted"); }
-    }
-    bar.style.transform = "scaleX(" + (p >= 1 ? 0 : p).toFixed(4) + ")";
-  }
-
-  measure();
-  if (!window.THREE || reduce) {
-    if (reduce) { paint(0, 0); return; }
-    var q0 = false;
-    window.addEventListener("scroll", function () { if (!q0) { q0 = true; requestAnimationFrame(function () { q0 = false; var p = progress(); paint(chapterAt(p), p); }); } }, { passive: true });
-    window.addEventListener("resize", measure);
-    return;
-  }
-
-  var small = window.matchMedia("(max-width: 860px)").matches;
-  var renderer;
-  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" }); }
-  catch (err) { return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.75 : 2));
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
-  stage.appendChild(renderer.domElement);
-  document.getElementById("film-fallback").hidden = true;
-
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
-  camera.position.set(0, 0.4, 12);
-  camera.lookAt(0, 0, 0);
-  if (THREE.RoomEnvironment) {
-    var pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
-  }
-  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-  var key = new THREE.DirectionalLight(0xfff1de, 1.5); key.position.set(4, 6, 6); scene.add(key);
-  var rim = new THREE.DirectionalLight(0xe9d6bd, 0.8); rim.position.set(-5, 2, -4); scene.add(rim);
-
-  var world = new THREE.Group(); scene.add(world);
-  var std = function (color, rough, metal) { return new THREE.MeshStandardMaterial({ color: color, roughness: rough, metalness: metal || 0 }); };
-  function rounded(w, h, r) {
-    var s = new THREE.Shape(), x = -w / 2, y = -h / 2;
-    s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
-    s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
-    s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
-    return s;
-  }
-  function slab(w, h, d, r, mat) {
-    var g = new THREE.ExtrudeGeometry(rounded(w, h, r), { depth: d, bevelEnabled: true, bevelThickness: r * 0.6, bevelSize: r * 0.6, bevelSegments: 4, curveSegments: 10 });
-    g.center();
-    return new THREE.Mesh(g, mat);
-  }
-
-  // Spray bottle: frosted body, tan liquid, logo label, black trigger head with the nozzle pointing left.
-  var bottle = new THREE.Group();
-  var prof = [[0, 0], [0.6, 0], [0.68, 0.06], [0.7, 0.3], [0.7, 1.72], [0.62, 2.02], [0.38, 2.22], [0.3, 2.36], [0.3, 2.5], [0, 2.5]]
-    .map(function (v) { return new THREE.Vector2(v[0], v[1]); });
-  var glass = new THREE.MeshPhysicalMaterial({ color: 0xfaf6f0, roughness: 0.22, metalness: 0, transparent: true, opacity: 0.55, clearcoat: 1, clearcoatRoughness: 0.08, depthWrite: false });
-  var body = new THREE.Mesh(new THREE.LatheGeometry(prof, 56), glass);
-  var liquid = new THREE.Mesh(new THREE.LatheGeometry([[0, 0.04], [0.62, 0.04], [0.65, 0.3], [0.65, 1.45], [0, 1.45]].map(function (v) { return new THREE.Vector2(v[0], v[1]); }), 48), std(0xd9bf9e, 0.35));
-  var labelCanvas = document.createElement("canvas"); labelCanvas.width = 1792; labelCanvas.height = 512;
-  var lc = labelCanvas.getContext("2d"); lc.fillStyle = "#fffdf9"; lc.fillRect(0, 0, 1792, 512);
-  var labelTex = new THREE.CanvasTexture(labelCanvas); labelTex.encoding = THREE.sRGBEncoding;
-  var logo = new Image();
-  logo.onload = function () {
-    var h = 420, w = h * logo.width / logo.height;
-    lc.drawImage(logo, 896 - w / 2, 46, w, h);
-    labelTex.needsUpdate = true;
-  };
-  logo.src = "logo.png";
-  var label = new THREE.Mesh(new THREE.CylinderGeometry(0.712, 0.712, 0.95, 64, 1, true, -Math.PI * 0.75, Math.PI * 1.5), new THREE.MeshStandardMaterial({ map: labelTex, roughness: 0.6 }));
-  label.position.y = 0.95;
-  var black = std(0x1d1813, 0.38, 0.1);
-  var collar = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.26, 40), black); collar.position.y = 2.6;
-  var head = slab(1.25, 0.5, 0.5, 0.14, black); head.position.set(-0.28, 2.98, 0);
-  var shroud = slab(0.55, 0.42, 0.52, 0.12, black); shroud.position.set(0.12, 3.28, 0); shroud.rotation.z = -0.3;
-  var nozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.22, 24), std(0x8f7049, 0.4)); nozzle.rotation.z = Math.PI / 2; nozzle.position.set(-0.98, 3.0, 0);
-  var trig = new THREE.Group(); trig.position.set(-0.55, 2.75, 0);
-  var tmesh = slab(0.18, 0.62, 0.22, 0.07, black); tmesh.position.set(0, -0.3, 0); tmesh.rotation.z = -0.25; trig.add(tmesh);
-  bottle.add(body, liquid, label, collar, head, shroud, nozzle, trig);
-  bottle.children.forEach(function (m) { m.position.y -= 1.6; });
-  trig.position.y = 2.75 - 1.6;
-  var NOZZLE = new THREE.Vector3(-1.1, 3.0 - 1.6, 0);
-  world.add(bottle);
-
-  // Microfiber cloth: a soft square that ripples, with a stitched border.
-  var clothCanvas = document.createElement("canvas"); clothCanvas.width = clothCanvas.height = 512;
-  var cc = clothCanvas.getContext("2d");
-  cc.fillStyle = "#e7dccb"; cc.fillRect(0, 0, 512, 512);
-  for (var gy = 0; gy < 512; gy += 4) { cc.fillStyle = gy % 8 ? "rgba(143,112,73,.05)" : "rgba(255,253,249,.08)"; cc.fillRect(0, gy, 512, 2); }
-  cc.setLineDash([14, 10]); cc.lineWidth = 5; cc.strokeStyle = "#8f7049"; cc.strokeRect(34, 34, 444, 444);
-  var clothTex = new THREE.CanvasTexture(clothCanvas); clothTex.encoding = THREE.sRGBEncoding;
-  var clothGeo = new THREE.PlaneGeometry(2.3, 2.3, 28, 28);
-  var clothBase = clothGeo.attributes.position.array.slice();
-  var cloth = new THREE.Mesh(clothGeo, new THREE.MeshStandardMaterial({ map: clothTex, roughness: 0.95, side: THREE.DoubleSide }));
-  world.add(cloth);
-
-  // Sponge: tan foam with a walnut scrub side.
-  var sponge = new THREE.Group();
-  var foam = slab(1.5, 0.95, 0.42, 0.18, std(0xd9b98f, 0.92)); var pad = slab(1.5, 0.95, 0.12, 0.12, std(0x5e4433, 0.85));
-  pad.position.z = 0.34; sponge.add(foam, pad);
-  world.add(sponge);
-
-  // Scrub brush: wood block and handle, cream bristles.
-  var brush = new THREE.Group();
-  var wood = std(0x8f7049, 0.55);
-  var block = slab(2.0, 0.42, 0.62, 0.16, wood); block.rotation.x = Math.PI / 2; block.position.y = 0.2;
-  var handleCurve = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.75, 0.4, 0), new THREE.Vector3(-0.55, 0.95, 0), new THREE.Vector3(0.55, 0.95, 0), new THREE.Vector3(0.75, 0.4, 0)]);
-  var handle = new THREE.Mesh(new THREE.TubeGeometry(handleCurve, 40, 0.09, 12, false), wood);
-  var bristleCount = small ? 48 : 84, cols = small ? 12 : 21;
-  var bristles = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.035, 0.03, 0.42, 6), std(0xf3e7d6, 0.7), bristleCount);
-  var dummy = new THREE.Object3D();
-  for (var bi = 0; bi < bristleCount; bi++) {
-    dummy.position.set(-0.88 + (bi % cols) * (1.76 / (cols - 1)), -0.2, -0.22 + Math.floor(bi / cols) * (0.44 / 3));
-    dummy.updateMatrix(); bristles.setMatrixAt(bi, dummy.matrix);
-  }
-  brush.add(block, handle, bristles);
-  world.add(brush);
-
-  // Bubbles: pearly, in brand neutrals. They float, become spray mist, then foam, then rise.
-  var bubbleGeo = new THREE.SphereGeometry(1, small ? 28 : 40, small ? 20 : 28);
-  var tints = [0xf3e7d6, 0xe9d6bd, 0xd9bf9e, 0xfaf3e8];
-  var bubbleMats = tints.map(function (t) {
-    return new THREE.MeshPhysicalMaterial({ color: t, metalness: 0.3, roughness: 0.15, transparent: true, opacity: 0.6, clearcoat: 1, clearcoatRoughness: 0.04, sheen: 1, sheenColor: new THREE.Color(0xc4a47e), sheenRoughness: 0.5, envMapIntensity: 1.15 });
-  });
-  var seed = 11, rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-  var bubbles = [], BN = small ? 13 : 24;
-  for (var i = 0; i < BN; i++) {
-    var m = new THREE.Mesh(bubbleGeo, bubbleMats[i % 4]);
-    var a = rnd() * Math.PI * 2, rr = 1.6 + rnd() * 1.8;
-    bubbles.push({ m: m, home: new THREE.Vector3(Math.cos(a) * rr + 0.7, -0.4 + (rnd() - 0.5) * 3.6, Math.sin(a) * rr * 0.6 - 1), s: i === 0 ? 0.55 : 0.1 + rnd() * 0.3, ph: rnd() * 6.28, sp: 0.5 + rnd(), sx: rnd() - 0.5, sy: rnd() - 0.5, sz: rnd() - 0.5 });
-    world.add(m);
-  }
-
-  // Keyframes per object: [c, x, y, z, rx, ry, rz, scale]. c is the chapter coordinate.
-  var K = {
-    bottle: [[0, 0.3, -0.2, 0, 0, -0.45, 0, 1], [0.55, 0.3, -0.2, 0, 0, -0.2, 0, 1], [1, 0.9, -0.35, 0.8, 0, 0.35, 0.06, 1.05], [1.5, 0.9, -0.35, 0.8, 0, 0.45, 0.06, 1.05], [2, -2.6, -0.9, -1.6, 0, 0.3, 0, 0.72], [3, -3.3, -0.6, -3, 0, 0.7, 0, 0.7], [4, -2.15, -0.75, 0, 0, -0.25, 0, 0.66], [5, -2.15, -0.75, 0, 0, -0.25, 0, 0.66]],
-    cloth: [[1.15, 7, 2.5, -1, 0, -0.9, 0.5, 1], [1.95, 0.3, 0.2, 0.9, -0.12, 0.12, 0.08, 1.2], [2.45, 0.3, 0.2, 0.9, -0.12, -0.12, -0.05, 1.2], [3, 3.0, -1.2, -2, -0.9, 0.3, 0.4, 0.7], [4, -0.6, -1.15, 0.3, -1.25, 0, 0.12, 0.7], [5, -0.6, -1.15, 0.3, -1.25, 0, 0.12, 0.7]],
-    sponge: [[2.2, -7, 3, -2, 0.6, 1.2, 0.5, 1], [3, -1.7, 1.5, -2, 0.5, 0.6, 0.3, 0.62], [4, 0.75, -1.1, 0.5, 0.25, 0.45, 0.05, 0.62], [5, 0.75, -1.1, 0.5, 0.25, 0.45, 0.05, 0.62]],
-    brush: [[2.1, 7, 1.5, -1, 0.2, 0.4, 0.8, 1], [2.85, 0.4, 0, 0.8, 0.45, 0.35, -0.12, 1.2], [3.2, 0.4, 0, 0.8, 0.45, 0.35, -0.12, 1.2], [4, 2.15, -1.0, 0, 0.4, -0.5, -0.05, 0.62], [5, 2.15, -1.0, 0, 0.4, -0.5, -0.05, 0.62]]
-  };
-  function track(c, k, o) {
-    var a = k[0], b = k[k.length - 1], t = 0;
-    if (c <= a[0]) b = a;
-    else if (c < b[0]) for (var i = 1; i < k.length; i++) if (c <= k[i][0]) { a = k[i - 1]; b = k[i]; t = smooth(0, 1, (c - a[0]) / (b[0] - a[0])); break; }
-    if (c >= k[k.length - 1][0]) a = b;
-    o.position.set(mix(a[1], b[1], t), mix(a[2], b[2], t), mix(a[3], b[3], t));
-    o.rotation.set(mix(a[4], b[4], t), mix(a[5], b[5], t), mix(a[6], b[6], t));
-    o.scale.setScalar(mix(a[7], b[7], t));
-  }
-  var hiddenBefore = { cloth: 1.15, sponge: 2.2, brush: 2.1 };
-
-  var squeezeX = 1, wideView = true;
-  var v = new THREE.Vector3(), jit = new THREE.Vector3(), nz = new THREE.Vector3(), dir = new THREE.Vector3(), foamAt = new THREE.Vector3();
-  function render(c, t) {
-    track(c, K.bottle, bottle);
-    bottle.position.y += Math.sin(t * 0.8) * 0.06;
-    bottle.rotation.y += Math.sin(t * 0.35) * 0.06;
-    var squeeze = Math.max(bell(c, 0.8, 0.95, 0.08), bell(c, 1.15, 1.3, 0.08));
-    trig.rotation.z = 0.35 * squeeze;
-
-    track(c, K.cloth, cloth); cloth.visible = c > hiddenBefore.cloth;
-    var wipe = bell(c, 1.95, 2.45, 0.15);
-    cloth.position.x += Math.sin((c - 1.95) * Math.PI * 4) * 1.1 * wipe;
-    cloth.position.y += Math.cos((c - 1.95) * Math.PI * 4) * 0.35 * wipe;
-    var pos = clothGeo.attributes.position, amp = 0.12 + 0.18 * bell(c, 1.2, 2.6, 0.4);
-    for (var i = 0; i < pos.count; i++) {
-      var x = clothBase[i * 3], y = clothBase[i * 3 + 1];
-      pos.array[i * 3 + 2] = Math.sin(x * 1.9 + t * 1.6 + c * 3) * amp * 0.6 + Math.cos(y * 2.3 + t * 1.1) * amp * 0.4 + (x * x + y * y) * -0.05;
-    }
-    pos.needsUpdate = true; clothGeo.computeVertexNormals();
-
-    track(c, K.sponge, sponge); sponge.visible = c > hiddenBefore.sponge;
-    sponge.rotation.z += Math.sin(t * 0.6) * 0.05;
-    track(c, K.brush, brush); brush.visible = c > hiddenBefore.brush;
-    var scrub = bell(c, 2.85, 3.25, 0.12);
-    brush.position.x += Math.sin(t * 9 + c * 60) * 0.28 * scrub;
-    brush.rotation.z += Math.sin(t * 9 + c * 60) * 0.05 * scrub;
-
-    bottle.position.x *= squeezeX; cloth.position.x *= squeezeX; sponge.position.x *= squeezeX; brush.position.x *= squeezeX;
-
-    // Final lineup turns slowly so the kit reads as a 3D product shot.
-    world.rotation.y = mix(0, Math.sin(t * 0.25) * 0.12, smooth(3.7, 4.2, c));
-    world.position.set(wideView ? mix(0, 0.9, smooth(3.6, 4.4, c)) : 0, wideView ? -0.35 : 0, 0);
-
-    nz.copy(NOZZLE); bottle.localToWorld(nz); world.worldToLocal(nz);
-    dir.set(-1, 0.08, 0.25).applyQuaternion(bottle.quaternion).normalize();
-    brush.getWorldPosition(foamAt); world.worldToLocal(foamAt); foamAt.y -= 0.35 * brush.scale.x;
-    var wMist = bell(c, 0.75, 1.4, 0.2), wFoam = bell(c, 2.7, 3.3, 0.2), wRise = smooth(3.6, 4.6, c);
-    for (var j = 0; j < bubbles.length; j++) {
-      var b = bubbles[j], m = b.m;
-      v.copy(b.home);
-      v.x += Math.sin(t * 0.5 * b.sp + b.ph) * 0.25;
-      v.y += Math.sin(t * 0.7 * b.sp + b.ph) * 0.2;
-      var s = b.s;
-      if (wMist > 0) {
-        var f = ((c - 0.75) * 1.4 + t * 0.16 * b.sp + j / bubbles.length) % 1;
-        m.position.copy(nz).addScaledVector(dir, f * 7).add(jit.set(b.sx * f * 2.2, b.sy * f * 1.6, b.sz * f * 1.5));
-        v.lerp(m.position, wMist); s = mix(s, b.s * 0.38 * (0.4 + f), wMist);
-      }
-      if (wFoam > 0) {
-        m.position.set(foamAt.x + b.sx * 2.6, foamAt.y + b.sy * 0.8 - 0.15, foamAt.z + b.sz * 1.4 + 0.4);
-        v.lerp(m.position, wFoam); s = mix(s, b.s * 0.45, wFoam);
-      }
-      if (wRise > 0) {
-        var up = ((t * 0.12 * b.sp + j * 0.137) % 1);
-        v.y = mix(v.y, -3 + up * 7.5, wRise);
-        s *= 1 - 0.5 * wRise * up;
-      }
-      m.position.copy(v);
-      m.scale.setScalar(Math.max(0.001, s));
-    }
-    renderer.render(scene, camera);
-  }
-
-  function resize() {
-    var w = stage.clientWidth, h = stage.clientHeight;
-    if (!w || !h) return;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    // Frame the kit beside the copy on wide screens, above it on phones.
-    var wide = w / h > 1; wideView = wide;
-    var aspect = w / h;
-    camera.position.z = wide ? 12 : 12 / Math.max(0.4, Math.min(1, aspect * 1.1));
-    squeezeX = clamp(aspect * 1.2, 0.5, 1);
-    camera.setViewOffset(w, h, wide ? -w * 0.2 : 0, wide ? 0 : h * 0.2, w, h);
-    camera.updateProjectionMatrix();
-    measure();
-  }
-  window.addEventListener("resize", resize);
-  resize();
-
-  var target = progress(), cur = target, visible = true, running = false, clock = new THREE.Clock();
-  window.addEventListener("scroll", function () { target = progress(); loop(); }, { passive: true });
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) loop(); }).observe(film);
-  function frame() {
-    if (!visible || document.hidden) { running = false; return; }
-    cur += (target - cur) * 0.14;
-    if (Math.abs(target - cur) < 1e-5) cur = target;
-    var c = chapterAt(cur);
-    paint(c, cur);
-    render(c, clock.getElapsedTime());
-    requestAnimationFrame(frame);
-  }
-  function loop() { if (running) return; running = true; requestAnimationFrame(frame); }
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) loop(); });
-  render(chapterAt(cur), 0); paint(chapterAt(cur), cur);
-  loop();
+  try { var ref = new URLSearchParams(location.search).get("ref"); if (ref) document.getElementById("q-ref").value = ref.slice(0, 60); } catch (e) {}
 })();
 </script>
 </body>
