@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /crew/
+Disallow: /office/
 Sitemap: https://tidyedits.com/sitemap.xml
