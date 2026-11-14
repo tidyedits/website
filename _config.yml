@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll) settings.
+# Folders starting with "_" (like _build/ and _handoff/) are never published.
+# These files are notes for Claude Code and should not be public pages.
+exclude:
+  - CLAUDE.md
+  - README.md
