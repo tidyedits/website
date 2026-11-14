@@ -320,8 +320,9 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; }
 body {
+  overflow-x: hidden; overflow-x: clip;
   margin: 0; background: var(--linen); color: var(--ink);
   font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -384,9 +385,9 @@ header.site {
 .hero { position: relative; min-height: calc(100vh - 73px); min-height: calc(100svh - 73px); display: flex; align-items: center; overflow: hidden; background: var(--linen); color: var(--ink); }
 .hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; display: block; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(100deg, var(--linen) 0%, color-mix(in srgb, var(--linen) 82%, transparent) 30%, transparent 62%); }
+  background: linear-gradient(90deg, var(--linen) 0%, var(--linen) 30%, color-mix(in srgb, var(--linen) 86%, transparent) 44%, transparent 68%); }
 .hero-copy { position: relative; z-index: 2; width: 100%; display: grid; gap: var(--space-2); justify-items: start; padding-block: var(--space-4); }
-.hero-copy > * { max-width: 34rem; }
+.hero-copy > * { max-width: 30rem; }
 .hero-copy h1 { font-size: var(--step-4); max-width: 9.6em; }
 .hero-copy h1 em { font-style: italic; font-weight: 400; }
 .hero-copy h1 .w { animation: rise 900ms var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
@@ -406,14 +407,19 @@ header.site {
 /* Scroll film: the opening screens are one continuous video scrubbed by scroll (scroll up plays it backwards). Copy scrolls over it and spawns word by word. */
 .film { position: relative; clip-path: inset(0); --film-bg: var(--linen); --film-ink: var(--ink); --film-muted: var(--muted); background: var(--film-bg); color: var(--film-ink); }
 .film-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; pointer-events: none; z-index: 0; }
-.film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; display: block; background: var(--film-bg); }
+.film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; display: block; background: var(--film-bg); transform: translateZ(0); }
+@media (min-width: 861px) {
+  /* desktop: the film sits on the right so the action stays clear of the words */
+  .film-video { left: 26%; width: 74%; object-position: 50% 50%; }
+  .hero-media { left: 22%; width: 78%; }
+}
 .film-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(100deg, var(--film-bg) 0%, color-mix(in srgb, var(--film-bg) 80%, transparent) 30%, transparent 60%); }
+  background: linear-gradient(90deg, var(--film-bg) 0%, var(--film-bg) 30%, color-mix(in srgb, var(--film-bg) 86%, transparent) 44%, transparent 68%); }
 .film-ch { position: relative; z-index: 1; min-height: 130vh; min-height: 130svh; display: flex; align-items: center; }
 .film-ch.first { min-height: calc(100svh - 73px); margin-top: -100vh; margin-top: -100svh; }
 .film-ch.last { min-height: 100vh; min-height: 100svh; }
 .film-copy { width: 100%; display: grid; gap: var(--space-2); justify-items: start; }
-.film-copy > * { max-width: 34rem; }
+.film-copy > * { max-width: 30rem; }
 .film-copy h1 { font-size: var(--step-4); max-width: 13em; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 .film-copy h1 em, .film-copy h2 em { font-style: italic; font-weight: 400; }
@@ -441,6 +447,10 @@ header.site {
   .film-copy .film-lede { font-size: var(--step-0); }
   .film-copy h2 { font-size: clamp(2.6rem, 1.6rem + 6vw, 4rem); }
   .film-cue { display: none; }
+}
+@media (max-width: 860px) and (orientation: landscape) and (max-height: 560px) {
+  .film-video { inset: 0; top: 0; height: 100%; aspect-ratio: auto; }
+  .film-stage::after { background: linear-gradient(to top, var(--film-bg) 0%, color-mix(in srgb, var(--film-bg) 88%, transparent) 55%, transparent 100%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-copy h1 .w, .film-cue::after { animation: none; }
@@ -612,7 +622,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 <main id="top">
   <section class="hero" id="hero">
-    <video class="hero-media" id="hero-video" muted playsinline preload="auto" aria-hidden="true"
+    <video class="hero-media" id="hero-video" muted playsinline preload="auto" aria-hidden="true" tabindex="-1"
       poster="/assets/hero/hero-poster-16x9.jpg"
       data-wide="/assets/hero/hero-16x9.mp4" data-wide-poster="/assets/hero/hero-poster-16x9.jpg"
       data-tall="/assets/hero/hero-9x16.mp4" data-tall-poster="/assets/hero/hero-poster-9x16.jpg"></video>
@@ -630,7 +640,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   <section class="film" id="film">
     <span class="film-bar" id="film-bar" aria-hidden="true"></span>
     <div class="film-stage" id="film-stage" aria-hidden="true">
-      <video class="film-video" id="film-video" muted playsinline preload="auto"
+      <video class="film-video" id="film-video" muted playsinline preload="none" tabindex="-1"
         poster="/assets/scroll/scroll-film-poster-16x9.jpg"
         data-wide="/assets/scroll/scroll-film-16x9.mp4" data-wide-poster="/assets/scroll/scroll-film-poster-16x9.jpg"
         data-small="/assets/scroll/scroll-film-1x1.mp4" data-small-poster="/assets/scroll/scroll-film-poster-1x1.jpg"></video>
@@ -997,11 +1007,15 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
 
 // Scroll film. One video behind the opening screens; how far you've scrolled through #film picks the frame,
 // so scrolling back up plays it in reverse. Spray, wipe, scrub, check, then the kit lined up (25 s film).
+// Engine rules: the film is fetched whole (no reliance on the host's partial downloads), the shown position eases toward
+// the scroll position at the same speed on any screen refresh rate, only one seek is ever in flight, the loop rests when
+// it has caught up or the film is off screen, and the still poster carries the section if the film never arrives.
 (function () {
   var film = document.getElementById("film"), video = document.getElementById("film-video");
   var bar = document.getElementById("film-bar");
   var chapters = film.querySelectorAll(".film-ch");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var smallMq = window.matchMedia("(max-width: 860px)");
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
   // Scroll position -> chapter coordinate c (0 = intro, 1 = spray ... 5 = final), measured from the real layout.
@@ -1020,47 +1034,86 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
     return centers.length - 1;
   }
   function progress() { return clamp(-film.getBoundingClientRect().top / span, 0, 1); }
-  function paintBar(p) { bar.style.transform = "scaleX(" + (p >= 1 ? 0 : p).toFixed(4) + ")"; }
-
-  var small = window.matchMedia("(max-width: 860px)").matches;
-  video.poster = small ? video.dataset.smallPoster : video.dataset.widePoster;
-  measure();
-  window.addEventListener("resize", measure);
-  if (reduce) return; // keep the still first frame, no scroll-driven motion
-
-  // Load the film once the page has loaded so it never competes with the hero.
-  function start() {
-    video.src = small ? video.dataset.small : video.dataset.wide;
-    video.load();
-    // iOS only allows seeking after the video has been started once.
-    var p = video.play(); if (p && p.then) p.then(function () { video.pause(); }).catch(function () {});
-    video.addEventListener("loadedmetadata", loop);
-  }
-  if (document.readyState === "complete") start(); else window.addEventListener("load", start);
-
   // Film time for chapter coordinate c. Each 5 s clip runs from one chapter into the next; shift by half a clip
   // so the action (spray, wipe, scrub, rise) plays while its words are on screen, and still start at 0 s and end at 25 s.
   function filmTime(c) { return c <= 1 ? c * 2.5 : c >= 4 ? 17.5 + (c - 4) * 7.5 : (c - 0.5) * 5; }
-  var target = progress(), cur = target, visible = true, running = false;
-  window.addEventListener("scroll", function () { target = progress(); loop(); }, { passive: true });
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) loop(); }).observe(film);
-  function frame() {
-    if (!visible || document.hidden) { running = false; return; }
-    cur += (target - cur) * 0.14;
-    if (Math.abs(target - cur) < 1e-5) cur = target;
-    paintBar(cur);
-    var d = video.duration;
-    if (d && !video.seeking) {
-      var t = clamp(filmTime(chapterAt(cur)), 0, d - 0.05);
-      if (Math.abs(video.currentTime - t) > 0.02) video.currentTime = t;
-    }
-    if (cur === target && !video.seeking) { running = false; return; }
-    requestAnimationFrame(frame);
+
+  var lastBar = "";
+  function paintBar(p) {
+    var v = "scaleX(" + (p >= 1 ? 0 : p).toFixed(3) + ")";
+    if (v !== lastBar) { lastBar = v; bar.style.transform = v; }
   }
-  function loop() { if (running) return; running = true; requestAnimationFrame(frame); }
-  video.addEventListener("seeked", loop);
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) loop(); });
-  paintBar(cur);
+
+  // One seek at a time: keep only the newest target, and never deadlock if a seek errors.
+  var pendingTime = null;
+  function requestSeek(t) {
+    if (!video.duration) return;
+    t = clamp(t, 0, video.duration - 0.05);
+    if (video.seeking) { pendingTime = t; return; } // the browser itself says when a seek is in flight
+    pendingTime = null;
+    if (Math.abs(t - video.currentTime) < 0.02) return;
+    video.currentTime = t;
+  }
+  video.addEventListener("seeked", function () {
+    if (pendingTime !== null) requestSeek(pendingTime);
+  });
+  video.addEventListener("error", function () { pendingTime = null; });
+
+  var small = smallMq.matches;
+  function setPoster() { video.poster = small ? video.dataset.smallPoster : video.dataset.widePoster; }
+  setPoster();
+  measure();
+  window.addEventListener("resize", measure);
+
+  var target = 0, shown = 0, rafId = null, lastTick = 0, onScreen = true, armed = false, loaded = "";
+  function tick(now) {
+    var dt = Math.min(100, now - (lastTick || now));
+    lastTick = now;
+    shown += (target - shown) * (1 - Math.pow(1 - 0.14, dt / 16.667)); // same feel at 60 Hz and 120 Hz
+    if (Math.abs(target - shown) < 0.0005) shown = target;
+    paintBar(shown);
+    requestSeek(filmTime(chapterAt(shown)));
+    if (shown === target || !onScreen || document.hidden || !armed) { rafId = null; lastTick = 0; return; }
+    rafId = requestAnimationFrame(tick);
+  }
+  function wake() { if (rafId === null && armed && onScreen) rafId = requestAnimationFrame(tick); }
+  function onScroll() { target = progress(); wake(); }
+
+  // Fetch the whole film, then hand it to the video. If it fails, the poster stays and the page is still complete.
+  function loadFilm() {
+    var url = small ? video.dataset.small : video.dataset.wide;
+    if (loaded === url) return;
+    loaded = url;
+    fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.blob(); }).then(function (blob) {
+      if (loaded !== url) return;
+      video.src = URL.createObjectURL(blob);
+      video.load();
+      // iOS only allows seeking after the video has been started once.
+      var p = video.play(); if (p && p.then) p.then(function () { video.pause(); }).catch(function () {});
+      video.addEventListener("loadeddata", function () { video.pause(); target = shown = progress(); requestSeek(filmTime(chapterAt(shown))); wake(); }, { once: true });
+    }).catch(function () { loaded = ""; film.classList.add("film-failed"); });
+  }
+
+  // Armed only when motion is welcome; follows the setting live in both directions.
+  function arm() {
+    if (armed) return; armed = true;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (document.readyState === "complete") loadFilm(); else window.addEventListener("load", loadFilm, { once: true });
+    onScroll();
+  }
+  function disarm() {
+    if (!armed) return; armed = false;
+    window.removeEventListener("scroll", onScroll);
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; lastTick = 0; }
+    paintBar(0);
+  }
+  function applyMode() { if (reduceMq.matches) disarm(); else arm(); }
+  function onMq(mq, fn) { if (mq.addEventListener) mq.addEventListener("change", fn); else if (mq.addListener) mq.addListener(fn); }
+  onMq(reduceMq, applyMode);
+  onMq(smallMq, function () { small = smallMq.matches; setPoster(); measure(); if (armed && loaded) loadFilm(); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { onScreen = en[0].isIntersecting; if (onScreen) onScroll(); }).observe(film);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && armed) onScroll(); });
+  applyMode();
 })();
 </script>
 <script>

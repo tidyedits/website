@@ -53,5 +53,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - For web video: light denoise + CRF ~27, 30 fps keeps files 2-4 MB.
 - Higgsfield free-trial (unlimited) generations only work in Claude chat / Cowork / ChatGPT, not Claude Code. Have Yessi generate there and send the files.
 - This PC has no Python; a tiny Node static server with Range support works for testing video seeking.
+- The app preview pane freezes animations when it is hidden, so the scroll film looks stuck there. Test with headless Chrome over the DevTools protocol (Node 22+ has WebSocket built in): real phone emulation, live reduced-motion flips, and blocking the film URL.
+- Scroll film engine (2026-11-14 review against the 10k-websites skill + design skills): film fetched whole as a Blob, frame-rate independent easing, one seek in flight (uses `video.seeking`), loop rests off screen, reduced motion honored live both ways, poster carries the section if the film fails. On desktop the film sits on the right 74% with a solid text side so words pass contrast in light and dark.
 - Old Google favicon/snippet = not recrawled yet; the fix is Search Console "Request indexing", not code.
 - Yessi's short messages can change direction fast; act quickly, keep both versions, confirm live in one line.
