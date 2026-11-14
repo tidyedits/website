@@ -26,6 +26,9 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - **#13 Phone speed + holiday checklist** (branch `claude/project-thread-iifq8y`). three.js loads after page load, lighter idle 3D loop, async fonts, small logo, contrast fix, new `/guides/holiday-cleaning-checklist/`, "Text" button on the phone call bar. Lighthouse mobile was 46 before. Old branch, probably needs updating from main (sitemap/footer conflicts). After merge: ping IndexNow with the new guide URL.
 - **#17 `/office` login door page** (branch `claude/project-thread-mlx39s`). Branded page with "Sign in to the Office" (the private Office app on claude.ai) + crew clock-in link, "Office login" in the footer, noindex.
 
+- **#19 10k-websites upgrade** (branch `claude/project-thread-f2qz0n`). Superseded: everything in it is included in the scroll film PR below. Close #19 after that one merges.
+- **10k-websites finish: scroll film** (branch `claude/project-thread-m6z2wc`, includes all of #19). From #19: "Hold to wipe" moment on the standard section, self-drawing step lines in "How it works", faint paper grain, `overflow-x: clip`, tab-hidden animation pause. New: on wide screens the brand film is a scroll film (the skill's signature): the section pins full-screen and scrolling down plays the film forward, scrolling up plays it back (`assets/film/tidy-edits-film-scrub.mp4`, 5.9 MB, keyframe every 8 frames, fetched as a Blob only when near). Phones, touch tablets in portrait and reduced motion keep the film that plays on its own (the skill's five gates, re-checked live). If the scrub file fails to load it falls back to the normal film. Skipped the skill's paid Higgsfield video and Hostinger hosting (site stays free on GitHub Pages).
+
 ## Open to-dos (most need Yessi)
 
 1. **Enforce HTTPS** in repo Settings > Pages (one checkbox, Yessi). Right now `http://` doesn't redirect to `https://`.
@@ -45,6 +48,10 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - She likes big, full-screen, motion-heavy design (not small widgets), but always in the neutral palette.
 
 ## Lessons from past work
+
+- Uploaded website skills (like 10k-websites) assume paid AI video + new hosting. Take their free craft (interaction, motion, copy checks) and keep GitHub Pages.
+- Higgsfield "unlimited trial" generations do not work from Claude Code sessions (only Claude chat, Cowork, ChatGPT); from here every generation costs credits, so none were made. If Yessi makes a hero video in Claude chat, re-encode it for scrubbing with `ffmpeg -g 8 -keyint_min 8 -crf ~30 -an` and swap `data-scrub` on `#bf-video`.
+- A rAF hold loop must not stop on its first frame (dt is 0, so progress is still 0): only stop at 0 when not holding.
 
 - Test with `python3 -m http.server` (not `file://`) and Playwright; `html` has smooth scrolling, so wait ~800 ms after scrolling before screenshots.
 - Stub `formsubmit.co` in Playwright to test forms offline.

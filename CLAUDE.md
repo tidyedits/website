@@ -24,7 +24,7 @@ Read `_handoff/README.md` first for the full handoff: what's live, open pull req
 | `card/` | Digital business card + `tidy-edits.vcf` + QR | By hand |
 | `thank-you/` | Booking confirmation page (noindex). Used as the Google Ads / Google Business "after booking" page | By hand |
 | `crew/` | Crew clock-in page (noindex, blocked in robots.txt) | By hand |
-| `assets/film/` | 24-second muted brand film, 16x9 and 9x16 cuts + posters (see CREDITS.md) | Replace files; keep web size small (CRF ~27) |
+| `assets/film/` | 24-second muted brand film, 16x9 and 9x16 cuts + posters (see CREDITS.md), plus `tidy-edits-film-scrub.mp4`, the scroll-film cut for wide screens (keyframe every 8 frames) | Replace files; keep web size small (CRF ~27) |
 | `171a8ac649a60802fab9655b7d0e425c.txt` | IndexNow key. Don't delete. | |
 | favicons, `icon-*.png`, `site.webmanifest`, `logo.png` | Spray-bottle favicon and app icons | |
 
