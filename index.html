@@ -320,11 +320,11 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   margin: 0; background: var(--linen); color: var(--ink);
   font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
 }
 h1, h2, h3 { margin: 0; text-wrap: balance; }
 h1, h2 { font-family: var(--display); font-weight: 500; line-height: 1.04; letter-spacing: -0.015em; }
@@ -558,6 +558,65 @@ form.q { background: var(--paper); border: 1px solid var(--line); border-radius:
 .refer .fine { margin-top: var(--space-3); font-size: .85rem; opacity: .75; max-width: 60ch; }
 @media (max-width: 860px) { .refer-grid { grid-template-columns: 1fr; gap: var(--space-4); } }
 
+
+/* Hold to wipe: the one interactive moment. Visitors press and hold to wipe the smudge off our standard. */
+.wipe { position: relative; display: grid; gap: var(--space-3); padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); overflow: hidden; isolation: isolate; }
+.wipe .commit div { transition: opacity 500ms var(--ease); }
+.smudge, .cloth { display: none; }
+.wipe-ctl { display: none; }
+.wipe.armed .smudge { display: grid; grid-template-columns: repeat(6, 1fr); position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.smudge i {
+  opacity: calc(1 - var(--g, 0));
+  background:
+    radial-gradient(60% 34% at 40% 22%, color-mix(in srgb, var(--tan) 30%, transparent), transparent 70%),
+    radial-gradient(70% 30% at 62% 58%, color-mix(in srgb, var(--muted) 26%, transparent), transparent 72%),
+    radial-gradient(50% 24% at 30% 86%, color-mix(in srgb, var(--tan) 28%, transparent), transparent 70%),
+    color-mix(in srgb, var(--oat) 62%, transparent);
+}
+.smudge i:nth-child(even) { transform: scaleY(-1); }
+.wipe.armed .cloth {
+  display: block; position: absolute; z-index: 2; top: -6%; bottom: -6%; left: 0; width: 22%; pointer-events: none;
+  border-radius: 18px; background: repeating-linear-gradient(135deg, var(--tan-soft) 0 3px, var(--paper) 3px 6px);
+  box-shadow: 0 10px 30px rgba(40, 28, 18, .18);
+  opacity: var(--co, 0); transform: translateX(calc(var(--p, 0) * 570% - 100%)) rotate(-4deg);
+}
+.wipe.armed .commit div { opacity: .28; }
+.wipe.armed .commit div.lit { opacity: 1; }
+.wipe.armed .wipe-ctl { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; position: relative; z-index: 3; }
+.wipe-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 20px 0 8px; border-radius: 999px;
+  border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font: 600 1rem var(--body); cursor: pointer;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none;
+  transition: background 200ms var(--ease), color 200ms var(--ease), transform 200ms var(--ease);
+}
+.wipe-btn:hover { background: var(--oat); }
+.wipe-btn.holding { transform: scale(.97); }
+.wipe-btn svg { width: 38px; height: 38px; transform: rotate(-90deg); }
+.wipe-btn circle { fill: none; stroke: var(--line); stroke-width: 3; }
+.wipe-btn .wipe-ring { stroke: var(--walnut); stroke-dasharray: 126; stroke-dashoffset: calc(126 * (1 - var(--p, 0))); stroke-linecap: round; }
+.wipe.clean .wipe-btn { background: var(--walnut); color: var(--on-walnut); border-color: var(--walnut); }
+.wipe.clean .wipe-btn circle { stroke: var(--on-walnut); }
+.wipe-done { font-family: var(--display); font-size: var(--step-1); font-style: italic; color: var(--walnut); min-height: 1.4em; }
+
+/* How it works: each step's line draws itself as you scroll down */
+.steps li { position: relative; border-top-color: var(--line); }
+.steps li::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--ink); transform-origin: left; transform: scaleX(var(--d, 1)); }
+
+/* One quiet environment: fine paper grain over the whole page */
+.grain { position: fixed; inset: -50%; z-index: 30; pointer-events: none; opacity: .05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .2 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .grain { mix-blend-mode: screen; opacity: .035; } }
+:root[data-theme="dark"] .grain { mix-blend-mode: screen; opacity: .035; }
+@media (min-width: 861px) and (prefers-reduced-motion: no-preference) { .grain { animation: drift 80s steps(40) infinite; animation-delay: -12s; } }
+@keyframes drift { to { transform: translate(8%, 6%); } }
+body.paused *, body.paused *::before, body.paused *::after { animation-play-state: paused !important; }
+@media print { .grain { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe .commit div, .wipe-btn { transition: none; }
+  .steps li::after { transform: none; }
+}
+
 /* Footer */
 footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
 .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-3); }
@@ -594,7 +653,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
   <section class="film" id="film">
     <span class="film-bar" id="film-bar" aria-hidden="true"></span>
     <div class="film-stage" id="film-stage" aria-hidden="true">
@@ -737,10 +796,21 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   <section class="section">
     <div class="wrap standard">
       <p class="statement">Most of our work comes from referrals and repeat clients. That only happens when the <em>corners</em> get cleaned too.</p>
-      <div class="commit">
-        <div><h3>Attention to detail</h3><p>Tracks, fixtures, baseboards and the places a quick clean skips.</p></div>
-        <div><h3>Reliability</h3><p>We show up when we say we will and keep the same standard every visit.</p></div>
-        <div><h3>Flexibility</h3><p>Small jobs or big projects, one-time or recurring, around your schedule.</p></div>
+      <div class="wipe" id="wipe">
+        <div class="commit">
+          <div><h3>Attention to detail</h3><p>Tracks, fixtures, baseboards and the places a quick clean skips.</p></div>
+          <div><h3>Reliability</h3><p>We show up when we say we will and keep the same standard every visit.</p></div>
+          <div><h3>Flexibility</h3><p>Small jobs or big projects, one-time or recurring, around your schedule.</p></div>
+        </div>
+        <div class="smudge" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <span class="cloth" aria-hidden="true"></span>
+        <div class="wipe-ctl">
+          <button class="wipe-btn" id="wipe-btn" type="button" aria-describedby="wipe-done">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle class="wipe-ring" cx="24" cy="24" r="20"/></svg>
+            <span>Hold to wipe</span>
+          </button>
+          <p class="wipe-done" id="wipe-done" aria-live="polite"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -831,6 +901,7 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   </div>
 </footer>
 
+<div class="grain" aria-hidden="true"></div>
 <div class="callbar">
   <a class="btn btn-line" href="tel:+18577535593">Call</a>
   <a class="btn btn-solid" href="#quote">Free quote</a>
@@ -1286,6 +1357,78 @@ footer.site { padding-block: var(--space-5) 120px; border-top: 1px solid var(--l
   } else { onScreen = true; sync(); }
   sync();
 })();
+</script>
+<script>
+/* Hold to wipe. Progress builds while held, eases back if let go early, and lights each promise as the cloth passes it. */
+(function () {
+  var box = document.getElementById("wipe"), btn = document.getElementById("wipe-btn"), done = document.getElementById("wipe-done");
+  if (!box || !btn) return;
+  var items = box.querySelectorAll(".commit div"), cols = box.querySelectorAll(".smudge i");
+  var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var p = 0, holding = false, finished = false, wasDone = false, raf = null, last = 0, lastLit = -1;
+  var HOLD = 1600, BACK = 900, MSG = "Spotless. That's the standard, every visit.";
+  function paint() {
+    box.style.setProperty("--p", p.toFixed(4));
+    box.style.setProperty("--co", Math.min(1, p * 8, (1 - p) * 8 + (holding ? 1 : 0)).toFixed(3));
+    for (var i = 0; i < cols.length; i++) {
+      var g = Math.min(1, Math.max(0, (p * 1.254 - 0.11 - i / cols.length) * cols.length));
+      cols[i].style.setProperty("--g", g.toFixed(3));
+    }
+    var lit = Math.floor(p * 3 + 0.02);
+    if (lit !== lastLit) { lastLit = lit; for (var j = 0; j < items.length; j++) items[j].classList.toggle("lit", j < lit); }
+  }
+  function finish() {
+    finished = true; holding = false; p = 1; paint();
+    box.classList.add("clean"); btn.classList.remove("holding");
+    btn.querySelector("span").textContent = "Wiped clean";
+    done.textContent = MSG;
+  }
+  function frame(now) {
+    var dt = Math.min(64, now - (last || now)); last = now;
+    p += holding ? dt / HOLD : -dt / BACK;
+    if (p >= 1) { raf = null; last = 0; finish(); return; }
+    if (p <= 0) { p = 0; if (!holding) { paint(); raf = null; last = 0; return; } }
+    paint(); raf = requestAnimationFrame(frame);
+  }
+  function go() { if (raf === null) { last = 0; raf = requestAnimationFrame(frame); } }
+  function start(e) { if (finished) return; if (e && e.pointerId != null && btn.setPointerCapture) { try { btn.setPointerCapture(e.pointerId); } catch (x) {} } holding = true; btn.classList.add("holding"); go(); }
+  function stop() { if (!holding) return; holding = false; btn.classList.remove("holding"); go(); }
+  function reset() { finished = false; p = 0; lastLit = -1; box.classList.remove("clean"); btn.querySelector("span").textContent = "Hold to wipe"; done.textContent = ""; paint(); }
+  btn.addEventListener("pointerdown", function (e) { wasDone = finished; if (e.button === 0) start(e); });
+  btn.addEventListener("pointerup", stop);
+  btn.addEventListener("pointercancel", stop);
+  btn.addEventListener("lostpointercapture", stop);
+  btn.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  btn.addEventListener("keydown", function (e) { if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); if (finished) { reset(); return; } start(); } });
+  btn.addEventListener("keyup", function (e) { if (e.key === " " || e.key === "Enter") stop(); });
+  btn.addEventListener("click", function (e) { if (finished && (wasDone || e.detail === 0)) { wasDone = false; reset(); } });
+  function mode() { if (mq.matches) { box.classList.add("armed"); finish(); } else if (!finished) { box.classList.add("armed"); paint(); } }
+  mq.addEventListener ? mq.addEventListener("change", function () { if (mq.matches) finish(); }) : 0;
+  mode();
+})();
+
+/* How it works: the line above each step draws itself as it scrolls in, and undraws on the way back up. */
+(function () {
+  var steps = document.querySelectorAll(".steps li");
+  if (!steps.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var last = [], queued = false;
+  function draw() {
+    queued = false;
+    var vh = window.innerHeight;
+    for (var i = 0; i < steps.length; i++) {
+      var r = steps[i].getBoundingClientRect();
+      var d = Math.min(1, Math.max(0, (vh * 0.92 - r.top) / (vh * 0.3) - (i % 4) * 0.12));
+      d = Math.round(d * 100) / 100;
+      if (d !== last[i]) { last[i] = d; steps[i].style.setProperty("--d", d); }
+    }
+  }
+  window.addEventListener("scroll", function () { if (!queued) { queued = true; requestAnimationFrame(draw); } }, { passive: true });
+  window.addEventListener("resize", draw);
+  draw();
+})();
+
+/* Pause every looping animation while the tab is hidden. */
+document.addEventListener("visibilitychange", function () { document.body.classList.toggle("paused", document.hidden); });
 </script>
 </body>
 </html>

@@ -26,6 +26,8 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - **#13 Phone speed + holiday checklist** (branch `claude/project-thread-iifq8y`). three.js loads after page load, lighter idle 3D loop, async fonts, small logo, contrast fix, new `/guides/holiday-cleaning-checklist/`, "Text" button on the phone call bar. Lighthouse mobile was 46 before. Old branch, probably needs updating from main (sitemap/footer conflicts). After merge: ping IndexNow with the new guide URL.
 - **#17 `/office` login door page** (branch `claude/project-thread-mlx39s`). Branded page with "Sign in to the Office" (the private Office app on claude.ai) + crew clock-in link, "Office login" in the footer, noindex.
 
+- **10k-websites upgrade** (branch `claude/project-thread-f2qz0n`). From Yessi's 10k websites skill, free parts only: "Hold to wipe" moment on the standard section (press and hold wipes a smudge off the three promises), self-drawing step lines in "How it works", faint paper grain over the page, `overflow-x: clip`, tab-hidden animation pause. Skipped the skill's paid Higgsfield video and Hostinger hosting (site stays free on GitHub Pages).
+
 ## Open to-dos (most need Yessi)
 
 1. **Enforce HTTPS** in repo Settings > Pages (one checkbox, Yessi). Right now `http://` doesn't redirect to `https://`.
@@ -45,6 +47,9 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - She likes big, full-screen, motion-heavy design (not small widgets), but always in the neutral palette.
 
 ## Lessons from past work
+
+- Uploaded website skills (like 10k-websites) assume paid AI video + new hosting. Take their free craft (interaction, motion, copy checks) and keep GitHub Pages.
+- A rAF hold loop must not stop on its first frame (dt is 0, so progress is still 0): only stop at 0 when not holding.
 
 - Test with `python3 -m http.server` (not `file://`) and Playwright; `html` has smooth scrolling, so wait ~800 ms after scrolling before screenshots.
 - Stub `formsubmit.co` in Playwright to test forms offline.
