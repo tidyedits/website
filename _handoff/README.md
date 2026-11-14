@@ -19,6 +19,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 | 2026-10-27 | #12 | Titles/descriptions trimmed to fit Google |
 | 2026-10-28 | #14, #15 | Homepage briefly swapped to a basic page, then the 3D homepage put back. Basic version is in history at commit `731d082` if ever wanted again |
 | 2026-10-28 | #16 | 24 s premium brand film on the homepage (`assets/film/`) |
+| 2026-11-14 | (this PR) | Hero video (marble kitchen pull-back) + the 3D scroll film remade as real video in the same house (`assets/hero/`, `assets/scroll/`). three.js removed. 3D version is in history before this PR if ever wanted again |
 
 ## Open pull requests (waiting for Yessi to tap Merge)
 
@@ -39,7 +40,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 
 ## Decisions Yessi has made
 
-- Keep the 3D homepage (she flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
+- Keep the scroll-film homepage, now as real video set in the hero kitchen (2026-11-14). Earlier she kept the 3D homepage (she flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
 - Stay free: no paid AI, no paid site builders. FormSubmit for forms.
 - No street address, no PO box. "Milton, MA" only.
 - She likes big, full-screen, motion-heavy design (not small widgets), but always in the neutral palette.
@@ -50,5 +51,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 - Stub `formsubmit.co` in Playwright to test forms offline.
 - Lighthouse works via `npm i lighthouse` with Chromium; headless WebGL inflates blocking time, judge LCP/FCP instead.
 - For web video: light denoise + CRF ~27, 30 fps keeps files 2-4 MB.
+- Higgsfield free-trial (unlimited) generations only work in Claude chat / Cowork / ChatGPT, not Claude Code. Have Yessi generate there and send the files.
+- This PC has no Python; a tiny Node static server with Range support works for testing video seeking.
 - Old Google favicon/snippet = not recrawled yet; the fix is Search Console "Request indexing", not code.
 - Yessi's short messages can change direction fast; act quickly, keep both versions, confirm live in one line.

@@ -19,11 +19,13 @@ Read `_handoff/README.md` first for the full handoff: what's live, open pull req
 
 | Path | What it is | How to edit |
 |---|---|---|
-| `index.html` | Homepage: full-screen 3D scroll film (three.js 0.147.0, sticky stage, word-by-word headlines), brand video, services, referral band ("Give $25, get $25", `?ref=Name`), towns, FAQ, quote form, LocalBusiness/FAQ schema | Edit by hand (one big file) |
+| `index.html` | Homepage: full-screen hero video (plays once, ends on the wide kitchen), then the scroll film (one video scrubbed by scroll, sticky stage, word-by-word headlines; no three.js anymore), brand video, services, referral band ("Give $25, get $25", `?ref=Name`), towns, FAQ, quote form, LocalBusiness/FAQ schema | Edit by hand (one big file) |
 | `services/<slug>/`, `areas/<town>/`, `guides/<slug>/`, hub pages, `plan/`, `sitemap.xml`, `assets/site.css` | SEO pages (8 services, 8 towns, 4 checklists) and the "Plan your clean" lead magnet | **Generated.** Edit `_build/content.py` (or `_build/plan.py`, `_build/base.css`) then run `python3 _build/build.py`. Don't hand-edit the output. |
 | `card/` | Digital business card + `tidy-edits.vcf` + QR | By hand |
 | `thank-you/` | Booking confirmation page (noindex). Used as the Google Ads / Google Business "after booking" page | By hand |
 | `crew/` | Crew clock-in page (noindex, blocked in robots.txt) | By hand |
+| `assets/hero/` | Hero video, 16x9 + 9x16 + posters (Higgsfield: GPT Image 2.6 still, Seedance 2.5) | Replace files |
+| `assets/scroll/` | 25 s scroll film, 16x9 (desktop) + 1x1 (phone, crop follows the action) + posters. Encoded with keyframes every 6 frames (`-g 6 -bf 0`) so scrubbing is smooth both ways. Script: `_handoff/scroll-film-video-script.md` | Replace files, keep `-g 6` |
 | `assets/film/` | 24-second muted brand film, 16x9 and 9x16 cuts + posters (see CREDITS.md) | Replace files; keep web size small (CRF ~27) |
 | `171a8ac649a60802fab9655b7d0e425c.txt` | IndexNow key. Don't delete. | |
 | favicons, `icon-*.png`, `site.webmanifest`, `logo.png` | Spray-bottle favicon and app icons | |
@@ -48,5 +50,5 @@ After adding or changing public pages, ping IndexNow (free, no account):
 
 - Branch, open a pull request, and give Yessi the PR link. She merges from her phone (the green "Merge" button). Only merge yourself if she says "merge it".
 - Test before saying done: serve with `python3 -m http.server` and check with Playwright at 390px (phone) and 1440px, light and dark mode, no sideways scroll, no console errors. Phone matters most: most visitors are on phones.
-- Keep the homepage fast: three.js loads after page load; don't add heavy libraries.
+- Keep the homepage fast: the scroll film loads after page load; don't add heavy libraries.
 - Keep these docs current: when something ships or a to-do changes, update `_handoff/README.md`.
