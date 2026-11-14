@@ -40,7 +40,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 
 ## Decisions Yessi has made
 
-- Keep the scroll-film homepage, now as real video set in the hero kitchen (2026-11-14). Earlier she kept the 3D homepage (she flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
+- 2026-11-14: she tried the kitchen hero video + video scroll film as the top of the page (#21, #22), then asked to go back to the original 3D homepage and keep the scroll video as its own section lower down (`#watch`). Keep the 3D homepage (she also flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
 - Stay free: no paid AI, no paid site builders. FormSubmit for forms.
 - No street address, no PO box. "Milton, MA" only.
 - She likes big, full-screen, motion-heavy design (not small widgets), but always in the neutral palette.
