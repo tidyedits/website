@@ -1,4 +1,4 @@
-# Website handoff (as of 2026-11-14)
+# Website handoff (as of 2026-11-15)
 
 Everything Claude Code needs to keep working on tidyedits.com. Rules and the page map are in
 `../CLAUDE.md`; this file is the status. Update it when things change.
@@ -19,7 +19,8 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 | 2026-10-27 | #12 | Titles/descriptions trimmed to fit Google |
 | 2026-10-28 | #14, #15 | Homepage briefly swapped to a basic page, then the 3D homepage put back. Basic version is in history at commit `731d082` if ever wanted again |
 | 2026-10-28 | #16 | 24 s premium brand film on the homepage (`assets/film/`) |
-| 2026-11-14 | (this PR) | Hero video (marble kitchen pull-back) + the 3D scroll film remade as real video in the same house (`assets/hero/`, `assets/scroll/`). three.js removed. 3D version is in history before this PR if ever wanted again |
+| 2026-11-14 | #21, #22 | Hero video + scroll film remade as real video (`assets/hero/`, `assets/scroll/`), three.js removed |
+| 2026-11-15 | (this PR) | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
 
 ## Open pull requests (waiting for Yessi to tap Merge)
 
@@ -40,7 +41,7 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 
 ## Decisions Yessi has made
 
-- Keep the scroll-film homepage, now as real video set in the hero kitchen (2026-11-14). Earlier she kept the 3D homepage (she flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
+- 2026-11-15: back to the original 3D scroll-film homepage + brand film (she undid the 2026-11-14 hero video / video scroll film). Video version kept at `71f7171`. Earlier she kept the 3D homepage (she flipped to a basic page and back on 2026-10-28; if she asks again, show a phone screenshot of each and ask once which).
 - Stay free: no paid AI, no paid site builders. FormSubmit for forms.
 - No street address, no PO box. "Milton, MA" only.
 - She likes big, full-screen, motion-heavy design (not small widgets), but always in the neutral palette.
