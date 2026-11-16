@@ -20,7 +20,8 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 | 2026-10-28 | #14, #15 | Homepage briefly swapped to a basic page, then the 3D homepage put back. Basic version is in history at commit `731d082` if ever wanted again |
 | 2026-10-28 | #16 | 24 s premium brand film on the homepage (`assets/film/`) |
 | 2026-11-14 | #21, #22 | Hero video + scroll film remade as real video (`assets/hero/`, `assets/scroll/`), three.js removed |
-| 2026-11-15 | (this PR) | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
+| 2026-11-15 | #24 | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
+| 2026-11-16 | (this PR) | Tidy Edits app at `/app/` (installable from the browser, works offline) + `_app-store/` store wrapper. "Get the app" link in the homepage footer |
 
 ## Open pull requests (waiting for Yessi to tap Merge)
 
@@ -37,7 +38,8 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 5. **Website AI chat**: a Cloudflare Worker using free Workers AI (Groq backup) is drafted but not deployed. Needs Yessi's free Cloudflare account. Key never goes in site code.
 6. **Real photos**: no job photos on the site yet. When Yessi sends before/after photos, add a proof/gallery section (and a before/after slider idea from the original plan).
 7. **Directory links**: add each listing URL (Yelp, Nextdoor, Google Business, etc.) to the schema `sameAs` list in `index.html` as they go live.
-8. Testimonials strip on the homepage once opted-in reviews come in from `/review`.
+8. **App stores**: the app is live as a web app once merged. Google Play ($25 once) and App Store ($99/yr) need Yessi's OK and her own sign-up; steps in `_app-store/README.md`. Paste the Google review link into `GOOGLE_REVIEW_URL` in `app/app.js` too. Send one real test quote with a photo from the app after merge to confirm FormSubmit attaches photos.
+9. Testimonials strip on the homepage once opted-in reviews come in from `/review`.
 
 ## Decisions Yessi has made
 

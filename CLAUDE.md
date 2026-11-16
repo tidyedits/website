@@ -24,6 +24,8 @@ Read `_handoff/README.md` first for the full handoff: what's live, open pull req
 | `card/` | Digital business card + `tidy-edits.vcf` + QR | By hand |
 | `thank-you/` | Booking confirmation page (noindex). Used as the Google Ads / Google Business "after booking" page | By hand |
 | `crew/` | Crew clock-in page (noindex, blocked in robots.txt) | By hand |
+| `app/` | **Tidy Edits app** (installable PWA): quote with photos, services, call/text, My home (saved on the phone), referral share, review. Own manifest + service worker scoped to `/app/` | By hand. Bump `VERSION` in `app/sw.js` on every change |
+| `_app-store/` + `codemagic.yaml` | Capacitor wrapper that puts `/app/` in Google Play / App Store via Codemagic cloud builds (no Mac). Not published | See `_app-store/README.md` |
 | `assets/film/` | 24-second muted brand film, 16x9 and 9x16 cuts + posters (see CREDITS.md) | Replace files; keep web size small (CRF ~27) |
 | `171a8ac649a60802fab9655b7d0e425c.txt` | IndexNow key. Don't delete. | |
 | favicons, `icon-*.png`, `site.webmanifest`, `logo.png` | Spray-bottle favicon and app icons | |

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tidy Edits app</title>
+<meta name="description" content="The Tidy Edits Cleaning app. Request a quote with photos, see what we clean, call or text us, and keep your home details in one place. All types of cleaning across Greater Boston.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://tidyedits.com/app/">
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/app/icons/apple-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tidy Edits">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#faf6f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Tidy Edits app. Same tokens as the website (neutrals only: linen, oat, tan, walnut, logo ink). */
+:root {
+  --linen: #faf6f0; --paper: #fffdf9; --oat: #f0e8dc; --ink: #1d1813; --muted: #6b5e51;
+  --line: #e2d6c6; --walnut: #5e4433; --on-walnut: #fffdf9; --tan: #8f7049; --leaf: #9c8a74;
+  --logo-filter: none;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r: 16px; --pad: 18px; --tabh: 64px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+    --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f; --leaf: #6f6252;
+    --logo-filter: invert(1); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --linen: #1a1511; --paper: #221c17; --oat: #2a221c; --ink: #f3ece2; --muted: #b9aa98;
+  --line: #3a3027; --walnut: #d8c3a6; --on-walnut: #1a1511; --tan: #c9a97f; --leaf: #6f6252;
+  --logo-filter: invert(1); color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+body { background: var(--linen); color: var(--ink); font: 400 1.0625rem/1.55 var(--body); min-height: 100dvh; overflow-x: hidden; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+
+/* App frame: phone width, centered on bigger screens */
+.app { max-width: 560px; margin: 0 auto; min-height: 100dvh; position: relative;
+  padding: calc(env(safe-area-inset-top) + 8px) var(--pad) calc(var(--tabh) + env(safe-area-inset-bottom) + 28px); }
+@media (min-width: 700px) { .app { border-inline: 1px solid var(--line); background: var(--linen); } body { background: var(--oat); } }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 56px; }
+.top img { height: 44px; width: auto; filter: var(--logo-filter); }
+.top .call { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--paper); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.ic { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Views */
+.view { display: none; padding-top: 6px; }
+.view.on { display: block; animation: rise .22s var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.01em; text-wrap: balance; }
+h1 { font-size: clamp(2.3rem, 10vw, 3.1rem); line-height: 1.02; }
+h2 { font-size: 1.6rem; line-height: 1.1; }
+h3 { font-size: 1.2rem; line-height: 1.2; }
+.lede { color: var(--muted); margin-top: 10px; max-width: 34ch; }
+.sec { margin-top: 30px; }
+.sec > h2 { margin-bottom: 12px; }
+.note { color: var(--muted); font-size: .95rem; }
+
+/* Home hero: the one bold moment */
+.hero { position: relative; overflow: hidden; background: var(--oat); border-radius: 22px; padding: 30px 22px 22px; isolation: isolate; }
+.hero .leaves { position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; color: var(--leaf); opacity: .7; z-index: -1; }
+.hero h1 em { font-style: italic; color: var(--tan); }
+.hero .lede { margin-bottom: 20px; }
+.hero .leaves path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 1.4s var(--ease) .15s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* Buttons */
+.btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 12px 16px; border-radius: 14px; width: 100%;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-weight: 600; text-decoration: none; cursor: pointer;
+  touch-action: manipulation; transition: transform .15s var(--ease), background-color .15s ease; }
+.btn:active { transform: scale(.98); }
+.btn.primary { background: var(--walnut); color: var(--on-walnut); border-color: var(--walnut); }
+.btn[disabled] { opacity: .6; }
+@media (hover: hover) { .btn:hover { background: var(--oat); } .btn.primary:hover { background: var(--walnut); opacity: .92; } }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+
+/* Quick tiles */
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tile { display: grid; gap: 14px; align-content: space-between; min-height: 116px; padding: 16px; border-radius: var(--r); background: var(--paper);
+  border: 1px solid var(--line); text-decoration: none; transition: transform .15s var(--ease); }
+.tile:active { transform: scale(.98); }
+.tile strong { font-weight: 600; display: block; }
+.tile span { color: var(--muted); font-size: .9rem; line-height: 1.35; }
+.tile .ic { width: 24px; height: 24px; color: var(--tan); }
+
+/* Steps */
+.steps { list-style: none; counter-reset: s; border-top: 1px solid var(--line); }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 14px 2px; border-bottom: 1px solid var(--line); }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--display); font-style: italic; color: var(--tan); }
+.steps strong { font-weight: 600; }
+.steps span { display: block; color: var(--muted); font-size: .95rem; }
+
+/* Banners */
+.band { border-radius: var(--r); padding: 18px; background: var(--paper); border: 1px solid var(--line); }
+.band h3 { margin-bottom: 6px; }
+.band .btn { margin-top: 14px; }
+.install { display: none; }
+.install.on { display: block; margin-top: 14px; }
+.towns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.towns span { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--muted); }
+
+/* Services list */
+.svc { list-style: none; border-top: 1px solid var(--line); }
+.svc button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center;
+  padding: 16px 2px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.svc button:focus-visible { outline: 2px solid var(--tan); outline-offset: -2px; }
+.svc strong { font-weight: 600; }
+.svc span { grid-column: 1; color: var(--muted); font-size: .95rem; }
+.svc .ic { grid-column: 2; grid-row: 1 / span 2; color: var(--tan); }
+.allj { margin: 0 0 16px; padding: 16px 18px; border-left: 2px solid var(--tan); background: var(--paper); border-radius: 0 var(--r) var(--r) 0; }
+
+/* Forms */
+form { display: grid; gap: 16px; }
+fieldset { border: 0; display: grid; gap: 10px; }
+legend, label { font-weight: 600; font-size: .95rem; }
+legend { margin-bottom: 8px; }
+.field { display: grid; gap: 6px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+input, select, textarea { width: 100%; min-height: 52px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--paper); font-size: 1rem; appearance: none; -webkit-appearance: none; }
+select { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; }
+textarea { min-height: 110px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--tan); outline-offset: 0; border-color: transparent; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { font-weight: 500; position: relative; }
+.chips input { position: absolute; opacity: 0; inset: 0; min-height: 0; cursor: pointer; }
+.chips span { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper);
+  transition: background-color .15s ease, color .15s ease; }
+.chips input:checked + span { background: var(--walnut); color: var(--on-walnut); border-color: var(--walnut); }
+.chips input:focus-visible + span { outline: 2px solid var(--tan); outline-offset: 2px; }
+.hint { color: var(--muted); font-size: .88rem; font-weight: 400; }
+.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.photos figure { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--oat); }
+.photos img { width: 100%; height: 100%; object-fit: cover; }
+.photos button { position: absolute; top: 4px; right: 4px; width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(17,19,18,.72); color: #fffdf9;
+  display: grid; place-items: center; cursor: pointer; }
+.add-photo { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 64px; border: 1.5px dashed var(--line); border-radius: 14px;
+  background: var(--paper); font-weight: 600; cursor: pointer; }
+.add-photo input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.add-photo:focus-within { outline: 2px solid var(--tan); outline-offset: 2px; }
+.msg { padding: 14px 16px; border-radius: 12px; background: var(--oat); }
+.msg[hidden] { display: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+.check input { width: 22px; height: 22px; min-height: 0; padding: 0; flex: none; margin-top: 2px; border-radius: 6px; accent-color: var(--walnut); appearance: auto; -webkit-appearance: checkbox; }
+
+/* Stars */
+.stars { display: flex; gap: 6px; }
+.stars label { position: relative; cursor: pointer; }
+.stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.stars svg { width: 44px; height: 44px; stroke: var(--tan); stroke-width: 1.4; fill: transparent; transition: fill .15s ease; }
+.stars label.lit svg { fill: var(--tan); }
+.stars input:focus-visible + svg { outline: 2px solid var(--tan); outline-offset: 2px; border-radius: 6px; }
+
+/* History */
+.hist { list-style: none; border-top: 1px solid var(--line); }
+.hist li { padding: 14px 2px; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.hist strong { font-weight: 600; }
+.hist span { color: var(--muted); font-size: .92rem; }
+
+/* Sent screen */
+.done { text-align: left; }
+.done .tick { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--walnut); color: var(--walnut); display: grid; place-items: center; margin-bottom: 16px; }
+
+/* Tab bar */
+.tabs { position: fixed; z-index: 10; left: 0; right: 0; bottom: 0; background: color-mix(in srgb, var(--linen) 92%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
+.tabs nav { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); height: var(--tabh); }
+.tabs a { display: grid; justify-items: center; align-content: center; gap: 3px; text-decoration: none; color: var(--muted); font-size: .75rem; font-weight: 600; }
+.tabs a[aria-current="page"] { color: var(--ink); }
+.tabs a[aria-current="page"] .ic { color: var(--tan); }
+.tabs .ic { width: 24px; height: 24px; }
+.tabs a.quote-tab .pill { display: grid; place-items: center; width: 44px; height: 26px; border-radius: 999px; background: var(--walnut); color: var(--on-walnut); }
+.tabs a.quote-tab .pill .ic { color: var(--on-walnut); width: 20px; height: 20px; }
+.foot { margin-top: 34px; text-align: center; color: var(--muted); font-size: .85rem; }
+.foot strong { color: var(--ink); font-weight: 600; }
+.foot a { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .view.on, .hero .leaves path { animation: none; stroke-dashoffset: 0; }
+  .btn, .tile, .chips span, .stars svg { transition: none; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6L12 16.7 6.6 19.6l1.1-6L3.2 9.4l6.1-.8z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11M12 9c-2-4-6-4-6-1.5S10 9 12 9c2 0 6 0 6-1.5S14 5 12 9"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="top">
+    <a href="#home" aria-label="Tidy Edits, home"><img src="/logo.png" alt="Tidy Edits" width="60" height="44"></a>
+    <a class="call" href="tel:+18577535593"><svg class="ic"><use href="#i-phone"/></svg>Call us</a>
+  </header>
+
+  <main>
+  <!-- HOME -->
+  <section class="view" id="v-home" data-view="home" aria-labelledby="h-home">
+    <div class="hero">
+      <svg class="leaves" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+        <path d="M60 196 C 90 150 110 110 150 40"/>
+        <path d="M86 150 C 70 136 66 118 74 104 C 90 112 96 132 86 150Z"/>
+        <path d="M104 118 C 116 100 134 96 148 102 C 140 118 122 124 104 118Z"/>
+        <path d="M114 96 C 100 84 98 66 106 54 C 120 64 124 82 114 96Z"/>
+        <path d="M132 66 C 142 50 158 46 170 52 C 162 66 146 72 132 66Z"/>
+        <circle cx="168" cy="96" r="6"/><circle cx="180" cy="112" r="3.5"/><circle cx="160" cy="118" r="2.5"/>
+      </svg>
+      <h1 id="h-home"><span id="hello">Every detail,</span> <em>handled.</em></h1>
+      <p class="lede">Homes, rentals and offices across Greater Boston. Send a few photos and we'll send your quote.</p>
+      <a class="btn primary" href="#quote"><svg class="ic"><use href="#i-cam"/></svg>Get a quote with photos</a>
+      <div class="row2">
+        <a class="btn" href="tel:+18577535593"><svg class="ic"><use href="#i-phone"/></svg>Call</a>
+        <a class="btn" href="sms:+18577535593"><svg class="ic"><use href="#i-text"/></svg>Text</a>
+      </div>
+    </div>
+
+    <div class="band install" id="install">
+      <h3>Keep Tidy Edits on your home screen</h3>
+      <p class="note" id="install-how">Open it in one tap next time, like any app.</p>
+      <button class="btn" id="install-btn" type="button" hidden><svg class="ic"><use href="#i-plus"/></svg>Add to home screen</button>
+    </div>
+
+    <div class="sec">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><div><strong>Tell us about the job</strong><span>What needs cleaning, where and when. Photos help us quote it right.</span></div></li>
+        <li><div><strong>We send your quote</strong><span>Usually within one business day, by call, text or email.</span></div></li>
+        <li><div><strong>We clean, you check it</strong><span>Planned around your property, finished with care.</span></div></li>
+      </ol>
+    </div>
+
+    <div class="sec tiles">
+      <a class="tile" href="#services"><svg class="ic"><use href="#i-list"/></svg><div><strong>What we clean</strong><span>All types of jobs, big or small</span></div></a>
+      <a class="tile" href="#me"><svg class="ic"><use href="#i-gift"/></svg><div><strong>Give $25, get $25</strong><span>Share your link with a friend</span></div></a>
+      <a class="tile" href="#review"><svg class="ic"><use href="#i-star"/></svg><div><strong>Leave a review</strong><span>Tell us how we did</span></div></a>
+      <a class="tile" href="mailto:info@tidyedits.com"><svg class="ic"><use href="#i-mail"/></svg><div><strong>Email us</strong><span>info@tidyedits.com</span></div></a>
+    </div>
+
+    <div class="sec">
+      <h2>Where we clean</h2>
+      <p class="note">Boston and Greater Boston, including:</p>
+      <div class="towns"><span>Boston</span><span>Brookline</span><span>Cambridge</span><span>Dorchester</span><span>Milton</span><span>Newton</span><span>Quincy</span><span>Somerville</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="view" id="v-services" data-view="services" aria-labelledby="h-svc">
+    <h1 id="h-svc">What we clean</h1>
+    <p class="lede">Every clean is planned around the property, not a quick wipe-down.</p>
+    <div class="sec">
+      <p class="allj">We take on all types of cleaning jobs, big or small, one-time or recurring. These are just some examples. Tap one to start a quote.</p>
+      <ul class="svc" id="svc-list"></ul>
+      <a class="btn primary" href="#quote" style="margin-top:18px">Something else? Ask us</a>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="view" id="v-quote" data-view="quote" aria-labelledby="h-quote">
+    <h1 id="h-quote">Get a quote</h1>
+    <p class="lede">A minute or two. We reply within one business day, often sooner.</p>
+    <form class="sec" id="quote-form" action="https://formsubmit.co/info@tidyedits.com" method="POST" enctype="multipart/form-data" novalidate>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New quote request (Tidy Edits app)">
+      <input type="hidden" name="_next" value="https://tidyedits.com/app/#sent">
+      <input type="hidden" name="source" value="Tidy Edits app">
+
+      <fieldset>
+        <legend>What do you need?</legend>
+        <div class="chips" id="svc-chips"></div>
+      </fieldset>
+
+      <div class="two">
+        <div class="field"><label for="q-type">Property</label>
+          <select id="q-type" name="property"><option>House</option><option>Apartment or condo</option><option>Multi-family building</option><option>Office or business</option><option>Short-term rental</option><option>Vacant property</option><option>Other</option></select></div>
+        <div class="field"><label for="q-often">How often</label>
+          <select id="q-often" name="how_often"><option>One time</option><option>Weekly</option><option>Every 2 weeks</option><option>Monthly</option><option>Not sure yet</option></select></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="q-town">Town</label><input id="q-town" name="town" autocomplete="address-level2" placeholder="e.g. Quincy"></div>
+        <div class="field"><label for="q-date">Preferred date</label><input id="q-date" name="date" type="date"></div>
+      </div>
+      <div class="field"><label for="q-size">Size</label><input id="q-size" name="size" placeholder="3 bed, 2 bath, about 1,400 sq ft"></div>
+
+      <fieldset>
+        <legend>Photos <span class="hint">(optional, up to 6)</span></legend>
+        <div class="photos" id="photo-grid"></div>
+        <label class="add-photo"><svg class="ic"><use href="#i-cam"/></svg><span id="add-photo-label">Add photos</span>
+          <input type="file" id="q-photos-pick" accept="image/*" multiple></label>
+        <input type="file" id="q-photos" name="attachment" multiple hidden>
+      </fieldset>
+
+      <div class="field"><label for="q-notes">Anything we should know?</label><textarea id="q-notes" name="notes" placeholder="Pets, parking, access, the rooms that matter most…"></textarea></div>
+
+      <fieldset>
+        <legend>Your details</legend>
+        <div class="field"><label for="q-name">Name</label><input id="q-name" name="name" autocomplete="name" required></div>
+        <div class="two">
+          <div class="field"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="q-email">Email</label><input id="q-email" name="email" type="email" autocomplete="email" spellcheck="false"></div>
+        </div>
+        <div class="field"><span class="sr" id="pref-l">Best way to reach you</span>
+          <div class="chips" role="radiogroup" aria-labelledby="pref-l">
+            <label><input type="radio" name="reach_me_by" value="Call" checked><span>Call me</span></label>
+            <label><input type="radio" name="reach_me_by" value="Text"><span>Text me</span></label>
+            <label><input type="radio" name="reach_me_by" value="Email"><span>Email me</span></label>
+          </div></div>
+        <div class="field"><label for="q-ref">Referred by <span class="hint">(optional)</span></label><input id="q-ref" name="referred_by" autocomplete="off" placeholder="Name of the client who sent you"></div>
+      </fieldset>
+
+      <p class="msg" id="q-msg" role="status" hidden></p>
+      <button class="btn primary" id="q-submit" type="submit">Send my request</button>
+      <p class="note">We use your details only to reply about this job. You can also call or text <a href="tel:+18577535593">857-753-5593</a>.</p>
+    </form>
+  </section>
+
+  <!-- SENT -->
+  <section class="view done" id="v-sent" data-view="sent" aria-labelledby="h-sent">
+    <div class="hero">
+      <div class="tick" aria-hidden="true"><svg class="ic"><use href="#i-tick"/></svg></div>
+      <h1 id="h-sent">Thank you, we got your request.</h1>
+      <p class="lede">We'll reach out within one business day to confirm the details and send your quote.</p>
+    </div>
+    <div class="sec row2">
+      <a class="btn" href="tel:+18577535593"><svg class="ic"><use href="#i-phone"/></svg>Call</a>
+      <a class="btn" href="sms:+18577535593"><svg class="ic"><use href="#i-text"/></svg>Text</a>
+    </div>
+    <a class="btn" href="#home" style="margin-top:10px">Back to home</a>
+  </section>
+
+  <!-- MY HOME -->
+  <section class="view" id="v-me" data-view="me" aria-labelledby="h-me">
+    <h1 id="h-me">My home</h1>
+    <p class="lede">Save your details once and every quote fills itself in. Saved on this phone only.</p>
+
+    <form class="sec" id="me-form">
+      <div class="field"><label for="m-name">Name</label><input id="m-name" name="name" autocomplete="name"></div>
+      <div class="two">
+        <div class="field"><label for="m-phone">Phone</label><input id="m-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="m-email">Email</label><input id="m-email" name="email" type="email" autocomplete="email" spellcheck="false"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="m-town">Town</label><input id="m-town" name="town" autocomplete="address-level2"></div>
+        <div class="field"><label for="m-size">Size</label><input id="m-size" name="size" placeholder="3 bed, 2 bath"></div>
+      </div>
+      <div class="field"><label for="m-notes">Home notes</label><textarea id="m-notes" name="notes" placeholder="Pets, parking, how to get in, rooms to skip…"></textarea></div>
+      <p class="msg" id="m-msg" role="status" hidden></p>
+      <button class="btn primary" type="submit">Save my details</button>
+    </form>
+
+    <div class="sec band">
+      <h3>Give $25, get $25</h3>
+      <p class="note">Send your link to a friend. When they book their first clean, you both get $25 off.</p>
+      <button class="btn primary" id="share-ref" type="button"><svg class="ic"><use href="#i-share"/></svg>Share my link</button>
+      <p class="note" id="ref-out" role="status" style="margin-top:10px;word-break:break-all"></p>
+    </div>
+
+    <div class="sec">
+      <h2>My requests</h2>
+      <ul class="hist" id="hist"></ul>
+      <p class="note" id="hist-empty">No requests yet. When you send one, it shows up here.</p>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section class="view" id="v-review" data-view="review" aria-labelledby="h-rev">
+    <h1 id="h-rev">How did we do?</h1>
+    <p class="lede">Every answer helps us get better, good or bad. It goes straight to the owner.</p>
+    <form class="sec" id="rev-form" novalidate>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <fieldset>
+        <legend>Your rating</legend>
+        <div class="stars" id="stars"></div>
+      </fieldset>
+      <div class="field"><label for="r-text">Your review</label><textarea id="r-text" name="review" placeholder="What did we do well? What could be better?"></textarea></div>
+      <div class="two">
+        <div class="field"><label for="r-name">Name</label><input id="r-name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="r-town">Town</label><input id="r-town" name="town" autocomplete="address-level2"></div>
+      </div>
+      <label class="check"><input type="checkbox" name="ok_to_show_on_website" value="Yes"> It's OK to show my review (first name and town) on tidyedits.com</label>
+      <p class="msg" id="r-msg" role="status" hidden></p>
+      <button class="btn primary" id="r-submit" type="submit">Send my review</button>
+      <a class="btn" id="google-review" href="#" target="_blank" rel="noopener" hidden><svg class="ic"><use href="#i-star"/></svg>Also post it on Google</a>
+    </form>
+  </section>
+  </main>
+
+  <footer class="foot"><strong translate="no">Tidy Edits Cleaning Company</strong><br>All types of residential and commercial cleaning<br>Milton, MA · <a href="tel:+18577535593">857-753-5593</a><br><a href="/" target="_blank" rel="noopener">tidyedits.com</a></footer>
+</div>
+
+<div class="tabs">
+  <nav aria-label="App">
+    <a href="#home" data-tab="home"><svg class="ic"><use href="#i-home"/></svg>Home</a>
+    <a href="#services" data-tab="services"><svg class="ic"><use href="#i-list"/></svg>Services</a>
+    <a href="#quote" data-tab="quote" class="quote-tab"><span class="pill"><svg class="ic"><use href="#i-plus"/></svg></span>Quote</a>
+    <a href="#me" data-tab="me"><svg class="ic"><use href="#i-user"/></svg>My home</a>
+  </nav>
+</div>
+
+<script src="/app/app.js" defer></script>
+</body>
+</html>
