@@ -1,0 +1,62 @@
+# Cloud builds for the Tidy Edits store app. Codemagic free tier: 500 build minutes a month on macOS machines.
+# The app itself is tidyedits.com/app; this only wraps it. Signing details live in Codemagic, never in this public repo.
+workflows:
+  android-test:
+    name: Android test build (installable APK, no Play account needed)
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    working_directory: _app-store
+    environment:
+      node: 20
+      java: 17
+    scripts:
+      - npm ci
+      - npx cap add android
+      - npx cap sync android
+      - cd android && ./gradlew assembleDebug
+    artifacts:
+      - _app-store/android/app/build/outputs/apk/debug/*.apk
+
+  android-play:
+    name: Android release for Google Play (after the $25 Play account)
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    working_directory: _app-store
+    environment:
+      node: 20
+      java: 17
+      android_signing:
+        - tidy_edits_upload_key   # created in Codemagic > Team settings > Code signing identities
+    scripts:
+      - npm ci
+      - npx cap add android
+      - npx cap sync android
+      - cd android && ./gradlew bundleRelease
+    artifacts:
+      - _app-store/android/app/build/outputs/bundle/release/*.aab
+
+  ios-app-store:
+    name: iPhone release for the App Store (after the $99/yr Apple account)
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    working_directory: _app-store
+    integrations:
+      app_store_connect: Tidy Edits App Store Connect key
+    environment:
+      node: 20
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.tidyedits.app
+    scripts:
+      - npm ci
+      - npx cap add ios
+      - npx cap sync ios
+      - xcode-project use-profiles --project ios/App/App.xcodeproj
+      - xcode-project build-ipa --project ios/App/App.xcodeproj --scheme App
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true

@@ -1,0 +1,25 @@
+{
+  "id": "/app/",
+  "name": "Tidy Edits Cleaning",
+  "short_name": "Tidy Edits",
+  "description": "Request a cleaning quote with photos, see what we clean, call or text Tidy Edits, and keep your home details in one place. Greater Boston.",
+  "start_url": "/app/?source=app",
+  "scope": "/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf6f0",
+  "theme_color": "#faf6f0",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["lifestyle", "business"],
+  "icons": [
+    { "src": "/app/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Get a quote", "short_name": "Quote", "url": "/app/#quote", "icons": [{ "src": "/app/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "What we clean", "short_name": "Services", "url": "/app/#services", "icons": [{ "src": "/app/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Leave a review", "short_name": "Review", "url": "/app/#review", "icons": [{ "src": "/app/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

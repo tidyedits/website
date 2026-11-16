@@ -1,0 +1,13 @@
+{
+  "appId": "com.tidyedits.app",
+  "appName": "Tidy Edits",
+  "webDir": "www",
+  "server": {
+    "url": "https://tidyedits.com/app/",
+    "cleartext": false,
+    "allowNavigation": ["tidyedits.com", "formsubmit.co"]
+  },
+  "backgroundColor": "#faf6f0",
+  "ios": { "contentInset": "automatic" },
+  "android": { "allowMixedContent": false }
+}
