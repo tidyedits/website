@@ -21,7 +21,8 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 | 2026-10-28 | #16 | 24 s premium brand film on the homepage (`assets/film/`) |
 | 2026-11-14 | #21, #22 | Hero video + scroll film remade as real video (`assets/hero/`, `assets/scroll/`), three.js removed |
 | 2026-11-15 | #24 | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
-| 2026-11-23 | (this PR) | Site review: merged old PR #13 (three.js loads after page load, lighter idle 3D, async fonts, small logo, contrast fix, holiday checklist, "Text" button). Call bar no longer wraps "Free quote" on phones. New 1200x630 link-preview image `share.jpg` on every page (large card). Branded `404.html` (built by `_build/build.py`). Audit: 26 pages, no broken links, no console errors, no sideways scroll at 390px, quote form reaches /thank-you/ |
+| 2026-11-23 | #26 | Site review: merged old PR #13 (three.js loads after page load, lighter idle 3D, async fonts, small logo, contrast fix, holiday checklist, "Text" button). Call bar no longer wraps "Free quote" on phones. New 1200x630 link-preview image `share.jpg` on every page (large card). Branded `404.html` (built by `_build/build.py`). Audit: 26 pages, no broken links, no console errors, no sideways scroll at 390px, quote form reaches /thank-you/ |
+| 2026-11-23 | (this PR) | "Past jobs" section on the homepage (`#work`, nav link): 9 real jobs from Yessi's Gmail and records (invoices, proposals, Helen's Google review), described by job type and town only, no client names or prices; Helen's review quoted word for word. Add new jobs there as they finish (photos welcome) |
 
 ## Open pull requests (waiting for Yessi to tap Merge)
 
