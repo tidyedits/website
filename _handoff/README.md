@@ -1,4 +1,4 @@
-# Website handoff (as of 2026-11-15)
+# Website handoff (as of 2026-11-23)
 
 Everything Claude Code needs to keep working on tidyedits.com. Rules and the page map are in
 `../CLAUDE.md`; this file is the status. Update it when things change.
@@ -20,12 +20,12 @@ Everything Claude Code needs to keep working on tidyedits.com. Rules and the pag
 | 2026-10-28 | #14, #15 | Homepage briefly swapped to a basic page, then the 3D homepage put back. Basic version is in history at commit `731d082` if ever wanted again |
 | 2026-10-28 | #16 | 24 s premium brand film on the homepage (`assets/film/`) |
 | 2026-11-14 | #21, #22 | Hero video + scroll film remade as real video (`assets/hero/`, `assets/scroll/`), three.js removed |
-| 2026-11-15 | (this PR) | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
+| 2026-11-15 | #24 | Yessi: "make my website go back to its original". Undid #21/#22: homepage back to the 3D scroll film + brand film exactly as at #18 (`b1edba5`), `assets/hero/` and `assets/scroll/` removed. The video version is in history at `71f7171` if ever wanted again |
+| 2026-11-23 | (this PR) | Site review: merged old PR #13 (three.js loads after page load, lighter idle 3D, async fonts, small logo, contrast fix, holiday checklist, "Text" button). Call bar no longer wraps "Free quote" on phones. New 1200x630 link-preview image `share.jpg` on every page (large card). Branded `404.html` (built by `_build/build.py`). Audit: 26 pages, no broken links, no console errors, no sideways scroll at 390px, quote form reaches /thank-you/ |
 
 ## Open pull requests (waiting for Yessi to tap Merge)
 
 - **#7 `/review` customer review page** (branch `claude/project-thread-kclur1`). Stars + review form to FormSubmit, opt-in to show on site. `GOOGLE_REVIEW_URL = ""` in `review/index.html`: paste Yessi's Google review link there when she sends it. After merge: link it from the homepage footer. Old branch, may need updating from main first.
-- **#13 Phone speed + holiday checklist** (branch `claude/project-thread-iifq8y`). three.js loads after page load, lighter idle 3D loop, async fonts, small logo, contrast fix, new `/guides/holiday-cleaning-checklist/`, "Text" button on the phone call bar. Lighthouse mobile was 46 before. Old branch, probably needs updating from main (sitemap/footer conflicts). After merge: ping IndexNow with the new guide URL.
 - **#17 `/office` login door page** (branch `claude/project-thread-mlx39s`). Branded page with "Sign in to the Office" (the private Office app on claude.ai) + crew clock-in link, "Office login" in the footer, noindex.
 
 ## Open to-dos (most need Yessi)

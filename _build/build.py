@@ -15,6 +15,7 @@ from plan import PLAN_CSS, plan_body  # noqa: E402
 
 SITE = "https://tidyedits.com"
 PHONE, TEL = "857-753-5593", "tel:+18577535593"
+SMS = "sms:+18577535593?&amp;body=Hi%20Tidy%20Edits%2C%20I%27d%20like%20a%20quote%20for%20a%20clean.%20Town%3A%20"
 TODAY = date.today().isoformat()
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SVC = {s["slug"]: s for s in SERVICES}
@@ -109,13 +110,18 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/logo.png">
+<meta property="og:image" content="{SITE}/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tidy Edits Cleaning Company, Greater Boston">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#faf6f0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/site.css">
 {ld({"@context": "https://schema.org", "@graph": graph})}
 </head>
@@ -123,7 +129,7 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap nav">
-    <a class="logo" href="/"><img src="/logo.png" alt="Tidy Edits" width="82" height="60"></a>
+    <a class="logo" href="/"><img src="/logo-sm.png" alt="Tidy Edits" width="82" height="60"></a>
     <nav class="nav-links" aria-label="Main">
       <a href="/services/">Services</a>
       <a href="/areas/">Service area</a>
@@ -151,12 +157,13 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <footer class="site">
   <div class="wrap foot">
     {footer_links()}
-    <div><img src="/logo.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>Residential and commercial cleaning, Greater Boston</div>
+    <div><img src="/logo-sm.png" alt="" width="99" height="72" loading="lazy"><strong translate="no">Tidy Edits Cleaning Company</strong><br>Residential and commercial cleaning, Greater Boston</div>
     <div><a href="{TEL}">{PHONE}</a> · <a href="mailto:info@tidyedits.com">info@tidyedits.com</a><br>Serving Boston and Greater Boston, MA</div>
   </div>
 </footer>
 <div class="callbar">
   <a class="btn btn-line" href="{TEL}">Call</a>
+  <a class="btn btn-line" href="{SMS}">Text</a>
   <a class="btn btn-solid" href="/#quote">Free quote</a>
 </div>
 </body>
@@ -277,7 +284,7 @@ def build():
          "Where we clean", "Boston and the towns around it. Don't see yours? Call us. We often travel for larger jobs.", "Service area",
          [(f"Cleaning in {a['name']}", f"/areas/{a['slug']}/") for a in AREAS]),
         ("/guides/", "Cleaning Checklists and Guides | Tidy Edits",
-         "Free cleaning checklists from Tidy Edits: move-out, Airbnb turnover, deep cleaning and pre-sale listing prep.",
+         "Free cleaning checklists from Tidy Edits: move-out, Airbnb turnover, deep cleaning, listing prep and holiday hosting.",
          "Cleaning checklists", "The same checklists we use on the job. Save them, print them, or let us do it.", "Guides",
          [(g["h1"], f"/guides/{g['slug']}/") for g in GUIDES]),
     ]
@@ -289,6 +296,18 @@ def build():
     paths.append(write(p, page(p, "Plan Your Clean: Free Cleaning Plan and Quote | Tidy Edits",
                                "Tap through a few questions and get a tailored cleaning plan for your home, rental or office in Greater Boston. Send it for a free quote.",
                                plan_body(SERVICES, GUIDES), [home, ("Plan your clean", p)])))
+
+    # Branded "page not found" page. GitHub Pages serves /404.html for any missing URL.
+    nf = hero("We couldn’t find that page",
+              "The link may be old or mistyped. Everything we do is still a tap away.") + split("Try these", link_list([
+        ("Homepage and free quote", "/"), ("Cleaning services", "/services/"),
+        ("Where we clean", "/areas/"), ("Cleaning checklists", "/guides/"), ("Plan your clean", "/plan/")]))
+    html = page("/404.html", "Page Not Found | Tidy Edits", "This page doesn’t exist. Find cleaning services, service areas and a free quote from Tidy Edits in Greater Boston.",
+                nf, [home, ("Page not found", "/404.html")])
+    html = html.replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">')
+    html = html.replace(f'<link rel="canonical" href="{SITE}/404.html">\n', "")
+    with open(os.path.join(ROOT, "404.html"), "w") as f:
+        f.write(html)
 
     urls = ["/"] + paths
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
