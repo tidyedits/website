@@ -110,7 +110,11 @@ def page(path, title, desc, body, trail, extra_ld=()):
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/logo.png">
+<meta property="og:image" content="{SITE}/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tidy Edits Cleaning Company, Greater Boston">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#faf6f0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1511" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/logo.png">
@@ -280,7 +284,7 @@ def build():
          "Where we clean", "Boston and the towns around it. Don't see yours? Call us. We often travel for larger jobs.", "Service area",
          [(f"Cleaning in {a['name']}", f"/areas/{a['slug']}/") for a in AREAS]),
         ("/guides/", "Cleaning Checklists and Guides | Tidy Edits",
-         "Free cleaning checklists from Tidy Edits: move-out, Airbnb turnover, deep cleaning and pre-sale listing prep.",
+         "Free cleaning checklists from Tidy Edits: move-out, Airbnb turnover, deep cleaning, listing prep and holiday hosting.",
          "Cleaning checklists", "The same checklists we use on the job. Save them, print them, or let us do it.", "Guides",
          [(g["h1"], f"/guides/{g['slug']}/") for g in GUIDES]),
     ]
@@ -292,6 +296,18 @@ def build():
     paths.append(write(p, page(p, "Plan Your Clean: Free Cleaning Plan and Quote | Tidy Edits",
                                "Tap through a few questions and get a tailored cleaning plan for your home, rental or office in Greater Boston. Send it for a free quote.",
                                plan_body(SERVICES, GUIDES), [home, ("Plan your clean", p)])))
+
+    # Branded "page not found" page. GitHub Pages serves /404.html for any missing URL.
+    nf = hero("We couldn’t find that page",
+              "The link may be old or mistyped. Everything we do is still a tap away.") + split("Try these", link_list([
+        ("Homepage and free quote", "/"), ("Cleaning services", "/services/"),
+        ("Where we clean", "/areas/"), ("Cleaning checklists", "/guides/"), ("Plan your clean", "/plan/")]))
+    html = page("/404.html", "Page Not Found | Tidy Edits", "This page doesn’t exist. Find cleaning services, service areas and a free quote from Tidy Edits in Greater Boston.",
+                nf, [home, ("Page not found", "/404.html")])
+    html = html.replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">')
+    html = html.replace(f'<link rel="canonical" href="{SITE}/404.html">\n', "")
+    with open(os.path.join(ROOT, "404.html"), "w") as f:
+        f.write(html)
 
     urls = ["/"] + paths
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
